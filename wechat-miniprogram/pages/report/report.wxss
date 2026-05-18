@@ -1,36 +1,37 @@
 .container {
+  min-height: 100vh;
+  background: #f5f6fa;
   padding-bottom: 120rpx;
 }
 
 .navbar {
   background-color: #FFFFFF;
-  height: 96rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1rpx solid #E5E7EB;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .navbar-title {
-  font-size: 32rpx;
+  font-size: 34rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
 }
 
 .report-tabs {
   background-color: #FFFFFF;
   display: flex;
   padding: 0 32rpx;
-  border-bottom: 1rpx solid #E5E7EB;
+  border-bottom: 2rpx solid #e8ebf0;
 }
 
 .report-tab {
   flex: 1;
   text-align: center;
-  padding: 24rpx 0;
+  padding: 28rpx 0;
   font-size: 28rpx;
   color: #666666;
   position: relative;
@@ -38,7 +39,7 @@
 }
 
 .report-tab.active {
-  color: #0F62FE;
+  color: #0066FF;
 }
 
 .report-tab.active::after {
@@ -49,7 +50,8 @@
   transform: translateX(-50%);
   width: 48rpx;
   height: 4rpx;
-  background-color: #0F62FE;
+  background-color: #0066FF;
+  border-radius: 4rpx;
 }
 
 .report-content {
@@ -58,8 +60,10 @@
 
 .report-header {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  margin-bottom: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .date-selector {
@@ -71,54 +75,56 @@
 .date-btn {
   flex: 1;
   text-align: center;
-  padding: 16rpx 0;
+  padding: 20rpx 0;
   font-size: 26rpx;
   color: #666666;
-  border: 1rpx solid #E5E7EB;
+  border: 2rpx solid #e8ebf0;
+  border-radius: 16rpx;
   font-weight: 500;
 }
 
 .date-btn.active {
-  background-color: #0F62FE;
+  background-color: #0066FF;
   color: #FFFFFF;
-  border-color: #0F62FE;
+  border-color: #0066FF;
 }
 
 .report-summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32rpx;
+  display: flex;
+  justify-content: space-between;
 }
 
 .report-stat {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  text-align: center;
 }
 
 .report-stat-value {
   font-size: 40rpx;
   font-weight: 700;
-  color: #111111;
-  margin-bottom: 8rpx;
+  color: #191919;
+  margin-bottom: 12rpx;
 }
 
 .report-stat-label {
   font-size: 24rpx;
   color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
 }
 
 .chart-card {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  margin-bottom: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .chart-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
   margin-bottom: 32rpx;
   display: block;
 }
@@ -126,17 +132,22 @@
 .chart-canvas {
   width: 100%;
   height: 400rpx;
+  background: linear-gradient(180deg, rgba(0,102,255,0.08) 0%, rgba(0,102,255,0.01) 100%);
+  border-radius: 24rpx;
 }
 
 .report-list {
   background-color: #FFFFFF;
+  border-radius: 32rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .report-list-item {
   display: flex;
   align-items: center;
-  padding: 32rpx;
-  border-bottom: 1rpx solid #E5E7EB;
+  padding: 36rpx 40rpx;
+  border-bottom: 2rpx solid #f0f1f5;
 }
 
 .report-list-item:last-child {
@@ -144,15 +155,17 @@
 }
 
 .report-list-icon {
-  width: 72rpx;
-  height: 72rpx;
+  width: 88rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32rpx;
-  margin-right: 24rpx;
-  border: 1rpx solid #E5E7EB;
-  color: #0F62FE;
+  font-size: 36rpx;
+  margin-right: 28rpx;
+  border: 2rpx solid #e8ebf0;
+  border-radius: 20rpx;
+  color: #0066FF;
+  background: rgba(0,102,255,0.05);
 }
 
 .report-list-info {
@@ -160,11 +173,11 @@
 }
 
 .report-list-name {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 500;
-  color: #111111;
+  color: #191919;
   display: block;
-  margin-bottom: 6rpx;
+  margin-bottom: 8rpx;
 }
 
 .report-list-meta {
@@ -178,10 +191,11 @@
 }
 
 .report-list-data-value {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #111111;
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #0066FF;
   display: block;
+  margin-bottom: 4rpx;
 }
 
 .report-list-data-label {

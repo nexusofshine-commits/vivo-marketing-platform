@@ -1,77 +1,84 @@
 .container {
+  min-height: 100vh;
+  background: #f5f6fa;
   padding-bottom: 120rpx;
 }
 
 .detail-header {
-  background-color: #0F62FE;
-  padding: 48rpx 32rpx;
+  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  padding: 48rpx 32rpx 80rpx;
   color: #FFFFFF;
+  position: relative;
 }
 
 .detail-plan-name {
-  font-size: 36rpx;
-  font-weight: 600;
-  margin-bottom: 32rpx;
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-bottom: 40rpx;
   display: block;
 }
 
 .detail-basic-info {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32rpx;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20rpx;
+  padding: 28rpx;
 }
 
 .detail-info-item {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  text-align: center;
 }
 
 .detail-info-label {
   font-size: 22rpx;
-  opacity: 0.7;
+  opacity: 0.8;
   margin-bottom: 8rpx;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
 }
 
 .detail-info-value {
-  font-size: 28rpx;
-  font-weight: 500;
+  font-size: 32rpx;
+  font-weight: 700;
 }
 
 .detail-conversion {
-  padding: 32rpx;
+  padding: 40rpx;
   background-color: #FFFFFF;
-  margin-bottom: 16rpx;
+  margin: -40rpx 32rpx 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .section-title {
-  font-size: 24rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
-  margin-bottom: 24rpx;
+  color: #191919;
+  margin-bottom: 32rpx;
   display: block;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
 }
 
 .conversion-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16rpx;
+  display: flex;
+  justify-content: space-between;
 }
 
 .conversion-card {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  text-align: left;
-  border: 1rpx solid #E5E7EB;
+  padding: 28rpx;
+  text-align: center;
+  flex: 1;
+  margin: 0 8rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid #f0f1f5;
 }
 
 .conversion-value {
   font-size: 44rpx;
   font-weight: 700;
-  color: #111111;
+  color: #0066FF;
   display: block;
   margin-bottom: 8rpx;
 }
@@ -79,15 +86,15 @@
 .conversion-label {
   font-size: 22rpx;
   color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
   display: block;
 }
 
 .stats-card {
   background-color: #FFFFFF;
-  padding: 40rpx 32rpx;
-  margin: 16rpx 32rpx;
+  padding: 40rpx;
+  margin: 0 32rpx 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .stats-header {
@@ -98,35 +105,35 @@
 }
 
 .stats-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
+  color: #191919;
 }
 
 .stats-date {
   font-size: 24rpx;
-  color: #999999;
-  border: 1rpx solid #E5E7EB;
-  padding: 8rpx 16rpx;
+  color: #0066FF;
+  background: rgba(0,102,255,0.05);
+  padding: 12rpx 24rpx;
+  border-radius: 12rpx;
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32rpx;
+  display: flex;
+  justify-content: space-between;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  flex: 1;
 }
 
 .stat-value {
   font-size: 36rpx;
   font-weight: 700;
-  color: #111111;
+  color: #191919;
   line-height: 1.2;
   margin-bottom: 8rpx;
 }
@@ -134,20 +141,20 @@
 .stat-label {
   font-size: 22rpx;
   color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
 }
 
 .chart-card {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  margin: 0 32rpx;
+  padding: 40rpx;
+  margin: 0 32rpx 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .chart-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
   margin-bottom: 32rpx;
   display: block;
 }
@@ -155,4 +162,6 @@
 .chart-canvas {
   width: 100%;
   height: 400rpx;
+  background: linear-gradient(180deg, rgba(0,102,255,0.08) 0%, rgba(0,102,255,0.01) 100%);
+  border-radius: 24rpx;
 }

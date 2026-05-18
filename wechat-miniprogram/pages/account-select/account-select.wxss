@@ -1,17 +1,19 @@
 .container {
+  min-height: 100vh;
+  background: #f5f6fa;
   padding-bottom: 0;
 }
 
 .header {
   background-color: #FFFFFF;
-  padding: 48rpx 32rpx 32rpx;
-  border-bottom: 1rpx solid #E5E7EB;
+  padding: 48rpx 32rpx 40rpx;
+  border-bottom: 2rpx solid #e8ebf0;
 }
 
 .title {
   font-size: 48rpx;
   font-weight: 700;
-  color: #111111;
+  color: #191919;
 }
 
 .account-group {
@@ -22,45 +24,30 @@
   display: block;
   font-size: 24rpx;
   color: #999999;
-  padding: 40rpx 32rpx 16rpx;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
+  padding: 40rpx 32rpx 20rpx;
   font-weight: 500;
 }
 
 .account-card {
   background-color: #FFFFFF;
   margin: 0 32rpx 16rpx;
-  padding: 32rpx;
+  padding: 36rpx 32rpx;
   display: flex;
   align-items: center;
-  border-radius: 0;
-  position: relative;
-}
-
-.account-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 32rpx;
-  right: 0;
-  height: 1rpx;
-  background-color: #E5E7EB;
-}
-
-.account-card:last-child::after {
-  display: none;
+  border-radius: 24rpx;
+  border: 2rpx solid #e8ebf0;
 }
 
 .account-icon {
-  width: 80rpx;
-  height: 80rpx;
-  background-color: #E8F0FF;
+  width: 88rpx;
+  height: 88rpx;
+  background-color: rgba(0,102,255,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36rpx;
-  margin-right: 24rpx;
+  font-size: 40rpx;
+  margin-right: 28rpx;
+  border-radius: 20rpx;
 }
 
 .account-info {
@@ -70,10 +57,10 @@
 }
 
 .account-name {
-  font-size: 30rpx;
-  font-weight: 500;
-  color: #111111;
-  margin-bottom: 6rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #191919;
+  margin-bottom: 8rpx;
 }
 
 .account-email {
@@ -84,18 +71,20 @@
 .account-status {
   font-size: 24rpx;
   font-weight: 500;
-  padding: 8rpx 20rpx;
-  margin-left: 16rpx;
-  border: 1rpx solid;
+  padding: 10rpx 24rpx;
+  margin-left: 20rpx;
+  border: 2rpx solid;
+  border-radius: 12rpx;
 }
 
 .status-available {
-  color: #0F62FE;
-  border-color: #0F62FE;
+  color: #0066FF;
+  border-color: #0066FF;
+  background: rgba(0,102,255,0.05);
 }
 
 .status-frozen {
   color: #999999;
-  border-color: #E5E7EB;
-  background-color: #F8F9FA;
+  border-color: #e8ebf0;
+  background: #f5f6fa;
 }

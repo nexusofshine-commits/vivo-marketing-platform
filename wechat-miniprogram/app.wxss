@@ -1,6 +1,6 @@
 page {
-  background-color: #F8F9FA;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
+  background-color: #f5f6fa;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
 }
 
 .container {
@@ -11,27 +11,27 @@ page {
 }
 
 page {
-  background-color: #F8F9FA;
+  background-color: #f5f6fa;
 }
 
 .primary {
-  color: #0F62FE;
+  color: #0066FF;
 }
 
 .success {
-  color: #00A870;
+  color: #00C853;
 }
 
 .warning {
-  color: #FF832B;
+  color: #FF9500;
 }
 
 .danger {
-  color: #DA1E28;
+  color: #FF3B30;
 }
 
 .text-primary {
-  color: #111111;
+  color: #191919;
 }
 
 .text-secondary {
@@ -47,9 +47,9 @@ page {
 }
 
 .bg-secondary {
-  background-color: #F8F9FA;
+  background-color: #f5f6fa;
 }
 
 .border {
-  border: 1rpx solid #E5E7EB;
+  border: 2rpx solid #e8ebf0;
 }

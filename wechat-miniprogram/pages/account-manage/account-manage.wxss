@@ -1,62 +1,66 @@
 .container {
+  min-height: 100vh;
+  background: #f5f6fa;
   padding-bottom: 120rpx;
 }
 
 .navbar {
   background-color: #FFFFFF;
-  height: 96rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1rpx solid #E5E7EB;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .navbar-title {
-  font-size: 32rpx;
+  font-size: 34rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
 }
 
 .plan-tabs {
   background-color: #FFFFFF;
   display: flex;
   padding: 24rpx 32rpx;
-  gap: 24rpx;
-  border-bottom: 1rpx solid #E5E7EB;
+  gap: 20rpx;
+  border-bottom: 2rpx solid #e8ebf0;
 }
 
 .plan-tab {
-  padding: 12rpx 32rpx;
+  padding: 16rpx 32rpx;
   font-size: 26rpx;
   color: #666666;
-  border: 1rpx solid #E5E7EB;
+  border: 2rpx solid #e8ebf0;
+  border-radius: 16rpx;
   font-weight: 500;
 }
 
 .plan-tab.active {
-  background-color: #111111;
+  background-color: #0066FF;
   color: #FFFFFF;
-  border-color: #111111;
+  border-color: #0066FF;
 }
 
 .plan-list {
-  padding: 16rpx 0;
+  padding: 24rpx 32rpx;
 }
 
 .plan-card {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  margin-bottom: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .plan-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .plan-info {
@@ -64,11 +68,11 @@
 }
 
 .plan-name {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
   display: block;
-  margin-bottom: 8rpx;
+  margin-bottom: 12rpx;
 }
 
 .plan-meta {
@@ -80,79 +84,86 @@
 .plan-status {
   font-size: 24rpx;
   font-weight: 500;
-  padding: 8rpx 20rpx;
-  border: 1rpx solid;
+  padding: 10rpx 24rpx;
+  border: 2rpx solid;
+  border-radius: 12rpx;
 }
 
 .status-running {
-  border-color: #00A870;
-  color: #00A870;
+  border-color: #00C853;
+  color: #00C853;
+  background: rgba(0,200,83,0.08);
 }
 
 .status-paused {
-  border-color: #FF832B;
-  color: #FF832B;
+  border-color: #FF9500;
+  color: #FF9500;
+  background: rgba(255,149,0,0.08);
 }
 
 .status-stopped {
   border-color: #999999;
   color: #999999;
+  background: rgba(153,153,153,0.08);
 }
 
 .plan-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24rpx;
-  padding: 24rpx 0;
-  border-top: 1rpx solid #E5E7EB;
-  border-bottom: 1rpx solid #E5E7EB;
-  margin-bottom: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  padding: 32rpx 0;
+  border-top: 2rpx solid #f0f1f5;
+  border-bottom: 2rpx solid #f0f1f5;
+  margin-bottom: 32rpx;
 }
 
 .plan-stat {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  flex: 1;
 }
 
 .plan-stat-value {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #111111;
-  margin-bottom: 4rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #191919;
+  margin-bottom: 8rpx;
 }
 
 .plan-stat-label {
   font-size: 22rpx;
   color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
 }
 
 .plan-actions {
   display: flex;
-  gap: 16rpx;
+  gap: 20rpx;
 }
 
 .plan-btn {
   flex: 1;
   text-align: center;
-  padding: 16rpx;
+  padding: 20rpx;
   font-size: 26rpx;
-  border: 1rpx solid #E5E7EB;
-  color: #111111;
+  border: 2rpx solid #e8ebf0;
+  border-radius: 16rpx;
+  color: #333333;
   font-weight: 500;
+  background: #fafbfc;
 }
 
 .plan-btn.btn-primary {
-  background-color: #0F62FE;
+  background-color: #0066FF;
   color: #FFFFFF;
-  border-color: #0F62FE;
+  border-color: #0066FF;
 }
 
 .stats-card {
   background-color: #FFFFFF;
-  padding: 40rpx 32rpx;
-  margin: 16rpx 0;
+  padding: 40rpx;
+  margin: 0 32rpx 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .stats-header {
@@ -163,55 +174,54 @@
 }
 
 .stats-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
+  color: #191919;
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32rpx;
+  display: flex;
+  justify-content: space-between;
 }
 
 .stat-item {
   display: flex;
   flex-direction: column;
+  text-align: center;
+  flex: 1;
 }
 
 .stat-value {
   font-size: 36rpx;
   font-weight: 700;
-  color: #111111;
+  color: #191919;
   margin-bottom: 8rpx;
 }
 
 .stat-label {
   font-size: 22rpx;
   color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
 }
 
 .diagnosis-card {
   background-color: #FFFFFF;
-  padding: 32rpx;
-  margin: 16rpx 0;
+  padding: 40rpx;
+  margin: 0 32rpx 24rpx;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0,0,0,0.04);
 }
 
 .diagnosis-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .diagnosis-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #111111;
+  color: #191919;
 }
 
 .diagnosis-list {
@@ -223,19 +233,21 @@
 .diagnosis-item {
   display: flex;
   align-items: flex-start;
-  padding: 24rpx;
-  background-color: #F8F9FA;
-  border-radius: 16rpx;
+  padding: 28rpx;
+  background-color: #fafbfc;
+  border-radius: 20rpx;
+  border: 2rpx solid #f0f1f5;
 }
 
 .diagnosis-icon {
-  width: 72rpx;
-  height: 72rpx;
+  width: 80rpx;
+  height: 80rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 36rpx;
-  margin-right: 24rpx;
+  margin-right: 28rpx;
+  border-radius: 16rpx;
 }
 
 .diagnosis-content {
@@ -244,8 +256,8 @@
 
 .diagnosis-name {
   font-size: 28rpx;
-  font-weight: 500;
-  color: #111111;
+  font-weight: 600;
+  color: #191919;
   display: block;
   margin-bottom: 8rpx;
 }
@@ -254,6 +266,7 @@
   font-size: 24rpx;
   color: #666666;
   display: block;
+  line-height: 1.5;
 }
 
 .diagnosis-arrow {

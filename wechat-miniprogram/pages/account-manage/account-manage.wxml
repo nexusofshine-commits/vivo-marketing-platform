@@ -110,7 +110,7 @@
         <text class="diagnosis-title">子账户列表</text>
       </view>
       <view class="diagnosis-list">
-        <view class="diagnosis-item">
+        <view class="diagnosis-item" bindtap="goToSubAccount" data-name="唯品会拉新A" data-type="投放账号">
           <view class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</view>
           <view class="diagnosis-content">
             <text class="diagnosis-name">唯品会拉新A</text>
@@ -118,7 +118,7 @@
           </view>
           <text class="diagnosis-arrow">›</text>
         </view>
-        <view class="diagnosis-item">
+        <view class="diagnosis-item" bindtap="goToSubAccount" data-name="唯品会拉新B" data-type="投放账号">
           <view class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</view>
           <view class="diagnosis-content">
             <text class="diagnosis-name">唯品会拉新B</text>
@@ -126,7 +126,7 @@
           </view>
           <text class="diagnosis-arrow">›</text>
         </view>
-        <view class="diagnosis-item">
+        <view class="diagnosis-item" bindtap="goToSubAccount" data-name="唯品会拉活A" data-type="投放账号">
           <view class="diagnosis-icon" style="background:#FFF3E0;color:#FF832B;">🎯</view>
           <view class="diagnosis-content">
             <text class="diagnosis-name">唯品会拉活A</text>

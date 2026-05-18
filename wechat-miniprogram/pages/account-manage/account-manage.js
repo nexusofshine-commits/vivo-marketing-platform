@@ -71,5 +71,24 @@ Page({
       title: '复制计划',
       icon: 'none'
     });
+  },
+  
+  goToSubAccount: function(e) {
+    var accountName = e.currentTarget.dataset.name;
+    var accountType = e.currentTarget.dataset.type;
+    
+    app.globalData.selectedAccount = accountName;
+    app.globalData.accountType = accountType;
+    
+    wx.showToast({
+      title: '已切换至 ' + accountName,
+      icon: 'success',
+      duration: 1500
+    });
+    
+    var that = this;
+    setTimeout(function() {
+      that.updatePage();
+    }, 1500);
   }
 })

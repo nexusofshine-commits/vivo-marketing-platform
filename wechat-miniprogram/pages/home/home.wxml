@@ -1,85 +1,73 @@
 <view class="container">
-  <!-- 账户信息栏 - 新布局 -->
-  <view class="account-header">
+  <view class="header">
     <view class="header-row">
-      <view class="account-name">{{accountName}}</view>
-      <view class="action-icon" bindtap="goToAccountSelect">
-        <text class="icon-text">↻</text>
+      <view class="title">{{accountName}}</view>
+      <view class="switch-btn" bindtap="goToAccountSelect">
+        <icon type="swap" size="18" color="#fff"/>
       </view>
     </view>
-    <view class="profile-link" bindtap="goToProfile">
-      <text class="icon-text">👤</text>
-      个人中心
+    <view class="profile-row" bindtap="goToProfile">
+      <icon type="person" size="14" color="rgba(255,255,255,0.75)"/>
+      <text class="profile-text">个人中心</text>
     </view>
   </view>
 
-  <!-- 账户指标 -->
   <view class="metrics-card">
-    <view class="metrics-top">
+    <view class="metrics-row">
       <view class="metric-item">
-        <view class="label">当前余额</view>
-        <view class="value">100,000.00</view>
+        <view class="metric-label">当前余额</view>
+        <view class="metric-value">100,000.00</view>
       </view>
       <view class="metric-item">
-        <view class="label">今日消耗</view>
-        <view class="value">5,000.00</view>
+        <view class="metric-label">今日消耗</view>
+        <view class="metric-value">5,000.00</view>
       </view>
       <view class="metric-item">
-        <view class="label">有消耗账户</view>
-        <view class="value">15/27</view>
+        <view class="metric-label">有消耗账户</view>
+        <view class="metric-value">15/27</view>
       </view>
     </view>
-    
-    <view class="metrics-bottom">
-      <view class="metric-bottom-item">
-        <view class="label">曝光量 <text class="trend-up">↑</text></view>
-        <view class="value">4,555</view>
+    <view class="metrics-row metrics-row-secondary">
+      <view class="metric-item">
+        <view class="metric-label">曝光量<text class="up">↑</text></view>
+        <view class="metric-value blue">4,555</view>
       </view>
-      <view class="metric-bottom-item">
-        <view class="label">点击量 <text class="trend-down">↓</text></view>
-        <view class="value">123</view>
+      <view class="metric-item">
+        <view class="metric-label">点击量<text class="down">↓</text></view>
+        <view class="metric-value blue">123</view>
       </view>
-      <view class="metric-bottom-item">
-        <view class="label">转化量 <text class="trend-down">↓</text></view>
-        <view class="value">23</view>
+      <view class="metric-item">
+        <view class="metric-label">转化量<text class="down">↓</text></view>
+        <view class="metric-value blue">23</view>
       </view>
     </view>
   </view>
 
-  <!-- AI日报 Banner -->
   <view class="ai-banner" bindtap="goToDiagnosis">
-    <view class="banner-header">
+    <view class="banner-row">
       <view class="banner-title">
-        <text class="banner-icon">★</text>
-        AI日报
+        <text class="star">★</text>
+        <text>AI日报</text>
       </view>
-      <view class="banner-action">深度解读 ></view>
+      <text class="banner-action">深度解读 ></text>
     </view>
-    <view class="banner-content">
-      今日消耗5000元，转化23个，成本上涨，点击深度解读查看原因及建议
-    </view>
+    <view class="banner-content">今日消耗5000元，转化23个，成本上涨，点击深度解读查看原因及建议</view>
     <view class="banner-time">数据周期：5月14日 17:56</view>
   </view>
 
-  <!-- 数据概览 -->
   <view class="section-card">
     <view class="section-header">
-      <view class="section-title">数据概览</view>
+      <text class="section-title">数据概览</text>
       <view class="date-picker">
-        今天
-        <text class="date-arrow">▼</text>
+        <text>今天</text>
+        <text class="arrow">▼</text>
       </view>
     </view>
-    
-    <scroll-view class="metrics-scroll" scroll-x="true">
+    <scroll-view scroll-x class="metrics-scroll">
       <view class="metrics-list">
-        <view 
-          wx:for="{{overviewMetrics}}" 
-          wx:key="name"
-          class="metric-card {{selectedMetricIndex === index ? 'active' : ''}}"
-          bindtap="selectMetric"
-          data-index="{{index}}"
-        >
+        <view wx:for="{{overviewMetrics}}" wx:key="name" 
+          class="metric-card {{selectedIndex === index ? 'active' : ''}}"
+          bindtap="selectMetric" data-index="{{index}}">
           <view class="card-label">{{item.name}}</view>
           <view class="card-value">{{item.value}}</view>
           <view class="card-change">{{item.change}}</view>
@@ -88,27 +76,14 @@
     </scroll-view>
   </view>
 
-  <!-- 趋势图 -->
-  <view class="chart-section">
+  <view class="chart-card">
     <view class="chart-header">
-      <view class="chart-title">{{overviewMetrics[selectedMetricIndex].name}}趋势</view>
+      <text class="chart-title">{{overviewMetrics[selectedIndex].name}}趋势</text>
       <view class="chart-tabs">
-        <view 
-          class="chart-tab {{chartType === 'consume' ? 'active' : ''}}" 
-          bindtap="switchChartTab" 
-          data-type="consume"
-        >消耗</view>
-        <view 
-          class="chart-tab {{chartType === 'convert' ? 'active' : ''}}" 
-          bindtap="switchChartTab" 
-          data-type="convert"
-        >转化</view>
+        <text class="chart-tab {{chartType === 'consume' ? 'active' : ''}}" bindtap="switchChart" data-type="consume">消耗</text>
+        <text class="chart-tab {{chartType === 'convert' ? 'active' : ''}}" bindtap="switchChart" data-type="convert">转化</text>
       </view>
     </view>
-    <view class="chart-container">
-      <canvas canvas-id="homeChart" class="home-chart"></canvas>
-    </view>
+    <canvas canvas-id="homeChart" class="chart-canvas"></canvas>
   </view>
-
-  <view class="tab-spacer"></view>
 </view>

@@ -3,7 +3,7 @@ var Chart = require('../../utils/chart.js');
 Page({
   data: {
     accountName: '唯品会OCPC账户集合',
-    selectedMetricIndex: 0,
+    selectedIndex: 0,
     chartType: 'consume',
     overviewMetrics: [
       { name: '有消耗账户数', value: '15', change: '环比 12.5% ↑' },
@@ -18,67 +18,37 @@ Page({
   onLoad: function() {
     var app = getApp();
     if (app.globalData && app.globalData.selectedAccount) {
-      this.setData({
-        accountName: app.globalData.selectedAccount
-      });
+      this.setData({ accountName: app.globalData.selectedAccount });
     }
   },
 
   onShow: function() {
-    this.drawChartNow();
-  },
-
-  drawChartNow: function() {
-    var that = this;
-    var chart = Chart.initChart('homeChart', that);
-    if (!chart) {
-      console.log('Chart init failed');
-      return;
+    var chart = Chart.initChart('homeChart', this);
+    if (chart) {
+      this.chartInstance = chart;
+      this.updateChart('consume');
     }
-    
-    that.chartInstance = chart;
-    that.updateChart('consume');
   },
 
   updateChart: function(type) {
     if (!this.chartInstance) return;
-    
-    var chartData = {
-      consume: {
-        data: [12, 18, 15, 22, 28, 24, 30],
-        color: '#0066FF'
-      },
-      convert: {
-        data: [2, 3, 2, 4, 5, 4, 6],
-        color: '#00C853'
-      }
-    };
-    
-    var data = chartData[type] || chartData.consume;
+    var data = type === 'consume' 
+      ? { data: [12, 18, 15, 22, 28, 24, 30], color: '#0066FF' }
+      : { data: [2, 3, 2, 4, 5, 4, 6], color: '#00C853' };
     
     this.chartInstance.setOption({
       xAxis: { data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
-      series: [{
-        type: 'line',
-        data: data.data,
-        lineStyle: { color: data.color, width: 2 },
-        areaStyle: { color: data.color }
-      }]
+      series: [{ data: data.data, lineStyle: { color: data.color, width: 2 }, areaStyle: { color: data.color } }]
     });
-    
     this.setData({ chartType: type });
   },
 
   selectMetric: function(e) {
-    var index = e.currentTarget.dataset.index;
-    this.setData({
-      selectedMetricIndex: index
-    });
+    this.setData({ selectedIndex: e.currentTarget.dataset.index });
   },
 
-  switchChartTab: function(e) {
-    var type = e.currentTarget.dataset.type;
-    this.updateChart(type === 'consume' ? 'consume' : 'convert');
+  switchChart: function(e) {
+    this.updateChart(e.currentTarget.dataset.type);
   },
 
   goToAccountSelect: function() {

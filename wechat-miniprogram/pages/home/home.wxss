@@ -1,12 +1,12 @@
 .container {
   min-height: 100vh;
   background: #f5f6fa;
-  padding-bottom: 0;
+  padding-bottom: 120rpx;
 }
 
-.account-header {
+.header {
   background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
-  padding: 44rpx 20rpx 20rpx;
+  padding: 88rpx 32rpx 32rpx;
 }
 
 .header-row {
@@ -15,213 +15,171 @@
   justify-content: space-between;
 }
 
-.account-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #FFFFFF;
-  flex: 1;
+.title {
   font-size: 36rpx;
+  font-weight: 600;
+  color: #fff;
 }
 
-.action-icon {
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: 50%;
+.switch-btn {
+  width: 64rpx;
+  height: 64rpx;
   background: rgba(255,255,255,0.2);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.icon-text {
-  font-size: 32rpx;
-}
-
-.profile-link {
+.profile-row {
   display: flex;
   align-items: center;
-  gap: 8rpx;
   margin-top: 16rpx;
+}
+
+.profile-text {
   font-size: 24rpx;
   color: rgba(255,255,255,0.75);
+  margin-left: 8rpx;
 }
 
 .metrics-card {
-  background: #ffffff;
-  margin: -24rpx 16rpx 12rpx;
-  border-radius: 16rpx;
-  padding: 18rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
-  position: relative;
-  z-index: 10;
+  background: #fff;
+  margin: -40rpx 24rpx 24rpx;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0,0,0,0.06);
 }
 
-.metrics-top {
+.metrics-row {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 16rpx;
-  padding-bottom: 16rpx;
-  border-bottom: 1rpx solid #e8ebf0;
+}
+
+.metrics-row-secondary {
+  margin-top: 32rpx;
+  padding-top: 32rpx;
+  border-top: 1rpx solid #f0f1f5;
 }
 
 .metric-item {
-  text-align: center;
   flex: 1;
+  text-align: center;
 }
 
-.metric-item .label {
-  color: #666666;
-  font-size: 12px;
-  margin-bottom: 6rpx;
+.metric-label {
   font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
 }
 
-.metric-item .value {
-  color: #191919;
-  font-size: 18px;
-  font-weight: 700;
+.metric-value {
   font-size: 36rpx;
-}
-
-.metrics-bottom {
-  display: flex;
-  justify-content: space-between;
-}
-
-.metric-bottom-item {
-  text-align: center;
-  flex: 1;
-}
-
-.metric-bottom-item .label {
-  color: #666666;
-  font-size: 13px;
-  margin-bottom: 8rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4rpx;
-  font-size: 26rpx;
-}
-
-.metric-bottom-item .value {
-  color: #0066FF;
-  font-size: 22px;
   font-weight: 700;
-  font-size: 44rpx;
+  color: #191919;
 }
 
-.trend-up { color: #00C853; font-size: 12px; font-size: 24rpx; }
-.trend-down { color: #FF3B30; font-size: 12px; font-size: 24rpx; }
+.metric-value.blue {
+  color: #0066FF;
+}
+
+.up { color: #00C853; margin-left: 4rpx; }
+.down { color: #FF3B30; margin-left: 4rpx; }
 
 .ai-banner {
   background: linear-gradient(135deg, #FFF7E6 0%, #FFEDCC 100%);
-  margin: 0 16rpx 12rpx;
-  border-radius: 16rpx;
-  padding: 16rpx;
+  margin: 0 24rpx 24rpx;
+  border-radius: 24rpx;
+  padding: 28rpx;
   border: 1rpx solid rgba(255,149,0,0.15);
 }
 
-.banner-header {
+.banner-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 8rpx;
+  align-items: center;
+  margin-bottom: 16rpx;
 }
 
 .banner-title {
   display: flex;
   align-items: center;
-  gap: 6rpx;
-  color: #B66D00;
+  font-size: 28rpx;
   font-weight: 600;
-  font-size: 13px;
-  font-size: 26rpx;
+  color: #B66D00;
 }
 
-.banner-icon {
-  font-size: 16px;
+.star {
+  color: #FF9500;
+  margin-right: 8rpx;
 }
 
 .banner-action {
-  color: #FF9500;
-  font-size: 12px;
   font-size: 24rpx;
+  color: #FF9500;
 }
 
 .banner-content {
-  color: #865A00;
-  font-size: 12px;
-  line-height: 1.5;
-  margin-bottom: 6rpx;
   font-size: 24rpx;
+  color: #865A00;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
 }
 
 .banner-time {
-  color: #C48600;
-  font-size: 11px;
   font-size: 22rpx;
+  color: #C48600;
 }
 
 .section-card {
-  background: #ffffff;
-  margin: 0 16rpx 12rpx;
-  border-radius: 16rpx;
-  padding: 18rpx;
+  background: #fff;
+  margin: 0 24rpx 24rpx;
+  border-radius: 24rpx;
+  padding: 28rpx;
 }
 
 .section-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 14rpx;
+  align-items: center;
+  margin-bottom: 24rpx;
 }
 
 .section-title {
-  color: #191919;
-  font-size: 15px;
-  font-weight: 600;
   font-size: 30rpx;
+  font-weight: 600;
+  color: #191919;
 }
 
 .date-picker {
   display: flex;
   align-items: center;
-  gap: 4rpx;
-  color: #0066FF;
-  font-size: 12px;
-  font-weight: 500;
   font-size: 24rpx;
+  color: #0066FF;
 }
 
-.date-arrow {
+.arrow {
+  margin-left: 4rpx;
   font-size: 20rpx;
 }
 
 .metrics-scroll {
-  overflow-x: auto;
-  margin: 0 -18rpx;
-  padding: 0 18rpx;
-}
-
-.metrics-scroll::-webkit-scrollbar {
-  display: none;
+  white-space: nowrap;
+  margin: 0 -28rpx;
+  padding: 0 28rpx;
 }
 
 .metrics-list {
-  display: flex;
-  gap: 10rpx;
+  display: inline-flex;
+  gap: 16rpx;
 }
 
 .metric-card {
-  min-width: 100px;
-  width: 200rpx;
+  min-width: 200rpx;
   background: #f5f6fa;
-  border-radius: 10rpx;
-  padding: 20rpx 16rpx;
+  border-radius: 16rpx;
+  padding: 24rpx 20rpx;
   text-align: center;
   border: 2rpx solid transparent;
-  transition: all 0.25s ease;
 }
 
 .metric-card.active {
@@ -229,11 +187,10 @@
   border-color: #0066FF;
 }
 
-.metric-card .card-label {
-  color: #666666;
-  font-size: 11px;
-  margin-bottom: 8rpx;
+.card-label {
   font-size: 22rpx;
+  color: #666;
+  margin-bottom: 12rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -243,58 +200,54 @@
   color: rgba(255,255,255,0.85);
 }
 
-.metric-card .card-value {
-  color: #191919;
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 6rpx;
+.card-value {
   font-size: 36rpx;
+  font-weight: 700;
+  color: #191919;
+  margin-bottom: 8rpx;
 }
 
 .metric-card.active .card-value {
-  color: white;
+  color: #fff;
 }
 
-.metric-card .card-change {
-  color: #00C853;
-  font-size: 10px;
+.card-change {
   font-size: 20rpx;
+  color: #00C853;
 }
 
 .metric-card.active .card-change {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.75);
 }
 
-.chart-section {
-  background: #ffffff;
-  margin: 0 16rpx 80rpx;
-  border-radius: 16rpx;
-  padding: 18rpx;
+.chart-card {
+  background: #fff;
+  margin: 0 24rpx;
+  border-radius: 24rpx;
+  padding: 28rpx;
 }
 
 .chart-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 14rpx;
+  align-items: center;
+  margin-bottom: 24rpx;
 }
 
 .chart-title {
-  color: #191919;
-  font-size: 14px;
-  font-weight: 600;
   font-size: 28rpx;
+  font-weight: 600;
+  color: #191919;
 }
 
 .chart-tabs {
   display: flex;
-  gap: 14rpx;
+  gap: 24rpx;
 }
 
 .chart-tab {
-  color: #666666;
-  font-size: 12px;
   font-size: 24rpx;
+  color: #666;
   position: relative;
   padding-bottom: 8rpx;
 }
@@ -310,23 +263,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3rpx;
+  height: 4rpx;
   background: #0066FF;
-  border-radius: 3rpx;
+  border-radius: 4rpx;
 }
 
-.chart-container {
+.chart-canvas {
   width: 100%;
   height: 360rpx;
-  background: linear-gradient(180deg, rgba(0,102,255,0.08) 0%, rgba(0,102,255,0.01) 100%);
-  border-radius: 12rpx;
-}
-
-.home-chart {
-  width: 100%;
-  height: 100%;
-}
-
-.tab-spacer {
-  height: 100rpx;
+  background: linear-gradient(180deg, rgba(0,102,255,0.06) 0%, rgba(0,102,255,0.01) 100%);
+  border-radius: 16rpx;
 }

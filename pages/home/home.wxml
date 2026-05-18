@@ -84,6 +84,6 @@
         <text class="chart-tab {{chartType === 'convert' ? 'active' : ''}}" bindtap="switchChart" data-type="convert">转化</text>
       </view>
     </view>
-    <canvas canvas-id="homeChart" class="chart-canvas"></canvas>
+    <canvas type="2d" id="homeChart" class="chart-canvas"></canvas>
   </view>
 </view>

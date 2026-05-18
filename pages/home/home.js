@@ -1,5 +1,3 @@
-var Chart = require('../../utils/chart.js');
-
 Page({
   data: {
     accountName: '唯品会OCPC账户集合',
@@ -23,38 +21,98 @@ Page({
   },
 
   onReady: function() {
+    this.initChart();
+  },
+
+  initChart: function() {
     var that = this;
-    setTimeout(function() {
-      try {
-        var chart = Chart.initChart('homeChart');
-        if (chart) {
-          that.chartInstance = chart;
-          that.updateChart('consume');
-        }
-      } catch (e) {
-        console.log('Chart init error:', e);
-      }
-    }, 300);
+    var query = wx.createSelectorQuery();
+    query.select('#homeChart').fields({ node: true, size: true }).exec(function(res) {
+      if (!res[0]) return;
+      
+      var canvas = res[0].node;
+      var ctx = canvas.getContext('2d');
+      var dpr = wx.getSystemInfoSync().pixelRatio;
+      
+      canvas.width = res[0].width * dpr;
+      canvas.height = res[0].height * dpr;
+      ctx.scale(dpr, dpr);
+      
+      that.canvasCtx = ctx;
+      that.canvasWidth = res[0].width;
+      that.canvasHeight = res[0].height;
+      
+      that.drawChart('consume');
+    });
   },
 
-  onShow: function() {
-    if (this.chartInstance) {
-      this.updateChart(this.data.chartType);
+  drawChart: function(type) {
+    if (!this.canvasCtx) return;
+    
+    var ctx = this.canvasCtx;
+    var width = this.canvasWidth;
+    var height = this.canvasHeight;
+    var left = 35, top = 15, bottom = 25, right = 10;
+    var chartW = width - left - right;
+    var chartH = height - top - bottom;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    ctx.strokeStyle = '#E8EBF0';
+    ctx.lineWidth = 1;
+    for (var i = 0; i <= 3; i++) {
+      var y = top + (chartH / 3) * i;
+      ctx.beginPath();
+      ctx.moveTo(left, y);
+      ctx.lineTo(width - right, y);
+      ctx.stroke();
     }
-  },
-
-  updateChart: function(type) {
-    if (!this.chartInstance) return;
+    
+    ctx.fillStyle = '#999';
+    ctx.font = '9px sans-serif';
+    ctx.textAlign = 'right';
+    for (var j = 0; j <= 3; j++) {
+      ctx.fillText((3 - j) * 15 + '', left - 3, top + (chartH / 3) * j + 3);
+    }
+    
+    ctx.textAlign = 'center';
+    var labels = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+    var xStep = chartW / 6;
+    for (var k = 0; k < labels.length; k++) {
+      ctx.fillText(labels[k], left + xStep * k, height - 5);
+    }
+    
     var data = type === 'consume' 
       ? [12, 18, 15, 22, 28, 24, 30]
       : [2, 3, 2, 4, 5, 4, 6];
     var color = type === 'consume' ? '#0066FF' : '#00C853';
     
-    this.chartInstance.setOption({
-      xAxis: { data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
-      series: [{ data: data, lineStyle: { color: color } }]
-    });
-    this.setData({ chartType: type });
+    var maxVal = 30;
+    var minVal = 0;
+    var range = maxVal - minVal || 1;
+    
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    for (var m = 0; m < data.length; m++) {
+      var x = left + xStep * m;
+      var y = top + chartH - ((data[m] - minVal) / range) * chartH;
+      if (m === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    ctx.stroke();
+    
+    ctx.fillStyle = color;
+    for (var n = 0; n < data.length; n++) {
+      var px = left + xStep * n;
+      var py = top + chartH - ((data[n] - minVal) / range) * chartH;
+      ctx.beginPath();
+      ctx.arc(px, py, 3, 0, 2 * Math.PI);
+      ctx.fill();
+    }
   },
 
   selectMetric: function(e) {
@@ -62,7 +120,9 @@ Page({
   },
 
   switchChart: function(e) {
-    this.updateChart(e.currentTarget.dataset.type);
+    var type = e.currentTarget.dataset.type;
+    this.setData({ chartType: type });
+    this.drawChart(type);
   },
 
   goToAccountSelect: function() {

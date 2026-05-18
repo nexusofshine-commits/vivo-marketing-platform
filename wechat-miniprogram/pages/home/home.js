@@ -22,23 +22,37 @@ Page({
     }
   },
 
+  onReady: function() {
+    var that = this;
+    setTimeout(function() {
+      try {
+        var chart = Chart.initChart('homeChart');
+        if (chart) {
+          that.chartInstance = chart;
+          that.updateChart('consume');
+        }
+      } catch (e) {
+        console.log('Chart init error:', e);
+      }
+    }, 300);
+  },
+
   onShow: function() {
-    var chart = Chart.initChart('homeChart', this);
-    if (chart) {
-      this.chartInstance = chart;
-      this.updateChart('consume');
+    if (this.chartInstance) {
+      this.updateChart(this.data.chartType);
     }
   },
 
   updateChart: function(type) {
     if (!this.chartInstance) return;
     var data = type === 'consume' 
-      ? { data: [12, 18, 15, 22, 28, 24, 30], color: '#0066FF' }
-      : { data: [2, 3, 2, 4, 5, 4, 6], color: '#00C853' };
+      ? [12, 18, 15, 22, 28, 24, 30]
+      : [2, 3, 2, 4, 5, 4, 6];
+    var color = type === 'consume' ? '#0066FF' : '#00C853';
     
     this.chartInstance.setOption({
       xAxis: { data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
-      series: [{ data: data.data, lineStyle: { color: data.color, width: 2 }, areaStyle: { color: data.color } }]
+      series: [{ data: data, lineStyle: { color: color } }]
     });
     this.setData({ chartType: type });
   },

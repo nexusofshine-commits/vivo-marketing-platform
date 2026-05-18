@@ -4,254 +4,237 @@
   padding-bottom: 0;
 }
 
-.account-bar {
+.account-header {
   background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
-  padding: 60rpx 24rpx 40rpx;
+  padding: 44rpx 20rpx 20rpx;
+}
+
+.header-row {
   display: flex;
   align-items: center;
-}
-
-.account-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20rpx;
-}
-
-.avatar-icon {
-  font-size: 36rpx;
-  color: #fff;
-}
-
-.account-info {
-  flex: 1;
+  justify-content: space-between;
 }
 
 .account-name {
-  font-size: 30rpx;
+  font-size: 18px;
   font-weight: 600;
   color: #FFFFFF;
-  margin-bottom: 4rpx;
+  flex: 1;
+  font-size: 36rpx;
 }
 
-.account-switch {
-  font-size: 22rpx;
-  color: rgba(255,255,255,0.7);
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
 }
 
-.user-avatar {
-  width: 64rpx;
-  height: 64rpx;
-  background: rgba(255,255,255,0.15);
+.action-icon {
+  width: 72rpx;
+  height: 72rpx;
   border-radius: 50%;
+  background: rgba(255,255,255,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.user-icon {
-  font-size: 28rpx;
-  color: #fff;
+.action-icon image {
+  width: 36rpx;
+  height: 36rpx;
 }
 
-.account-metrics {
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-top: 16rpx;
+  font-size: 12px;
+  color: rgba(255,255,255,0.75);
+  font-size: 24rpx;
+}
+
+.profile-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.metrics-card {
   background: #ffffff;
-  margin: -24rpx 24rpx 16rpx;
-  border-radius: 20rpx;
-  padding: 24rpx;
+  margin: -24rpx 16rpx 12rpx;
+  border-radius: 16rpx;
+  padding: 18rpx;
   box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
   position: relative;
   z-index: 10;
 }
 
-.metrics-header {
+.metrics-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
+  margin-bottom: 16rpx;
   padding-bottom: 16rpx;
   border-bottom: 1rpx solid #e8ebf0;
 }
 
-.metrics-title {
-  font-size: 26rpx;
-  color: #191919;
-  font-weight: 600;
+.metric-item {
+  text-align: center;
+  flex: 1;
 }
 
-.metrics-action {
+.metric-item .label {
+  color: #666666;
+  font-size: 12px;
+  margin-bottom: 6rpx;
   font-size: 24rpx;
-  color: #0066FF;
-  font-weight: 500;
 }
 
-.top-metrics {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 16rpx;
-}
-
-.top-metric-item {
-  flex: 1;
-  text-align: center;
-}
-
-.top-metric-item .metric-label {
-  font-size: 22rpx;
-  color: #666666;
-  margin-bottom: 6rpx;
-}
-
-.top-metric-item .metric-value {
-  font-size: 30rpx;
-  font-weight: 700;
+.metric-item .value {
   color: #191919;
+  font-size: 18px;
+  font-weight: 700;
+  font-size: 36rpx;
 }
 
-.bottom-metrics {
+.metrics-bottom {
   display: flex;
   justify-content: space-between;
-  padding-top: 16rpx;
-  border-top: 1rpx solid #f0f1f5;
 }
 
-.bottom-metric-item {
-  flex: 1;
+.metric-bottom-item {
   text-align: center;
+  flex: 1;
 }
 
-.bottom-metric-item .metric-label {
-  font-size: 22rpx;
+.metric-bottom-item .label {
   color: #666666;
-  margin-bottom: 6rpx;
+  font-size: 13px;
+  margin-bottom: 8rpx;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4rpx;
+  font-size: 26rpx;
 }
 
-.trend-arrow {
-  font-size: 20rpx;
-  margin-left: 4rpx;
-}
-
-.trend-arrow.up {
-  color: #00C853;
-}
-
-.trend-arrow.down {
-  color: #FF3B30;
-}
-
-.bottom-metric-item .metric-value {
-  font-size: 32rpx;
-  font-weight: 700;
+.metric-bottom-item .value {
   color: #0066FF;
+  font-size: 22px;
+  font-weight: 700;
+  font-size: 44rpx;
 }
+
+.trend-up { color: #00C853; font-size: 12px; font-size: 24rpx; }
+.trend-down { color: #FF3B30; font-size: 12px; font-size: 24rpx; }
 
 .ai-banner {
   background: linear-gradient(135deg, #FFF7E6 0%, #FFEDCC 100%);
-  margin: 0 24rpx 16rpx;
-  border-radius: 20rpx;
-  padding: 24rpx;
+  margin: 0 16rpx 12rpx;
+  border-radius: 16rpx;
+  padding: 16rpx;
   border: 1rpx solid rgba(255,149,0,0.15);
 }
 
 .banner-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12rpx;
-}
-
-.banner-title {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #B66D00;
-  display: flex;
-  align-items: center;
-}
-
-.banner-icon {
-  margin-right: 8rpx;
-}
-
-.banner-action {
-  font-size: 24rpx;
-  color: #FF9500;
-  font-weight: 500;
-}
-
-.banner-content {
-  font-size: 24rpx;
-  color: #865A00;
-  line-height: 1.5;
   margin-bottom: 8rpx;
 }
 
-.banner-time {
-  font-size: 20rpx;
-  color: #C48600;
-}
-
-.data-overview {
-  background: #FFFFFF;
-  margin: 0 24rpx 16rpx;
-  border-radius: 20rpx;
-  padding: 24rpx;
-}
-
-.overview-header {
+.banner-title {
   display: flex;
   align-items: center;
-  margin-bottom: 16rpx;
-}
-
-.overview-title {
-  font-size: 28rpx;
+  gap: 6rpx;
+  color: #B66D00;
   font-weight: 600;
-  color: #191919;
-  flex: 1;
+  font-size: 13px;
+  font-size: 26rpx;
 }
 
-.overview-tabs {
+.banner-icon {
+  font-size: 16px;
+}
+
+.banner-action {
+  color: #FF9500;
+  font-size: 12px;
+  font-size: 24rpx;
+}
+
+.banner-content {
+  color: #865A00;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 6rpx;
+  font-size: 24rpx;
+}
+
+.banner-time {
+  color: #C48600;
+  font-size: 11px;
+  font-size: 22rpx;
+}
+
+.section-card {
+  background: #ffffff;
+  margin: 0 16rpx 12rpx;
+  border-radius: 16rpx;
+  padding: 18rpx;
+}
+
+.section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14rpx;
 }
 
-.date-tab {
-  font-size: 24rpx;
-  color: #0066FF;
-  font-weight: 500;
+.section-title {
+  color: #191919;
+  font-size: 15px;
+  font-weight: 600;
+  font-size: 30rpx;
 }
 
-.date-tab:last-child {
-  margin-left: 8rpx;
-  color: #999999;
-}
-
-.metric-cards-scroll {
-  white-space: nowrap;
-  margin: 0 -24rpx;
-  padding: 0 24rpx;
-}
-
-.metric-cards {
+.date-picker {
   display: flex;
-  gap: 16rpx;
+  align-items: center;
+  gap: 4rpx;
+  color: #0066FF;
+  font-size: 12px;
+  font-weight: 500;
+  font-size: 24rpx;
+}
+
+.date-arrow {
+  font-size: 20rpx;
+}
+
+.metrics-scroll {
+  overflow-x: auto;
+  margin: 0 -18rpx;
+  padding: 0 18rpx;
+}
+
+.metrics-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.metrics-list {
+  display: flex;
+  gap: 10rpx;
 }
 
 .metric-card {
-  min-width: 200rpx;
+  min-width: 100px;
+  width: 200rpx;
   background: #f5f6fa;
-  border-radius: 16rpx;
+  border-radius: 10rpx;
   padding: 20rpx 16rpx;
   text-align: center;
-  transition: all 0.2s ease;
   border: 2rpx solid transparent;
+  transition: all 0.25s ease;
 }
 
 .metric-card.active {
@@ -259,65 +242,72 @@
   border-color: #0066FF;
 }
 
-.card-label {
-  font-size: 22rpx;
+.metric-card .card-label {
   color: #666666;
+  font-size: 11px;
   margin-bottom: 8rpx;
+  font-size: 22rpx;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .metric-card.active .card-label {
   color: rgba(255,255,255,0.85);
 }
 
-.card-value {
-  font-size: 34rpx;
-  font-weight: 700;
+.metric-card .card-value {
   color: #191919;
-  margin-bottom: 4rpx;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6rpx;
+  font-size: 36rpx;
 }
 
 .metric-card.active .card-value {
-  color: #FFFFFF;
+  color: white;
 }
 
-.card-change {
-  font-size: 20rpx;
+.metric-card .card-change {
   color: #00C853;
+  font-size: 10px;
+  font-size: 20rpx;
 }
 
 .metric-card.active .card-change {
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.7);
 }
 
 .chart-section {
-  background: #FFFFFF;
-  margin: 0 24rpx 100rpx;
-  border-radius: 20rpx;
-  padding: 24rpx;
+  background: #ffffff;
+  margin: 0 16rpx 80rpx;
+  border-radius: 16rpx;
+  padding: 18rpx;
 }
 
 .chart-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 16rpx;
+  justify-content: space-between;
+  margin-bottom: 14rpx;
 }
 
 .chart-title {
-  font-size: 26rpx;
-  font-weight: 600;
   color: #191919;
+  font-size: 14px;
+  font-weight: 600;
+  font-size: 28rpx;
 }
 
 .chart-tabs {
   display: flex;
-  gap: 20rpx;
+  gap: 14rpx;
 }
 
 .chart-tab {
-  font-size: 24rpx;
   color: #666666;
+  font-size: 12px;
+  font-size: 24rpx;
   position: relative;
   padding-bottom: 8rpx;
 }
@@ -340,9 +330,9 @@
 
 .chart-container {
   width: 100%;
-  height: 320rpx;
-  background: linear-gradient(180deg, rgba(0,102,255,0.06) 0%, rgba(0,102,255,0.01) 100%);
-  border-radius: 16rpx;
+  height: 360rpx;
+  background: linear-gradient(180deg, rgba(0,102,255,0.08) 0%, rgba(0,102,255,0.01) 100%);
+  border-radius: 12rpx;
 }
 
 .home-chart {

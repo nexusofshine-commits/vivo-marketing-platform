@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>vivo营销平台</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary: #0F62FE;
+            --primary-light: #E8F0FF;
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --border: #E5E7EB;
+            --success: #00A870;
+            --warning: #FF832B;
+            --danger: #DA1E28;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Helvetica Neue', sans-serif;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+        
+        .container { 
+            max-width: 480px; 
+            margin: 0 auto; 
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .page { 
+            display: none; 
+            min-height: 100vh;
+            padding-bottom: 72px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        
+        .page.active { 
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .navbar {
+            background: var(--bg-primary);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .navbar-left, .navbar-right {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        .navbar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+        
+        .select-header {
+            background: var(--bg-primary);
+            padding: 24px 16px 20px;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .select-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .group-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            padding: 20px 16px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .account-card {
+            background: var(--bg-primary);
+            margin: 0 16px 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            position: relative;
+        }
+        
+        .account-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 0;
+            height: 0.5px;
+            background: var(--border);
+        }
+        
+        .account-card:last-child::after {
+            display: none;
+        }
+        
+        .account-card:active {
+            background: var(--bg-secondary);
+        }
+        
+        .account-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+            color: var(--primary);
+        }
+        
+        .account-info {
+            flex: 1;
+        }
+        
+        .account-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+        
+        .account-email {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .account-status {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 10px;
+            margin-left: 8px;
+            color: var(--text-secondary);
+            border: 0.5px solid var(--border);
+        }
+        
+        .status-available {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .status-frozen {
+            color: var(--text-tertiary);
+            border-color: var(--border);
+            background: var(--bg-secondary);
+        }
+        
+        .account-arrow {
+            color: var(--text-tertiary);
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        
+        .home-header {
+            background: var(--bg-primary);
+            padding: 16px;
+            border-bottom: 0.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .home-avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .home-account-info {
+            flex: 1;
+        }
+        
+        .home-account-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        .home-account-tag {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .stats-card {
+            background: var(--bg-primary);
+            padding: 20px 16px;
+            margin: 8px 0;
+        }
+        
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .stats-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats-date {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            border: 0.5px solid var(--border);
+            padding: 4px 8px;
+            cursor: pointer;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        
+        .stat-item {
+            text-align: left;
+        }
+        
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .stat-trend {
+            font-size: 11px;
+            margin-top: 2px;
+        }
+        
+        .trend-up {
+            color: var(--danger);
+        }
+        
+        .trend-down {
+            color: var(--success);
+        }
+        
+        .chart-card {
+            background: var(--bg-primary);
+            padding: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            padding: 10px 0;
+        }
+        
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .report-tabs {
+            background: var(--bg-primary);
+            display: flex;
+            padding: 0 16px;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .report-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            position: relative;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        
+        .report-tab.active {
+            color: var(--primary);
+        }
+        
+        .report-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .report-content {
+            padding: 16px;
+        }
+        
+        .report-header {
+            background: var(--bg-primary);
+            padding: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .date-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .date-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border: 0.5px solid var(--border);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        
+        .date-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .report-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        
+        .report-stat {
+            text-align: left;
+        }
+        
+        .report-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .report-stat-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .report-list {
+            background: var(--bg-primary);
+        }
+        
+        .report-list-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 0.5px solid var(--border);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        
+        .report-list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .report-list-item:active {
+            background: var(--bg-secondary);
+        }
+        
+        .report-list-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 12px;
+            border: 0.5px solid var(--border);
+            color: var(--primary);
+        }
+        
+        .report-list-info {
+            flex: 1;
+        }
+        
+        .report-list-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+        
+        .report-list-meta {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+        
+        .report-list-data {
+            text-align: right;
+        }
+        
+        .report-list-data-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .report-list-data-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+        
+        .plan-tabs {
+            background: var(--bg-primary);
+            display: flex;
+            padding: 12px 16px;
+            gap: 12px;
+            overflow-x: auto;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .plan-tab {
+            padding: 6px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            border: 0.5px solid var(--border);
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        
+        .plan-tab.active {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+        
+        .plan-list {
+            padding: 8px 0;
+        }
+        
+        .plan-card {
+            background: var(--bg-primary);
+            padding: 16px;
+            margin-bottom: 8px;
+            transition: background 0.15s ease;
+        }
+        
+        .plan-card:active {
+            background: var(--bg-secondary);
+        }
+        
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .plan-info {
+            flex: 1;
+        }
+        
+        .plan-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .plan-meta {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+        
+        .plan-status {
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border: 0.5px solid;
+        }
+        
+        .status-running {
+            border-color: var(--success);
+            color: var(--success);
+        }
+        
+        .status-paused {
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+        
+        .status-stopped {
+            border-color: var(--text-tertiary);
+            color: var(--text-tertiary);
+        }
+        
+        .plan-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            padding: 12px 0;
+            border-top: 0.5px solid var(--border);
+            border-bottom: 0.5px solid var(--border);
+            margin-bottom: 12px;
+        }
+        
+        .plan-stat {
+            text-align: left;
+        }
+        
+        .plan-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+        
+        .plan-stat-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .plan-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .plan-btn {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            font-size: 13px;
+            border: 0.5px solid var(--border);
+            cursor: pointer;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        
+        .plan-btn:active {
+            background: var(--bg-secondary);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:active {
+            background: #0A4EC8;
+        }
+        
+        .detail-header {
+            background: var(--primary);
+            padding: 24px 16px;
+            color: white;
+        }
+        
+        .detail-plan-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+        
+        .detail-basic-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .detail-info-item {
+        }
+        
+        .detail-info-label {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-info-value {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .detail-conversion {
+            padding: 16px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .conversion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .conversion-card {
+            background: var(--bg-primary);
+            padding: 16px;
+            text-align: left;
+            border: 0.5px solid var(--border);
+        }
+        
+        .conversion-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .conversion-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .diagnosis-card {
+            background: var(--bg-primary);
+            padding: 16px;
+            margin: 8px 0;
+        }
+        
+        .diagnosis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .diagnosis-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .diagnosis-more {
+            font-size: 12px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .diagnosis-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .diagnosis-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        
+        .diagnosis-item:active {
+            background: var(--border);
+        }
+        
+        .diagnosis-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .diagnosis-icon.warning {
+            background: #FFF3E0;
+            color: #FF832B;
+        }
+        
+        .diagnosis-icon.error {
+            background: #FFEBEE;
+            color: #DA1E28;
+        }
+        
+        .diagnosis-icon.info {
+            background: #E8F0FF;
+            color: var(--primary);
+        }
+        
+        .diagnosis-content {
+            flex: 1;
+        }
+        
+        .diagnosis-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .diagnosis-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .diagnosis-arrow {
+            color: var(--text-tertiary);
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        
+        .profile-header {
+            background: var(--bg-primary);
+            padding: 32px 16px;
+            text-align: center;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .profile-avatar {
+            width: 72px;
+            height: 72px;
+            border: 0.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 16px;
+            color: var(--primary);
+        }
+        
+        .profile-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        
+        .profile-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-menu {
+            background: var(--bg-primary);
+            margin: 8px 0;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.15s ease;
+        }
+        
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 0;
+            height: 0.5px;
+            background: var(--border);
+        }
+        
+        .menu-item:last-child::after {
+            display: none;
+        }
+        
+        .menu-item:active {
+            background: var(--bg-secondary);
+        }
+        
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-right: 12px;
+            color: var(--text-primary);
+        }
+        
+        .menu-text {
+            flex: 1;
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .menu-arrow {
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+        
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 480px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            display: flex;
+            padding: 8px 0;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+            border-top: 0.5px solid var(--border);
+            z-index: 1000;
+        }
+        
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            transition: color 0.15s ease;
+        }
+        
+        .tab-item.active {
+            color: var(--primary);
+        }
+        
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        
+        .tab-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+        
+        .filter-btn {
+            position: fixed;
+            right: 16px;
+            bottom: 88px;
+            width: 48px;
+            height: 48px;
+            background: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 999;
+            transition: background 0.15s ease;
+        }
+        
+        .filter-btn:active {
+            background: var(--text-secondary);
+        }
+        
+        .filter-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1100;
+        }
+        
+        .filter-modal.active {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .filter-panel {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-primary);
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideUp 0.2s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .filter-reset {
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+        
+        .filter-section {
+            padding: 20px 16px;
+            border-bottom: 0.5px solid var(--border);
+        }
+        
+        .filter-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .filter-option {
+            padding: 6px 16px;
+            font-size: 13px;
+            color: var(--text-primary);
+            border: 0.5px solid var(--border);
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+        
+        .filter-option.active {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+        
+        .filter-footer {
+            display: flex;
+            gap: 12px;
+            padding: 16px;
+        }
+        
+        .filter-footer-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            border: 0.5px solid var(--border);
+            transition: all 0.15s ease;
+        }
+        
+        .filter-footer-btn:first-child {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        
+        .filter-footer-btn:last-child {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .toast-container {
+            position: fixed;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            pointer-events: none;
+        }
+        
+        .toast {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            animation: toastIn 0.3s ease;
+            pointer-events: auto;
+        }
+        
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div id="account-select" class="page active">
+            <div class="navbar">
+                <div class="navbar-left"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title">vivo营销平台</div>
+                <div class="navbar-right"><span class="navbar-icon">⋮</span></div>
+            </div>
+            <div class="select-header">
+                <div class="select-title">选择账号</div>
+            </div>
+            
+            <div class="account-group">
+                <div class="group-label">经营主体</div>
+                <div class="account-card" onclick="loginAccount('唯品会主体管理员')">
+                    <div class="account-icon">🏢</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会主体管理员</div>
+                        <div class="account-email">weipinhui@vivo.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+                <div class="account-card" onclick="loginAccount('拼多多主体管理员')">
+                    <div class="account-icon">🏢</div>
+                    <div class="account-info">
+                        <div class="account-name">拼多多主体管理员</div>
+                        <div class="account-email">pddvivo@vivo.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+            </div>
+            
+            <div class="account-group">
+                <div class="group-label">多账户管理</div>
+                <div class="account-card" onclick="loginAccount('唯品会OCPC账户集合')">
+                    <div class="account-icon">📊</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会OCPC账户集合</div>
+                        <div class="account-email">weipinhuicpc@weipinhui.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+            </div>
+            
+            <div class="account-group">
+                <div class="group-label">投放账号</div>
+                <div class="account-card" onclick="loginAccount('唯品会拉新A')">
+                    <div class="account-icon">🎯</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会拉新A</div>
+                        <div class="account-email">weipinhuicpc@weipinhui.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+                <div class="account-card" onclick="loginAccount('唯品会拉新B')">
+                    <div class="account-icon">🎯</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会拉新B</div>
+                        <div class="account-email">weipinhuicpc@weipinhui.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+                <div class="account-card" onclick="loginAccount('唯品会拉活A')">
+                    <div class="account-icon">🎯</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会拉活A</div>
+                        <div class="account-email">weipinhuicpc@weipinhui.com</div>
+                    </div>
+                    <span class="account-status status-available">可用</span>
+                    <span class="account-arrow">›</span>
+                </div>
+                <div class="account-card" onclick="showToast('账号已冻结，无法登录')">
+                    <div class="account-icon">🎯</div>
+                    <div class="account-info">
+                        <div class="account-name">唯品会拉活B</div>
+                        <div class="account-email">weipinhuicpc@weipinhui.com</div>
+                    </div>
+                    <span class="account-status status-frozen">冻结</span>
+                    <span class="account-arrow">›</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="home" class="page">
+            <div class="home-header">
+                <div class="home-avatar" onclick="showPage('profile')">👤</div>
+                <div class="home-account-info">
+                    <div class="home-account-name" id="current-account-name" onclick="showPage('profile')">唯品会拉新A</div>
+                    <div class="home-account-tag">投放账号</div>
+                </div>
+            </div>
+            
+            <div class="stats-card">
+                <div class="stats-header">
+                    <span class="stats-title">数据概览</span>
+                    <span class="stats-date" onclick="showToast('切换日期范围')">今日</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">¥15,234</div>
+                        <div class="stat-label">花费</div>
+                        <div class="stat-trend trend-up">↑8.6%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">284.5w</div>
+                        <div class="stat-label">曝光</div>
+                        <div class="stat-trend trend-up">↑12.3%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">12.6w</div>
+                        <div class="stat-label">点击</div>
+                        <div class="stat-trend trend-down">↓3.2%</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.49%</div>
+                        <div class="stat-label">点击率</div>
+                        <div class="stat-trend trend-up">↑2.1%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-title">数据趋势</div>
+                <div class="chart-container">
+                    <canvas id="home-trend-chart" class="chart-canvas"></canvas>
+                </div>
+            </div>
+            
+            <div class="tab-bar">
+                <div class="tab-item active" onclick="switchTab('home')">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">首页</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('account-manage')">
+                    <span class="tab-icon">🏢</span>
+                    <span class="tab-label" id="account-tab-label">账户管理</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('diagnosis')">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-label">智能诊断</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('report')">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">报表</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="account-manage" class="page">
+            <div class="navbar">
+                <div class="navbar-left" onclick="switchTab('home')"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title" id="account-manage-title">账户管理</div>
+                <div class="navbar-right" onclick="showToast('更多操作')"><span class="navbar-icon">⋮</span></div>
+            </div>
+            
+            <div id="account-manage-content">
+            </div>
+            
+            <div class="tab-bar">
+                <div class="tab-item" onclick="switchTab('home')">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">首页</span>
+                </div>
+                <div class="tab-item active" onclick="switchTab('account-manage')">
+                    <span class="tab-icon">🏢</span>
+                    <span class="tab-label" id="account-tab-label-3">账户管理</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('diagnosis')">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-label">智能诊断</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('report')">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">报表</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="diagnosis" class="page">
+            <div class="navbar">
+                <div class="navbar-left" onclick="switchTab('home')"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title">智能诊断</div>
+                <div class="navbar-right" onclick="showToast('更多操作')"><span class="navbar-icon">⋮</span></div>
+            </div>
+            
+            <div class="diagnosis-card">
+                <div class="diagnosis-header">
+                    <span class="diagnosis-title">预警信息</span>
+                </div>
+                <div class="diagnosis-list">
+                    <div class="diagnosis-item" onclick="toggleDiagnosisDetail(this)">
+                        <div class="diagnosis-icon warning">⚠️</div>
+                        <div class="diagnosis-content">
+                            <div class="diagnosis-name">CTR下降预警</div>
+                            <div class="diagnosis-desc">近7日CTR下降15%，建议优化素材</div>
+                        </div>
+                        <span class="diagnosis-arrow">›</span>
+                    </div>
+                    <div class="diagnosis-detail" style="display:none; padding:12px; background:var(--bg-secondary); margin-top:-8px; border-radius:0 0 8px 8px;">
+                        <div style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                            <p style="margin-bottom:4px;">📊 数据详情：</p>
+                            <p>• 近7日平均CTR：4.2%</p>
+                            <p>• 上周同期CTR：4.9%</p>
+                            <p>• 下降幅度：14.3%</p>
+                        </div>
+                        <div style="font-size:13px; color:var(--text-secondary);">
+                            <p style="margin-bottom:4px;">💡 优化建议：</p>
+                            <p>• 更换素材，测试新创意</p>
+                            <p>• 调整定向，精准投放</p>
+                            <p>• 优化着陆页体验</p>
+                        </div>
+                    </div>
+                    
+                    <div class="diagnosis-item" onclick="toggleDiagnosisDetail(this)">
+                        <div class="diagnosis-icon error">❌</div>
+                        <div class="diagnosis-content">
+                            <div class="diagnosis-name">计划消耗异常</div>
+                            <div class="diagnosis-desc">某计划今日消耗突增80%，请检查</div>
+                        </div>
+                        <span class="diagnosis-arrow">›</span>
+                    </div>
+                    <div class="diagnosis-detail" style="display:none; padding:12px; background:var(--bg-secondary); margin-top:-8px; border-radius:0 0 8px 8px;">
+                        <div style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                            <p style="margin-bottom:4px;">📊 数据详情：</p>
+                            <p>• 今日消耗：¥8,200</p>
+                            <p>• 昨日同期消耗：¥4,550</p>
+                            <p>• 增长幅度：80.2%</p>
+                        </div>
+                        <div style="font-size:13px; color:var(--text-secondary);">
+                            <p style="margin-bottom:4px;">💡 优化建议：</p>
+                            <p>• 检查计划出价设置</p>
+                            <p>• 调整预算上限</p>
+                            <p>• 评估流量质量</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="diagnosis-card">
+                <div class="diagnosis-header">
+                    <span class="diagnosis-title">系统通知</span>
+                </div>
+                <div class="diagnosis-list">
+                    <div class="diagnosis-item" onclick="toggleDiagnosisDetail(this)">
+                        <div class="diagnosis-icon info">ℹ️</div>
+                        <div class="diagnosis-content">
+                            <div class="diagnosis-name">新功能上线</div>
+                            <div class="diagnosis-desc">OCPC出价优化功能已上线</div>
+                        </div>
+                        <span class="diagnosis-arrow">›</span>
+                    </div>
+                    <div class="diagnosis-detail" style="display:none; padding:12px; background:var(--bg-secondary); margin-top:-8px; border-radius:0 0 8px 8px;">
+                        <div style="font-size:13px; color:var(--text-secondary);">
+                            <p style="margin-bottom:4px;">🎉 新功能介绍：</p>
+                            <p>• 智能出价优化，提升转化效果</p>
+                            <p>• 基于机器学习的实时调价</p>
+                            <p>• 支持多目标转化优化</p>
+                        </div>
+                    </div>
+                    
+                    <div class="diagnosis-item" onclick="toggleDiagnosisDetail(this)">
+                        <div class="diagnosis-icon info">ℹ️</div>
+                        <div class="diagnosis-content">
+                            <div class="diagnosis-name">账户安全提醒</div>
+                            <div class="diagnosis-desc">请定期修改密码，保障账户安全</div>
+                        </div>
+                        <span class="diagnosis-arrow">›</span>
+                    </div>
+                    <div class="diagnosis-detail" style="display:none; padding:12px; background:var(--bg-secondary); margin-top:-8px; border-radius:0 0 8px 8px;">
+                        <div style="font-size:13px; color:var(--text-secondary);">
+                            <p style="margin-bottom:4px;">🔒 安全建议：</p>
+                            <p>• 每90天修改一次密码</p>
+                            <p>• 使用强密码，包含字母和数字</p>
+                            <p>• 不要在公共设备上保存密码</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-bar">
+                <div class="tab-item" onclick="switchTab('home')">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">首页</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('account-manage')">
+                    <span class="tab-icon">🏢</span>
+                    <span class="tab-label" id="account-tab-label-4">账户管理</span>
+                </div>
+                <div class="tab-item active" onclick="switchTab('diagnosis')">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-label">智能诊断</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('report')">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">报表</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="report" class="page">
+            <div class="navbar">
+                <div class="navbar-left" onclick="switchTab('home')"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title">数据报表</div>
+                <div class="navbar-right" onclick="showToast('更多操作')"><span class="navbar-icon">⋮</span></div>
+            </div>
+            <div class="report-tabs">
+                <div class="report-tab active" onclick="switchReportTab(this, 'overview')">概览</div>
+                <div class="report-tab" onclick="switchReportTab(this, 'plan')">计划</div>
+                <div class="report-tab" onclick="switchReportTab(this, 'account')">账户</div>
+                <div class="report-tab" onclick="switchReportTab(this, 'creative')">创意</div>
+            </div>
+            
+            <div class="report-content">
+                <div class="report-header">
+                    <div class="date-selector">
+                        <div class="date-btn" onclick="switchDate(this)">今日</div>
+                        <div class="date-btn active" onclick="switchDate(this)">近7日</div>
+                        <div class="date-btn" onclick="switchDate(this)">近30日</div>
+                        <div class="date-btn" onclick="switchDate(this)">自定义</div>
+                    </div>
+                    <div class="report-summary">
+                        <div class="report-stat">
+                            <div class="report-stat-value">¥102,450</div>
+                            <div class="report-stat-label">总花费</div>
+                        </div>
+                        <div class="report-stat">
+                            <div class="report-stat-value">1,825w</div>
+                            <div class="report-stat-label">总曝光</div>
+                        </div>
+                        <div class="report-stat">
+                            <div class="report-stat-value">84.6w</div>
+                            <div class="report-stat-label">总点击</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">消耗趋势</div>
+                    <div class="chart-container">
+                        <canvas id="report-trend-chart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">转化效果</div>
+                    <div class="chart-container">
+                        <canvas id="conversion-chart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="report-list">
+                    <div class="report-list-item" onclick="showPage('plan-detail')">
+                        <div class="report-list-icon">📋</div>
+                        <div class="report-list-info">
+                            <div class="report-list-name">唯品会拉新-信息流计划</div>
+                            <div class="report-list-meta">OCPC · 投放中</div>
+                        </div>
+                        <div class="report-list-data">
+                            <div class="report-list-data-value">¥32,450</div>
+                            <div class="report-list-data-label">花费</div>
+                        </div>
+                    </div>
+                    <div class="report-list-item" onclick="showPage('plan-detail')">
+                        <div class="report-list-icon">📋</div>
+                        <div class="report-list-info">
+                            <div class="report-list-name">唯品会拉新-开屏计划</div>
+                            <div class="report-list-meta">OCPC · 投放中</div>
+                        </div>
+                        <div class="report-list-data">
+                            <div class="report-list-data-value">¥28,120</div>
+                            <div class="report-list-data-label">花费</div>
+                        </div>
+                    </div>
+                    <div class="report-list-item" onclick="showPage('plan-detail')">
+                        <div class="report-list-icon">📋</div>
+                        <div class="report-list-info">
+                            <div class="report-list-name">唯品会拉活-信息流计划</div>
+                            <div class="report-list-meta">OCPC · 已暂停</div>
+                        </div>
+                        <div class="report-list-data">
+                            <div class="report-list-data-value">¥18,680</div>
+                            <div class="report-list-data-label">花费</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-btn" onclick="toggleFilter()">
+                ⚙️
+            </div>
+            
+            <div class="tab-bar">
+                <div class="tab-item" onclick="switchTab('home')">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">首页</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('account-manage')">
+                    <span class="tab-icon">🏢</span>
+                    <span class="tab-label" id="account-tab-label-2">账户管理</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('diagnosis')">
+                    <span class="tab-icon">🔍</span>
+                    <span class="tab-label">智能诊断</span>
+                </div>
+                <div class="tab-item active" onclick="switchTab('report')">
+                    <span class="tab-icon">📊</span>
+                    <span class="tab-label">报表</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="plan-detail" class="page">
+            <div class="navbar">
+                <div class="navbar-left" onclick="showPage('account-manage')"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title">计划详情</div>
+                <div class="navbar-right" onclick="showToast('更多操作')"><span class="navbar-icon">⋮</span></div>
+            </div>
+            
+            <div class="detail-header">
+                <div class="detail-plan-name">唯品会拉新-信息流计划</div>
+                <div class="detail-basic-info">
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">投放状态</div>
+                        <div class="detail-info-value">投放中</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">投放日期</div>
+                        <div class="detail-info-value">长期投放</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">投放时段</div>
+                        <div class="detail-info-value">全时段</div>
+                    </div>
+                    <div class="detail-info-item">
+                        <div class="detail-info-label">预算</div>
+                        <div class="detail-info-value">¥5,000/天</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="detail-conversion">
+                <div class="section-title">转化数据</div>
+                <div class="conversion-grid">
+                    <div class="conversion-card">
+                        <div class="conversion-value">3,245</div>
+                        <div class="conversion-label">激活数</div>
+                    </div>
+                    <div class="conversion-card">
+                        <div class="conversion-value">9.99</div>
+                        <div class="conversion-label">激活成本</div>
+                    </div>
+                    <div class="conversion-card">
+                        <div class="conversion-value">1,826</div>
+                        <div class="conversion-label">次留数</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="stats-card">
+                <div class="stats-header">
+                    <span class="stats-title">核心指标</span>
+                    <span class="stats-date" onclick="showToast('切换日期范围')">近7日</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">¥32,450</div>
+                        <div class="stat-label">花费</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">586w</div>
+                        <div class="stat-label">曝光</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">26.3w</div>
+                        <div class="stat-label">点击</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">4.49%</div>
+                        <div class="stat-label">点击率</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card" style="margin: 8px 16px;">
+                <div class="chart-title">数据趋势</div>
+                <div class="chart-container">
+                    <canvas id="detail-trend-chart" class="chart-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profile" class="page">
+            <div class="navbar">
+                <div class="navbar-left" onclick="showPage('home')"><span class="navbar-icon">←</span></div>
+                <div class="navbar-title">个人中心</div>
+                <div class="navbar-right" onclick="showToast('设置')"><span class="navbar-icon">⋮</span></div>
+            </div>
+            
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <div class="profile-name">张三</div>
+                <div class="profile-desc" id="profile-account">唯品会拉新A · 投放账号</div>
+            </div>
+            
+            <div class="profile-menu">
+                <div class="menu-item" onclick="showPage('account-select')">
+                    <div class="menu-icon">🔄</div>
+                    <span class="menu-text">切换账号</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+                <div class="menu-item" onclick="showToast('财务中心')">
+                    <div class="menu-icon">💰</div>
+                    <span class="menu-text">财务中心</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+                <div class="menu-item" onclick="showToast('账户设置')">
+                    <div class="menu-icon">⚙️</div>
+                    <span class="menu-text">账户设置</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+            </div>
+            
+            <div class="profile-menu">
+                <div class="menu-item" onclick="showToast('消息通知')">
+                    <div class="menu-icon">🔔</div>
+                    <span class="menu-text">消息通知</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+                <div class="menu-item" onclick="showToast('帮助中心')">
+                    <div class="menu-icon">❓</div>
+                    <span class="menu-text">帮助中心</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+                <div class="menu-item" onclick="showToast('关于我们')">
+                    <div class="menu-icon">ℹ️</div>
+                    <span class="menu-text">关于我们</span>
+                    <span class="menu-arrow">›</span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="filter-modal" class="filter-modal" onclick="toggleFilter()">
+            <div class="filter-panel" onclick="event.stopPropagation()">
+                <div class="filter-header">
+                    <span class="filter-title">筛选条件</span>
+                    <span class="filter-reset" onclick="resetFilter()">重置</span>
+                </div>
+                <div class="filter-section">
+                    <div class="filter-section-title">计划状态</div>
+                    <div class="filter-options">
+                        <span class="filter-option active" onclick="selectFilterOption(this)">全部</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">投放中</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">已暂停</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">已结束</span>
+                    </div>
+                </div>
+                <div class="filter-section">
+                    <div class="filter-section-title">投放类型</div>
+                    <div class="filter-options">
+                        <span class="filter-option active" onclick="selectFilterOption(this)">全部</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">OCPC</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">CPM</span>
+                        <span class="filter-option" onclick="selectFilterOption(this)">CPC</span>
+                    </div>
+                </div>
+                <div class="filter-footer">
+                    <div class="filter-footer-btn" onclick="toggleFilter()">取消</div>
+                    <div class="filter-footer-btn" onclick="applyFilter()">确定</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="toast-container" id="toast-container"></div>
+    </div>
+
+    <script>
+        let currentAccount = '唯品会拉新A';
+        let accountType = '投放账号';
+        
+        const trendData = {
+            labels: ['05-12', '05-13', '05-14', '05-15', '05-16', '05-17', '05-18'],
+            spend: [12500, 14200, 13800, 15600, 14900, 15300, 15234],
+            exposure: [2450000, 2680000, 2520000, 2890000, 2760000, 2840000, 2845000],
+            click: [108000, 119000, 112000, 128000, 122000, 126000, 126000],
+            ctr: [4.41, 4.44, 4.44, 4.43, 4.42, 4.44, 4.43]
+        };
+        
+        const conversionData = {
+            labels: ['05-12', '05-13', '05-14', '05-15', '05-16', '05-17', '05-18'],
+            activation: [2800, 3200, 2950, 3450, 3100, 3350, 3245],
+            retention: [1580, 1800, 1660, 1940, 1750, 1890, 1826]
+        };
+        
+        function drawLineChart(canvasId, data, labels, color) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.parentElement.getBoundingClientRect();
+            
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            
+            ctx.scale(2, 2);
+            
+            const width = rect.width;
+            const height = rect.height;
+            const padding = { top: 20, right: 20, bottom: 30, left: 50 };
+            
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+            
+            const max = Math.max(...data) * 1.1;
+            const min = Math.min(...data) * 0.9;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            ctx.strokeStyle = '#E5E7EB';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+            }
+            
+            ctx.fillStyle = '#999999';
+            ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 4; i++) {
+                const value = max - (max - min) * (i / 4);
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.fillText(value.toFixed(0), padding.left - 5, y + 3);
+            }
+            
+            ctx.fillStyle = '#999999';
+            ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'center';
+            const step = Math.ceil(labels.length / 7);
+            labels.forEach((label, index) => {
+                if (index % step === 0 || index === labels.length - 1) {
+                    const x = padding.left + (chartWidth / (labels.length - 1)) * index;
+                    ctx.fillText(label, x, height - 10);
+                }
+            });
+            
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            data.forEach((value, index) => {
+                const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                const y = padding.top + chartHeight - ((value - min) / (max - min)) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.stroke();
+            
+            const gradient = ctx.createLinearGradient(0, padding.top, 0, height - padding.bottom);
+            gradient.addColorStop(0, color.replace(')', ', 0.3)').replace('rgb', 'rgba'));
+            gradient.addColorStop(1, color.replace(')', ', 0.05)').replace('rgb', 'rgba'));
+            
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            data.forEach((value, index) => {
+                const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                const y = padding.top + chartHeight - ((value - min) / (max - min)) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+            ctx.lineTo(padding.left + chartWidth, height - padding.bottom);
+            ctx.lineTo(padding.left, height - padding.bottom);
+            ctx.closePath();
+            ctx.fill();
+            
+            ctx.fillStyle = color;
+            data.forEach((value, index) => {
+                const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                const y = padding.top + chartHeight - ((value - min) / (max - min)) * chartHeight;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+        
+        function drawConversionChart(canvasId, data1, data2, labels) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.parentElement.getBoundingClientRect();
+            
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            canvas.style.width = rect.width + 'px';
+            canvas.style.height = rect.height + 'px';
+            
+            ctx.scale(2, 2);
+            
+            const width = rect.width;
+            const height = rect.height;
+            const padding = { top: 20, right: 20, bottom: 30, left: 50 };
+            
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+            
+            const max = Math.max(Math.max(...data1), Math.max(...data2)) * 1.1;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            ctx.strokeStyle = '#E5E7EB';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+            }
+            
+            ctx.fillStyle = '#999999';
+            ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 4; i++) {
+                const value = max - (max * (i / 4));
+                const y = padding.top + (chartHeight / 4) * i;
+                ctx.fillText(value.toFixed(0), padding.left - 5, y + 3);
+            }
+            
+            ctx.fillStyle = '#999999';
+            ctx.textAlign = 'center';
+            const step = Math.ceil(labels.length / 7);
+            labels.forEach((label, index) => {
+                if (index % step === 0 || index === labels.length - 1) {
+                    const x = padding.left + (chartWidth / (labels.length - 1)) * index;
+                    ctx.fillText(label, x, height - 10);
+                }
+            });
+            
+            const drawLine = (data, color) => {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                data.forEach((value, index) => {
+                    const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                    const y = padding.top + chartHeight - (value / max) * chartHeight;
+                    if (index === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                ctx.stroke();
+                
+                ctx.fillStyle = color;
+                data.forEach((value, index) => {
+                    const x = padding.left + (chartWidth / (data.length - 1)) * index;
+                    const y = padding.top + chartHeight - (value / max) * chartHeight;
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            };
+            
+            drawLine(data1, '#0F62FE');
+            drawLine(data2, '#00A870');
+            
+            ctx.fillStyle = '#0F62FE';
+            ctx.fillRect(width - padding.right - 60, padding.top, 8, 8);
+            ctx.fillStyle = '#999999';
+            ctx.font = '10px -apple-system, BlinkMacSystemFont, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('激活数', width - padding.right - 48, padding.top + 8);
+            
+            ctx.fillStyle = '#00A870';
+            ctx.fillRect(width - padding.right - 60, padding.top + 16, 8, 8);
+            ctx.fillStyle = '#999999';
+            ctx.fillText('次留数', width - padding.right - 48, padding.top + 24);
+        }
+        
+        function updateCharts() {
+            setTimeout(() => {
+                drawLineChart('home-trend-chart', trendData.spend, trendData.labels, '#0F62FE');
+                drawLineChart('report-trend-chart', trendData.spend, trendData.labels, '#0F62FE');
+                drawConversionChart('conversion-chart', conversionData.activation, conversionData.retention, conversionData.labels);
+                drawLineChart('detail-trend-chart', trendData.spend, trendData.labels, '#0F62FE');
+            }, 100);
+        }
+        
+        window.addEventListener('resize', updateCharts);
+        
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            
+            if (['home', 'report', 'plan-detail'].includes(pageId)) {
+                setTimeout(updateCharts, 50);
+            }
+        }
+        
+        function loginAccount(accountName) {
+            currentAccount = accountName;
+            document.getElementById('current-account-name').textContent = accountName;
+            
+            if (accountName.includes('拉新') || accountName.includes('拉活')) {
+                accountType = '投放账号';
+                document.getElementById('profile-account').textContent = accountName + ' · 投放账号';
+            } else if (accountName.includes('主体')) {
+                accountType = '经营主体';
+                document.getElementById('profile-account').textContent = accountName + ' · 经营主体';
+            } else {
+                accountType = '多账户管理';
+                document.getElementById('profile-account').textContent = accountName + ' · 多账户管理';
+            }
+            
+            updateAccountTabNames();
+            updateAccountManageContent();
+            
+            showToast('已切换至' + accountName);
+            showPage('home');
+        }
+        
+        function updateAccountTabNames() {
+            const tabName = accountType === '投放账号' ? '推广管理' : '账户管理';
+            
+            ['account-tab-label', 'account-tab-label-2', 'account-tab-label-3', 'account-tab-label-4'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = tabName;
+            });
+            
+            const titleEl = document.getElementById('account-manage-title');
+            if (titleEl) titleEl.textContent = tabName;
+        }
+        
+        function updateAccountManageContent() {
+            const container = document.getElementById('account-manage-content');
+            if (!container) return;
+            
+            if (accountType === '投放账号') {
+                container.innerHTML = `
+                    <div class="plan-tabs">
+                        <div class="plan-tab active" onclick="switchPlanTab(this, 'all')">全部</div>
+                        <div class="plan-tab" onclick="switchPlanTab(this, 'running')">投放中</div>
+                        <div class="plan-tab" onclick="switchPlanTab(this, 'paused')">已暂停</div>
+                        <div class="plan-tab" onclick="switchPlanTab(this, 'stopped')">已结束</div>
+                    </div>
+                    
+                    <div class="plan-list">
+                        <div class="plan-card">
+                            <div class="plan-header" onclick="showPage('plan-detail')">
+                                <div class="plan-info">
+                                    <div class="plan-name">唯品会拉新-信息流计划</div>
+                                    <div class="plan-meta">OCPC · 激活次留 · 日均预算 ¥5,000</div>
+                                </div>
+                                <span class="plan-status status-running">投放中</span>
+                            </div>
+                            <div class="plan-stats">
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">¥32,450</div>
+                                    <div class="plan-stat-label">花费</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">586w</div>
+                                    <div class="plan-stat-label">曝光</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">26.3w</div>
+                                    <div class="plan-stat-label">点击</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">4.49%</div>
+                                    <div class="plan-stat-label">CTR</div>
+                                </div>
+                            </div>
+                            <div class="plan-actions">
+                                <div class="plan-btn" onclick="event.stopPropagation(); togglePlanStatus(this)">暂停</div>
+                                <div class="plan-btn" onclick="event.stopPropagation(); showToast('编辑计划')">编辑</div>
+                                <div class="plan-btn" onclick="event.stopPropagation(); showToast('复制计划')">复制</div>
+                            </div>
+                        </div>
+                        
+                        <div class="plan-card">
+                            <div class="plan-header" onclick="showPage('plan-detail')">
+                                <div class="plan-info">
+                                    <div class="plan-name">唯品会拉新-开屏计划</div>
+                                    <div class="plan-meta">OCPC · 激活次留 · 日均预算 ¥3,000</div>
+                                </div>
+                                <span class="plan-status status-paused">已暂停</span>
+                            </div>
+                            <div class="plan-stats">
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">¥28,120</div>
+                                    <div class="plan-stat-label">花费</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">428w</div>
+                                    <div class="plan-stat-label">曝光</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">18.5w</div>
+                                    <div class="plan-stat-label">点击</div>
+                                </div>
+                                <div class="plan-stat">
+                                    <div class="plan-stat-value">4.32%</div>
+                                    <div class="plan-stat-label">CTR</div>
+                                </div>
+                            </div>
+                            <div class="plan-actions">
+                                <div class="plan-btn btn-primary" onclick="event.stopPropagation(); togglePlanStatus(this)">启动</div>
+                                <div class="plan-btn" onclick="event.stopPropagation(); showToast('编辑计划')">编辑</div>
+                                <div class="plan-btn" onclick="event.stopPropagation(); showToast('复制计划')">复制</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="stats-card">
+                        <div class="stats-header">
+                            <span class="stats-title">账户总览</span>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">子账户</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">¥36,200</div>
+                                <div class="stat-label">今日总花费</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">567w</div>
+                                <div class="stat-label">总曝光</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">24.8w</div>
+                                <div class="stat-label">总点击</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagnosis-card">
+                        <div class="diagnosis-header">
+                            <span class="diagnosis-title">子账户列表</span>
+                        </div>
+                        <div class="diagnosis-list">
+                            <div class="diagnosis-item">
+                                <div class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</div>
+                                <div class="diagnosis-content">
+                                    <div class="diagnosis-name">唯品会拉新A</div>
+                                    <div class="diagnosis-desc">今日花费 ¥15,234 · 投放中</div>
+                                </div>
+                                <span class="diagnosis-arrow">›</span>
+                            </div>
+                            <div class="diagnosis-item">
+                                <div class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</div>
+                                <div class="diagnosis-content">
+                                    <div class="diagnosis-name">唯品会拉新B</div>
+                                    <div class="diagnosis-desc">今日花费 ¥8,567 · 投放中</div>
+                                </div>
+                                <span class="diagnosis-arrow">›</span>
+                            </div>
+                            <div class="diagnosis-item">
+                                <div class="diagnosis-icon" style="background:#FFF3E0;color:#FF832B;">🎯</div>
+                                <div class="diagnosis-content">
+                                    <div class="diagnosis-name">唯品会拉活A</div>
+                                    <div class="diagnosis-desc">今日花费 ¥12,456 · 已暂停</div>
+                                </div>
+                                <span class="diagnosis-arrow">›</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function switchTab(tab) {
+            const tabPages = ['home', 'account-manage', 'diagnosis', 'report'];
+            if (tabPages.includes(tab)) {
+                showPage(tab);
+                updateTabBar(tab);
+            }
+        }
+        
+        function updateTabBar(activeTab) {
+            const tabs = ['home', 'account-manage', 'diagnosis', 'report'];
+            document.querySelectorAll('.page').forEach(page => {
+                const tabBar = page.querySelector('.tab-bar');
+                if (tabBar) {
+                    const items = tabBar.querySelectorAll('.tab-item');
+                    items.forEach((item, index) => {
+                        item.classList.toggle('active', tabs[index] === activeTab);
+                    });
+                }
+            });
+        }
+        
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2500);
+        }
+        
+        function toggleFilter() {
+            const modal = document.getElementById('filter-modal');
+            modal.classList.toggle('active');
+        }
+        
+        function resetFilter() {
+            document.querySelectorAll('.filter-option.active').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            document.querySelectorAll('.filter-section').forEach(section => {
+                const firstOpt = section.querySelector('.filter-option');
+                if (firstOpt) firstOpt.classList.add('active');
+            });
+            showToast('已重置筛选条件');
+        }
+        
+        function selectFilterOption(element) {
+            const section = element.closest('.filter-section');
+            section.querySelectorAll('.filter-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+        
+        function applyFilter() {
+            showToast('已应用筛选条件');
+            toggleFilter();
+        }
+        
+        function togglePlanStatus(btn) {
+            const isPausing = btn.textContent === '暂停';
+            btn.textContent = isPausing ? '启动' : '暂停';
+            btn.classList.toggle('btn-primary');
+            
+            const card = btn.closest('.plan-card');
+            const statusEl = card.querySelector('.plan-status');
+            
+            if (isPausing) {
+                statusEl.textContent = '已暂停';
+                statusEl.className = 'plan-status status-paused';
+                showToast('计划已暂停');
+            } else {
+                statusEl.textContent = '投放中';
+                statusEl.className = 'plan-status status-running';
+                showToast('计划已启动');
+            }
+        }
+        
+        function switchDate(btn) {
+            const parent = btn.closest('.date-selector');
+            parent.querySelectorAll('.date-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+            showToast('已切换至' + btn.textContent);
+            updateCharts();
+        }
+        
+        function switchReportTab(element, type) {
+            const tabs = element.parentElement.querySelectorAll('.report-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+            showToast('已切换至' + element.textContent);
+        }
+        
+        function switchPlanTab(element, status) {
+            const tabs = element.parentElement.querySelectorAll('.plan-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            element.classList.add('active');
+            showToast('已筛选' + element.textContent + '计划');
+        }
+        
+        function toggleDiagnosisDetail(element) {
+            const detail = element.nextElementSibling;
+            if (detail && detail.classList.contains('diagnosis-detail')) {
+                if (detail.style.display === 'none' || detail.style.display === '') {
+                    detail.style.display = 'block';
+                } else {
+                    detail.style.display = 'none';
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAccountTabNames();
+            updateAccountManageContent();
+            updateCharts();
+        });
+    </script>
+</body>
+</html>

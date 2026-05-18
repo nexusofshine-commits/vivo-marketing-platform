@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="header">
+    <text class="title">选择账号</text>
+  </view>
+
+  <view class="account-group">
+    <text class="group-label">经营主体</text>
+    <view class="account-card" bindtap="selectAccount" data-name="唯品会主体管理员">
+      <view class="account-icon">🏢</view>
+      <view class="account-info">
+        <text class="account-name">唯品会主体管理员</text>
+        <text class="account-email">weipinhui@vivo.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+    <view class="account-card" bindtap="selectAccount" data-name="拼多多主体管理员">
+      <view class="account-icon">🏢</view>
+      <view class="account-info">
+        <text class="account-name">拼多多主体管理员</text>
+        <text class="account-email">pddvivo@vivo.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+  </view>
+
+  <view class="account-group">
+    <text class="group-label">多账户管理</text>
+    <view class="account-card" bindtap="selectAccount" data-name="唯品会OCPC账户集合">
+      <view class="account-icon">📊</view>
+      <view class="account-info">
+        <text class="account-name">唯品会OCPC账户集合</text>
+        <text class="account-email">weipinhuicpc@weipinhui.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+  </view>
+
+  <view class="account-group">
+    <text class="group-label">投放账号</text>
+    <view class="account-card" bindtap="selectAccount" data-name="唯品会拉新A">
+      <view class="account-icon">🎯</view>
+      <view class="account-info">
+        <text class="account-name">唯品会拉新A</text>
+        <text class="account-email">weipinhuicpc@weipinhui.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+    <view class="account-card" bindtap="selectAccount" data-name="唯品会拉新B">
+      <view class="account-icon">🎯</view>
+      <view class="account-info">
+        <text class="account-name">唯品会拉新B</text>
+        <text class="account-email">weipinhuicpc@weipinhui.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+    <view class="account-card" bindtap="selectAccount" data-name="唯品会拉活A">
+      <view class="account-icon">🎯</view>
+      <view class="account-info">
+        <text class="account-name">唯品会拉活A</text>
+        <text class="account-email">weipinhuicpc@weipinhui.com</text>
+      </view>
+      <text class="account-status status-available">可用</text>
+    </view>
+    <view class="account-card">
+      <view class="account-icon">🎯</view>
+      <view class="account-info">
+        <text class="account-name">唯品会拉活B</text>
+        <text class="account-email">weipinhuicpc@weipinhui.com</text>
+      </view>
+      <text class="account-status status-frozen">冻结</text>
+    </view>
+  </view>
+</view>

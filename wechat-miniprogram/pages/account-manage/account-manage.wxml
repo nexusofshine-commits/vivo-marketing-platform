@@ -1,0 +1,140 @@
+<view class="container">
+  <view class="navbar">
+    <text class="navbar-title">{{pageTitle}}</text>
+  </view>
+
+  <view wx:if="{{accountType === '投放账号'}}">
+    <view class="plan-tabs">
+      <text class="plan-tab {{currentStatus === 'all' ? 'active' : ''}}" bindtap="switchStatus" data-status="all">全部</text>
+      <text class="plan-tab {{currentStatus === 'running' ? 'active' : ''}}" bindtap="switchStatus" data-status="running">投放中</text>
+      <text class="plan-tab {{currentStatus === 'paused' ? 'active' : ''}}" bindtap="switchStatus" data-status="paused">已暂停</text>
+      <text class="plan-tab {{currentStatus === 'stopped' ? 'active' : ''}}" bindtap="switchStatus" data-status="stopped">已结束</text>
+    </view>
+
+    <view class="plan-list">
+      <view class="plan-card" bindtap="goToDetail">
+        <view class="plan-header">
+          <view class="plan-info">
+            <text class="plan-name">唯品会拉新-信息流计划</text>
+            <text class="plan-meta">OCPC · 激活次留 · 日均预算 ¥5,000</text>
+          </view>
+          <text class="plan-status status-running">投放中</text>
+        </view>
+        <view class="plan-stats">
+          <view class="plan-stat">
+            <text class="plan-stat-value">¥32,450</text>
+            <text class="plan-stat-label">花费</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">586w</text>
+            <text class="plan-stat-label">曝光</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">26.3w</text>
+            <text class="plan-stat-label">点击</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">4.49%</text>
+            <text class="plan-stat-label">CTR</text>
+          </view>
+        </view>
+        <view class="plan-actions">
+          <text class="plan-btn" bindtap="toggleStatus">暂停</text>
+          <text class="plan-btn" bindtap="editPlan">编辑</text>
+          <text class="plan-btn" bindtap="copyPlan">复制</text>
+        </view>
+      </view>
+
+      <view class="plan-card" bindtap="goToDetail">
+        <view class="plan-header">
+          <view class="plan-info">
+            <text class="plan-name">唯品会拉新-开屏计划</text>
+            <text class="plan-meta">OCPC · 激活次留 · 日均预算 ¥3,000</text>
+          </view>
+          <text class="plan-status status-paused">已暂停</text>
+        </view>
+        <view class="plan-stats">
+          <view class="plan-stat">
+            <text class="plan-stat-value">¥28,120</text>
+            <text class="plan-stat-label">花费</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">428w</text>
+            <text class="plan-stat-label">曝光</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">18.5w</text>
+            <text class="plan-stat-label">点击</text>
+          </view>
+          <view class="plan-stat">
+            <text class="plan-stat-value">4.32%</text>
+            <text class="plan-stat-label">CTR</text>
+          </view>
+        </view>
+        <view class="plan-actions">
+          <text class="plan-btn btn-primary" bindtap="toggleStatus">启动</text>
+          <text class="plan-btn" bindtap="editPlan">编辑</text>
+          <text class="plan-btn" bindtap="copyPlan">复制</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="stats-card">
+      <view class="stats-header">
+        <text class="stats-title">账户总览</text>
+      </view>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-value">3</text>
+          <text class="stat-label">子账户</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">¥36,200</text>
+          <text class="stat-label">今日总花费</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">567w</text>
+          <text class="stat-label">总曝光</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-value">24.8w</text>
+          <text class="stat-label">总点击</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="diagnosis-card">
+      <view class="diagnosis-header">
+        <text class="diagnosis-title">子账户列表</text>
+      </view>
+      <view class="diagnosis-list">
+        <view class="diagnosis-item">
+          <view class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</view>
+          <view class="diagnosis-content">
+            <text class="diagnosis-name">唯品会拉新A</text>
+            <text class="diagnosis-desc">今日花费 ¥15,234 · 投放中</text>
+          </view>
+          <text class="diagnosis-arrow">›</text>
+        </view>
+        <view class="diagnosis-item">
+          <view class="diagnosis-icon" style="background:#E8F0FF;color:#0F62FE;">🎯</view>
+          <view class="diagnosis-content">
+            <text class="diagnosis-name">唯品会拉新B</text>
+            <text class="diagnosis-desc">今日花费 ¥8,567 · 投放中</text>
+          </view>
+          <text class="diagnosis-arrow">›</text>
+        </view>
+        <view class="diagnosis-item">
+          <view class="diagnosis-icon" style="background:#FFF3E0;color:#FF832B;">🎯</view>
+          <view class="diagnosis-content">
+            <text class="diagnosis-name">唯品会拉活A</text>
+            <text class="diagnosis-desc">今日花费 ¥12,456 · 已暂停</text>
+          </view>
+          <text class="diagnosis-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

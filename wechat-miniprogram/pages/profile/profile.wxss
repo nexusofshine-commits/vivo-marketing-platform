@@ -1,0 +1,84 @@
+.container {
+  padding-bottom: 0;
+}
+
+.profile-header {
+  background-color: #FFFFFF;
+  padding: 64rpx 32rpx;
+  text-align: center;
+  border-bottom: 1rpx solid #E5E7EB;
+}
+
+.profile-avatar {
+  width: 144rpx;
+  height: 144rpx;
+  border: 1rpx solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  margin: 0 auto 32rpx;
+  color: #0F62FE;
+}
+
+.profile-name {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #111111;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.profile-desc {
+  font-size: 26rpx;
+  color: #666666;
+  display: block;
+}
+
+.profile-menu {
+  background-color: #FFFFFF;
+  margin: 16rpx 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  position: relative;
+}
+
+.menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 32rpx;
+  right: 0;
+  height: 1rpx;
+  background-color: #E5E7EB;
+}
+
+.menu-item:last-child::after {
+  display: none;
+}
+
+.menu-icon {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 24rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #111111;
+  font-weight: 500;
+}
+
+.menu-arrow {
+  color: #999999;
+  font-size: 28rpx;
+}

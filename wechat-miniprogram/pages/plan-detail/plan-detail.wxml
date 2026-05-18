@@ -1,0 +1,71 @@
+<view class="container">
+  <view class="detail-header">
+    <text class="detail-plan-name">唯品会拉新-信息流计划</text>
+    <view class="detail-basic-info">
+      <view class="detail-info-item">
+        <text class="detail-info-label">投放状态</text>
+        <text class="detail-info-value">投放中</text>
+      </view>
+      <view class="detail-info-item">
+        <text class="detail-info-label">投放日期</text>
+        <text class="detail-info-value">长期投放</text>
+      </view>
+      <view class="detail-info-item">
+        <text class="detail-info-label">投放时段</text>
+        <text class="detail-info-value">全时段</text>
+      </view>
+      <view class="detail-info-item">
+        <text class="detail-info-label">预算</text>
+        <text class="detail-info-value">¥5,000/天</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-conversion">
+    <text class="section-title">转化数据</text>
+    <view class="conversion-grid">
+      <view class="conversion-card">
+        <text class="conversion-value">3,245</text>
+        <text class="conversion-label">激活数</text>
+      </view>
+      <view class="conversion-card">
+        <text class="conversion-value">9.99</text>
+        <text class="conversion-label">激活成本</text>
+      </view>
+      <view class="conversion-card">
+        <text class="conversion-value">1,826</text>
+        <text class="conversion-label">次留数</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-card">
+    <view class="stats-header">
+      <text class="stats-title">核心指标</text>
+      <text class="stats-date">近7日</text>
+    </view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">¥32,450</text>
+        <text class="stat-label">花费</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">586w</text>
+        <text class="stat-label">曝光</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">26.3w</text>
+        <text class="stat-label">点击</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">4.49%</text>
+        <text class="stat-label">点击率</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-card">
+    <text class="chart-title">数据趋势</text>
+    <canvas canvas-id="detail-trend-chart" class="chart-canvas"></canvas>
+  </view>
+</view>

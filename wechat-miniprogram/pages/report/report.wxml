@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="navbar">
+    <text class="navbar-title">数据报表</text>
+  </view>
+
+  <view class="report-tabs">
+    <text class="report-tab {{currentTab === 'overview' ? 'active' : ''}}" bindtap="switchTab" data-tab="overview">概览</text>
+    <text class="report-tab {{currentTab === 'plan' ? 'active' : ''}}" bindtap="switchTab" data-tab="plan">计划</text>
+    <text class="report-tab {{currentTab === 'account' ? 'active' : ''}}" bindtap="switchTab" data-tab="account">账户</text>
+    <text class="report-tab {{currentTab === 'creative' ? 'active' : ''}}" bindtap="switchTab" data-tab="creative">创意</text>
+  </view>
+
+  <view class="report-content">
+    <view class="report-header">
+      <view class="date-selector">
+        <text class="date-btn {{currentDate === 'today' ? 'active' : ''}}" bindtap="switchDate" data-date="today">今日</text>
+        <text class="date-btn {{currentDate === '7days' ? 'active' : ''}}" bindtap="switchDate" data-date="7days">近7日</text>
+        <text class="date-btn {{currentDate === '30days' ? 'active' : ''}}" bindtap="switchDate" data-date="30days">近30日</text>
+        <text class="date-btn {{currentDate === 'custom' ? 'active' : ''}}" bindtap="switchDate" data-date="custom">自定义</text>
+      </view>
+      <view class="report-summary">
+        <view class="report-stat">
+          <text class="report-stat-value">¥102,450</text>
+          <text class="report-stat-label">总花费</text>
+        </view>
+        <view class="report-stat">
+          <text class="report-stat-value">1,825w</text>
+          <text class="report-stat-label">总曝光</text>
+        </view>
+        <view class="report-stat">
+          <text class="report-stat-value">84.6w</text>
+          <text class="report-stat-label">总点击</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="chart-card">
+      <text class="chart-title">消耗趋势</text>
+      <canvas canvas-id="report-trend-chart" class="chart-canvas"></canvas>
+    </view>
+
+    <view class="chart-card">
+      <text class="chart-title">转化效果</text>
+      <canvas canvas-id="conversion-chart" class="chart-canvas"></canvas>
+    </view>
+
+    <view class="report-list">
+      <view class="report-list-item" bindtap="goToDetail">
+        <view class="report-list-icon">📋</view>
+        <view class="report-list-info">
+          <text class="report-list-name">唯品会拉新-信息流计划</text>
+          <text class="report-list-meta">OCPC · 投放中</text>
+        </view>
+        <view class="report-list-data">
+          <text class="report-list-data-value">¥32,450</text>
+          <text class="report-list-data-label">花费</text>
+        </view>
+      </view>
+      <view class="report-list-item" bindtap="goToDetail">
+        <view class="report-list-icon">📋</view>
+        <view class="report-list-info">
+          <text class="report-list-name">唯品会拉新-开屏计划</text>
+          <text class="report-list-meta">OCPC · 投放中</text>
+        </view>
+        <view class="report-list-data">
+          <text class="report-list-data-value">¥28,120</text>
+          <text class="report-list-data-label">花费</text>
+        </view>
+      </view>
+      <view class="report-list-item" bindtap="goToDetail">
+        <view class="report-list-icon">📋</view>
+        <view class="report-list-info">
+          <text class="report-list-name">唯品会拉活-信息流计划</text>
+          <text class="report-list-meta">OCPC · 已暂停</text>
+        </view>
+        <view class="report-list-data">
+          <text class="report-list-data-value">¥18,680</text>
+          <text class="report-list-data-label">花费</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

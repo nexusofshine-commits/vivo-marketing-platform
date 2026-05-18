@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="home-header">
+    <view class="home-avatar" bindtap="goToProfile">👤</view>
+    <view class="home-account-info">
+      <text class="home-account-name" bindtap="goToProfile">{{currentAccount}}</text>
+      <text class="home-account-tag">投放账号</text>
+    </view>
+  </view>
+
+  <view class="stats-card">
+    <view class="stats-header">
+      <text class="stats-title">数据概览</text>
+      <text class="stats-date" bindtap="switchDate">今日</text>
+    </view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">¥15,234</text>
+        <text class="stat-label">花费</text>
+        <text class="stat-trend trend-up">↑8.6%</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">284.5w</text>
+        <text class="stat-label">曝光</text>
+        <text class="stat-trend trend-up">↑12.3%</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">12.6w</text>
+        <text class="stat-label">点击</text>
+        <text class="stat-trend trend-down">↓3.2%</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">4.49%</text>
+        <text class="stat-label">点击率</text>
+        <text class="stat-trend trend-up">↑2.1%</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-card">
+    <text class="chart-title">数据趋势</text>
+    <canvas canvas-id="home-trend-chart" class="chart-canvas" bindtouchstart="touchHandler"></canvas>
+  </view>
+</view>

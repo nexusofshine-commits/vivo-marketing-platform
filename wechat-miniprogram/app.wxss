@@ -1,0 +1,55 @@
+page {
+  background-color: #F8F9FA;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', sans-serif;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+page {
+  background-color: #F8F9FA;
+}
+
+.primary {
+  color: #0F62FE;
+}
+
+.success {
+  color: #00A870;
+}
+
+.warning {
+  color: #FF832B;
+}
+
+.danger {
+  color: #DA1E28;
+}
+
+.text-primary {
+  color: #111111;
+}
+
+.text-secondary {
+  color: #666666;
+}
+
+.text-tertiary {
+  color: #999999;
+}
+
+.bg-primary {
+  background-color: #FFFFFF;
+}
+
+.bg-secondary {
+  background-color: #F8F9FA;
+}
+
+.border {
+  border: 1rpx solid #E5E7EB;
+}

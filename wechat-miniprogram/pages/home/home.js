@@ -16,10 +16,6 @@ Page({
   },
 
   onLoad: function() {
-    this.loadData();
-  },
-
-  onShow: function() {
     var app = getApp();
     if (app.globalData && app.globalData.selectedAccount) {
       this.setData({
@@ -28,39 +24,33 @@ Page({
     }
   },
 
-  loadData: function() {
-    var that = this;
-    
-    setTimeout(function() {
-      that.initChart();
-    }, 300);
+  onShow: function() {
+    this.drawChartNow();
   },
 
-  initChart: function() {
+  drawChartNow: function() {
     var that = this;
+    var chart = Chart.initChart('homeChart', that);
+    if (!chart) {
+      console.log('Chart init failed');
+      return;
+    }
     
-    setTimeout(function() {
-      var chart = Chart.initChart('homeChart', that);
-      if (chart) {
-        that.chartInstance = chart;
-        that.drawChart(1);
-      }
-    }, 100);
+    that.chartInstance = chart;
+    that.updateChart('consume');
   },
 
-  drawChart: function(type) {
+  updateChart: function(type) {
     if (!this.chartInstance) return;
     
     var chartData = {
       consume: {
         data: [12, 18, 15, 22, 28, 24, 30],
-        color: '#0066FF',
-        yAxis: { data: ['30', '25', '20', '15', '10', '5', '0'] }
+        color: '#0066FF'
       },
       convert: {
         data: [2, 3, 2, 4, 5, 4, 6],
-        color: '#00C853',
-        yAxis: { data: ['6', '5', '4', '3', '2', '1', '0'] }
+        color: '#00C853'
       }
     };
     
@@ -68,7 +58,6 @@ Page({
     
     this.chartInstance.setOption({
       xAxis: { data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
-      yAxis: data.yAxis,
       series: [{
         type: 'line',
         data: data.data,
@@ -89,7 +78,7 @@ Page({
 
   switchChartTab: function(e) {
     var type = e.currentTarget.dataset.type;
-    this.drawChart(type === 'consume' ? 'consume' : 'convert');
+    this.updateChart(type === 'consume' ? 'consume' : 'convert');
   },
 
   goToAccountSelect: function() {

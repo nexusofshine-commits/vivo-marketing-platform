@@ -3,14 +3,12 @@
   <view class="account-header">
     <view class="header-row">
       <view class="account-name">{{accountName}}</view>
-      <view class="header-actions">
-        <view class="action-icon" bindtap="goToAccountSelect">
-          <image src="/assets/icons/switch.png" mode="aspectFit" />
-        </view>
+      <view class="action-icon" bindtap="goToAccountSelect">
+        <text class="icon-text">↻</text>
       </view>
     </view>
     <view class="profile-link" bindtap="goToProfile">
-      <image src="/assets/icons/user.png" mode="aspectFit" class="profile-icon" />
+      <text class="icon-text">👤</text>
       个人中心
     </view>
   </view>
@@ -90,7 +88,7 @@
     </scroll-view>
   </view>
 
-  <!-- 趋势图 - 折线图 -->
+  <!-- 趋势图 -->
   <view class="chart-section">
     <view class="chart-header">
       <view class="chart-title">{{overviewMetrics[selectedMetricIndex].name}}趋势</view>

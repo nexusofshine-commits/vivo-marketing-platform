@@ -126,7 +126,7 @@
 .css-chart {
   display: flex;
   height: 280rpx;
-  background: linear-gradient(180deg, rgba(0,102,255,0.06) 0%, rgba(0,102,255,0.01) 100%);
+  background: rgba(0,102,255,0.04);
   border-radius: 16rpx;
   padding: 16rpx;
 }

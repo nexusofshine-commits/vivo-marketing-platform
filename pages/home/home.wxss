@@ -5,7 +5,7 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: #0066FF;
   padding: 88rpx 32rpx 32rpx;
 }
 
@@ -96,7 +96,7 @@
 .down { color: #FF3B30; margin-left: 4rpx; }
 
 .ai-banner {
-  background: linear-gradient(135deg, #FFF7E6 0%, #FFEDCC 100%);
+  background: #FFF7E6;
   margin: 0 24rpx 24rpx;
   border-radius: 24rpx;
   padding: 28rpx;
@@ -193,7 +193,7 @@
 }
 
 .metric-card.active {
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: #0066FF;
   border-color: #0066FF;
 }
 
@@ -281,7 +281,7 @@
 .css-chart {
   display: flex;
   height: 320rpx;
-  background: linear-gradient(180deg, rgba(0,102,255,0.06) 0%, rgba(0,102,255,0.01) 100%);
+  background: rgba(0,102,255,0.04);
   border-radius: 16rpx;
   padding: 16rpx;
 }

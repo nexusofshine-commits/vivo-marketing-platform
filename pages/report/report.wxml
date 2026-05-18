@@ -51,7 +51,7 @@
           <view class="chart-bars">
             <view wx:for="{{trendData}}" wx:key="label" class="bar-item">
               <view class="bar-wrapper">
-                <view class="bar" style="height: {{item.value}}%; background: #0066FF;"></view>
+                <view class="bar" style="height: {{item.barHeight}}%;"></view>
               </view>
               <view class="bar-label">{{item.label}}</view>
             </view>
@@ -77,8 +77,8 @@
           <view class="chart-bars">
             <view wx:for="{{conversionData}}" wx:key="label" class="bar-item">
               <view class="bar-wrapper">
-                <view class="bar bar-blue" style="height: {{item.activation}}%;"></view>
-                <view class="bar bar-green" style="height: {{item.retention}}%;"></view>
+                <view class="bar bar-blue" style="height: {{item.actHeight}}%;"></view>
+                <view class="bar bar-green" style="height: {{item.retHeight}}%;"></view>
               </view>
               <view class="bar-label">{{item.label}}</view>
             </view>

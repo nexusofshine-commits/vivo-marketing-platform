@@ -81,8 +81,8 @@
         <view class="chart-bars">
           <view wx:for="{{trendData}}" wx:key="label" class="bar-item">
             <view class="bar-wrapper">
-              <view class="bar" style="height: {{item.value * 100 / 52}}%; background: #0066FF;"></view>
-              <view class="bar-dot" style="bottom: {{item.value * 100 / 52}}%; background: #0066FF;"></view>
+              <view class="bar" style="height: {{item.barHeight}}%;"></view>
+              <view class="bar-dot" style="bottom: {{item.barHeight}}%;"></view>
             </view>
             <view class="bar-label">{{item.label}}</view>
           </view>

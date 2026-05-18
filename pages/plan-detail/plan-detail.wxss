@@ -5,7 +5,7 @@
 }
 
 .detail-header {
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: #0066FF;
   padding: 40rpx 24rpx 60rpx;
   color: #FFFFFF;
   position: relative;
@@ -162,7 +162,7 @@
 .css-chart {
   display: flex;
   height: 320rpx;
-  background: linear-gradient(180deg, rgba(0,102,255,0.06) 0%, rgba(0,102,255,0.01) 100%);
+  background: rgba(0,102,255,0.04);
   border-radius: 16rpx;
   padding: 16rpx;
 }

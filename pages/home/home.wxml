@@ -78,13 +78,13 @@
 
   <view class="chart-card">
     <view class="chart-header">
-      <text class="chart-title">{{overviewMetrics[selectedIndex].name}}趋势</text>
+      <text class="chart-title">{{chartTitle}}</text>
       <view class="chart-tabs">
         <text class="chart-tab {{chartType === 'consume' ? 'active' : ''}}" bindtap="switchChart" data-type="consume">消耗</text>
         <text class="chart-tab {{chartType === 'convert' ? 'active' : ''}}" bindtap="switchChart" data-type="convert">转化</text>
       </view>
     </view>
-    
+
     <view class="css-chart">
       <view class="chart-y-axis">
         <view class="y-label">30</view>
@@ -100,8 +100,8 @@
         <view class="chart-bars">
           <view wx:for="{{chartData}}" wx:key="label" class="bar-item">
             <view class="bar-wrapper">
-              <view class="bar" style="height: {{(chartType === 'consume' ? item.consume : item.convert) * 100 / 30}}%; background: {{chartType === 'consume' ? '#0066FF' : '#00C853'}};"></view>
-              <view class="bar-dot" style="bottom: {{(chartType === 'consume' ? item.consume : item.convert) * 100 / 30}}%; background: {{chartType === 'consume' ? '#0066FF' : '#00C853'}};"></view>
+              <view class="bar" style="height: {{item.barHeight}}%; background: {{item.barColor}};"></view>
+              <view class="bar-dot" style="bottom: {{item.barHeight}}%; background: {{item.barColor}};"></view>
             </view>
             <view class="bar-label">{{item.label}}</view>
           </view>

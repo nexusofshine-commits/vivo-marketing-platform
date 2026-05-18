@@ -58,15 +58,15 @@
 }
 
 .diagnosis-icon.warning {
-  background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+  background: #FFF3E0;
 }
 
 .diagnosis-icon.info {
-  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  background: #E3F2FD;
 }
 
 .diagnosis-icon.error {
-  background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+  background: #FFEBEE;
 }
 
 .diagnosis-info {
@@ -157,7 +157,7 @@
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, #0066FF 0%, #0052CC 100%);
+  background: #0066FF;
   color: #FFFFFF;
 }
 
@@ -173,12 +173,12 @@
 }
 
 .action-btn.success {
-  background: linear-gradient(135deg, #00C853 0%, #00A854 100%);
+  background: #00C853;
   color: #FFFFFF;
 }
 
 .action-btn.danger {
-  background: linear-gradient(135deg, #FF3B30 0%, #E02D27 100%);
+  background: #FF3B30;
   color: #FFFFFF;
 }
 

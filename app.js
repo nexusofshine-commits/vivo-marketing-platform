@@ -1,7 +1,8 @@
 App({
   globalData: {
     currentAccount: '唯品会拉新A',
-    accountType: '投放账号'
+    accountType: '投放账号',
+    tabTitle: '推广管理'
   },
 
   onLaunch: function() {
@@ -9,6 +10,7 @@ App({
       var info = wx.getStorageSync('currentAccount');
       if (info) {
         this.globalData.currentAccount = info;
+        this.updateAccountType(info);
       }
     } catch (e) {}
   },
@@ -16,12 +18,19 @@ App({
   setAccount: function(name) {
     this.globalData.currentAccount = name;
     wx.setStorageSync('currentAccount', name);
-    if (name.indexOf('拉新') !== -1 || name.indexOf('拉活') !== -1) {
-      this.globalData.accountType = '投放账号';
-    } else if (name.indexOf('主体') !== -1) {
+    this.updateAccountType(name);
+  },
+
+  updateAccountType: function(name) {
+    if (name.indexOf('主体') !== -1) {
       this.globalData.accountType = '经营主体';
+      this.globalData.tabTitle = '账户管理';
+    } else if (name.indexOf('业务') !== -1 || name.indexOf('拉新') !== -1 && name.indexOf('集合') !== -1 || name.indexOf('拉活') !== -1 && name.indexOf('集合') !== -1) {
+      this.globalData.accountType = '业务单元';
+      this.globalData.tabTitle = '账户管理';
     } else {
-      this.globalData.accountType = '多账户管理';
+      this.globalData.accountType = '投放账号';
+      this.globalData.tabTitle = '推广管理';
     }
   }
 })

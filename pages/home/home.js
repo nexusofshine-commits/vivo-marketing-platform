@@ -19,8 +19,8 @@ Page({
 
   onLoad: function() {
     var app = getApp();
-    if (app.globalData && app.globalData.selectedAccount) {
-      this.setData({ accountName: app.globalData.selectedAccount });
+    if (app.globalData && app.globalData.currentAccount) {
+      this.setData({ accountName: app.globalData.currentAccount });
     }
   },
 

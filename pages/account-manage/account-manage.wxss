@@ -5,7 +5,7 @@
 }
 
 .navbar {
-  background-color: #FFFFFF;
+  background: #fff;
   height: 88rpx;
   display: flex;
   align-items: center;
@@ -46,102 +46,88 @@
   color: #999;
 }
 
-.account-group {
-  margin: 0 24rpx 8rpx;
+.filter-bar {
+  display: flex;
+  gap: 16rpx;
+  padding: 0 24rpx;
+  margin-bottom: 16rpx;
 }
 
-.group-label {
-  display: block;
-  font-size: 22rpx;
-  color: #999;
-  padding: 20rpx 8rpx 12rpx;
-  font-weight: 500;
-}
-
-.account-card {
+.filter-btn {
+  padding: 12rpx 28rpx;
+  border-radius: 10rpx;
+  font-size: 24rpx;
+  color: #666;
   background: #fff;
-  margin-bottom: 12rpx;
-  border-radius: 16rpx;
-  padding: 24rpx;
+  border: 1rpx solid #e8ebf0;
+}
+
+.filter-btn.active {
+  background: #0066FF;
+  color: #fff;
+  border-color: #0066FF;
+}
+
+.version-toggle {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1rpx solid #f0f1f5;
-}
-
-.card-left {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-}
-
-.card-icon {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: 14rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  margin-right: 20rpx;
-  flex-shrink: 0;
-}
-
-.card-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.card-name {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #191919;
-  display: block;
-  margin-bottom: 6rpx;
+  margin: 16rpx 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  border: 1rpx solid #e8ebf0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.card-meta {
-  font-size: 22rpx;
-  color: #999;
-}
-
-.card-right {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-  flex-shrink: 0;
-  margin-left: 16rpx;
-}
-
-.card-status {
-  font-size: 20rpx;
+.toggle-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  font-size: 26rpx;
+  color: #666;
   font-weight: 500;
-  padding: 6rpx 14rpx;
-  border-radius: 8rpx;
 }
 
-.card-status.running {
-  color: #00C853;
-  background: rgba(0,200,83,0.08);
+.toggle-btn.active {
+  background: #0066FF;
+  color: #fff;
 }
 
-.card-status.paused {
-  color: #FF9500;
-  background: rgba(255,149,0,0.08);
+.promo-tabs {
+  display: flex;
+  padding: 0 24rpx;
+  gap: 0;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f1f5;
 }
 
-.card-arrow {
-  color: #ccc;
-  font-size: 28rpx;
+.promo-tab {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 26rpx;
+  color: #666;
+  position: relative;
+  font-weight: 500;
+}
+
+.promo-tab.active {
+  color: #0066FF;
+}
+
+.promo-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 4rpx;
+  background: #0066FF;
+  border-radius: 4rpx;
 }
 
 .section-card {
   background: #fff;
-  margin: 0 24rpx 16rpx;
+  margin: 16rpx 24rpx;
   border-radius: 20rpx;
   padding: 24rpx;
 }
@@ -206,9 +192,28 @@
 }
 
 .item-right {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
   flex-shrink: 0;
   margin-left: 16rpx;
+}
+
+.item-status {
+  font-size: 20rpx;
+  font-weight: 500;
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
+}
+
+.item-status.running {
+  color: #00C853;
+  background: rgba(0,200,83,0.08);
+}
+
+.item-status.paused {
+  color: #FF9500;
+  background: rgba(255,149,0,0.08);
 }
 
 .item-value {
@@ -216,10 +221,17 @@
   font-weight: 700;
   color: #0066FF;
   display: block;
-  margin-bottom: 4rpx;
+  text-align: right;
 }
 
 .item-unit {
   font-size: 20rpx;
   color: #999;
+  display: block;
+  text-align: right;
+}
+
+.item-arrow {
+  color: #ccc;
+  font-size: 28rpx;
 }

@@ -1,35 +1,20 @@
 var app = getApp();
 
 Page({
-  data: {
-    
-  },
-  
+  data: {},
+
   selectAccount: function(e) {
-    var accountName = e.currentTarget.dataset.name;
-    var account = app.globalData;
-    
-    if (accountName.indexOf('拉新') !== -1 || accountName.indexOf('拉活') !== -1) {
-      account.accountType = '投放账号';
-    } else if (accountName.indexOf('主体') !== -1) {
-      account.accountType = '经营主体';
-    } else {
-      account.accountType = '多账户管理';
-    }
-    
-    app.setAccount(accountName);
-    
-    wx.showToast({
-      title: '已切换至 ' + accountName,
-      icon: 'success',
-      duration: 2000
-    });
-    
-    var that = this;
+    var name = e.currentTarget.dataset.name;
+    var type = e.currentTarget.dataset.type;
+    app.globalData.currentAccount = name;
+    app.globalData.accountType = type;
+    app.globalData.tabTitle = type === '投放账号' ? '推广管理' : '账户管理';
+    wx.setStorageSync('currentAccount', name);
+
+    wx.showToast({ title: '已切换至 ' + name, icon: 'success', duration: 1500 });
+
     setTimeout(function() {
-      wx.switchTab({
-        url: '/pages/home/home'
-      });
-    }, 1500);
+      wx.switchTab({ url: '/pages/home/home' });
+    }, 1200);
   }
 })

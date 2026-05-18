@@ -1,43 +1,128 @@
 <view class="container">
-  <view class="home-header">
-    <view class="home-avatar" bindtap="goToProfile">👤</view>
-    <view class="home-account-info">
-      <text class="home-account-name" bindtap="goToProfile">{{currentAccount}}</text>
-      <text class="home-account-tag">投放账号</text>
+  <!-- 账户信息栏 -->
+  <view class="account-bar">
+    <view class="account-avatar" bindtap="goToAccountSelect">
+      <text class="avatar-icon">👤</text>
+    </view>
+    <view class="account-info" bindtap="goToAccountSelect">
+      <view class="account-name">{{accountName}}</view>
+      <view class="account-switch">点击切换账户</view>
+    </view>
+    <view class="user-avatar" bindtap="goToProfile">
+      <text class="user-icon">⚙️</text>
     </view>
   </view>
 
-  <view class="stats-card">
-    <view class="stats-header">
-      <text class="stats-title">数据概览</text>
-      <text class="stats-date" bindtap="switchDate">今日</text>
+  <!-- 账户指标 -->
+  <view class="account-metrics">
+    <view class="metrics-header">
+      <view class="metrics-title">全部账户 ></view>
+      <view class="metrics-action">指标 ></view>
     </view>
-    <view class="stats-grid">
-      <view class="stat-item">
-        <text class="stat-value">¥15,234</text>
-        <text class="stat-label">花费</text>
-        <text class="stat-trend trend-up">↑8.6%</text>
+    
+    <view class="top-metrics">
+      <view class="top-metric-item">
+        <view class="metric-label">当前余额</view>
+        <view class="metric-value">100000.00</view>
       </view>
-      <view class="stat-item">
-        <text class="stat-value">284.5w</text>
-        <text class="stat-label">曝光</text>
-        <text class="stat-trend trend-up">↑12.3%</text>
+      <view class="top-metric-item">
+        <view class="metric-label">今日消耗</view>
+        <view class="metric-value">5000.00</view>
       </view>
-      <view class="stat-item">
-        <text class="stat-value">12.6w</text>
-        <text class="stat-label">点击</text>
-        <text class="stat-trend trend-down">↓3.2%</text>
+      <view class="top-metric-item">
+        <view class="metric-label">有消耗账户</view>
+        <view class="metric-value">15/27个</view>
       </view>
-      <view class="stat-item">
-        <text class="stat-value">4.49%</text>
-        <text class="stat-label">点击率</text>
-        <text class="stat-trend trend-up">↑2.1%</text>
+    </view>
+    
+    <view class="bottom-metrics">
+      <view class="bottom-metric-item">
+        <view class="metric-label">
+          曝光量
+          <text class="trend-arrow up">▲</text>
+        </view>
+        <view class="metric-value">4555</view>
+      </view>
+      <view class="bottom-metric-item">
+        <view class="metric-label">
+          点击量
+          <text class="trend-arrow down">▼</text>
+        </view>
+        <view class="metric-value">123</view>
+      </view>
+      <view class="bottom-metric-item">
+        <view class="metric-label">
+          转化量
+          <text class="trend-arrow down">▼</text>
+        </view>
+        <view class="metric-value">23</view>
       </view>
     </view>
   </view>
 
-  <view class="chart-card">
-    <text class="chart-title">数据趋势</text>
-    <canvas canvas-id="home-trend-chart" class="chart-canvas" bindtouchstart="touchHandler"></canvas>
+  <!-- AI日报 Banner -->
+  <view class="ai-banner">
+    <view class="banner-header">
+      <view class="banner-title">
+        <text class="banner-icon">✨</text>
+        AI日报
+      </view>
+      <view class="banner-action" bindtap="goToDiagnosis">深度解读 ></view>
+    </view>
+    <view class="banner-content">
+      今日消耗5000元，转化23个，成本上涨，点击深度解读查看原因及建议
+    </view>
+    <view class="banner-time">数据周期：5月14日 17:56</view>
   </view>
+
+  <!-- 数据概览 -->
+  <view class="data-overview">
+    <view class="overview-header">
+      <view class="overview-title">数据概览</view>
+      <view class="overview-tabs">
+        <view class="date-tab active">今天</view>
+        <view class="date-tab">▼</view>
+      </view>
+      <view class="overview-custom">自定义</view>
+    </view>
+    
+    <scroll-view class="metric-cards-scroll" scroll-x="true">
+      <view class="metric-cards">
+        <view 
+          wx:for="{{overviewMetrics}}" 
+          wx:key="name"
+          class="metric-card {{selectedMetricIndex === index ? 'active' : ''}}"
+          bindtap="selectMetric"
+          data-index="{{index}}"
+        >
+          <view class="card-label">{{item.name}}</view>
+          <view class="card-value">{{item.value}}</view>
+          <view class="card-change">{{item.change}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 趋势图 -->
+  <view class="chart-section">
+    <view class="chart-header">
+      <view class="chart-title">{{overviewMetrics[selectedMetricIndex]?.name}}趋势</view>
+      <view class="chart-tabs">
+        <view class="chart-tab active">消耗</view>
+        <view class="chart-tab">转化</view>
+      </view>
+    </view>
+    <view class="chart-container">
+      <canvas 
+        type="2d" 
+        id="homeChart" 
+        class="home-chart" 
+        bindtouchstart="onChartTouch"
+        bindtouchmove="onChartMove"
+        bindtouchend="onChartEnd"
+      ></canvas>
+    </view>
+  </view>
+
+  <view class="tab-spacer"></view>
 </view>

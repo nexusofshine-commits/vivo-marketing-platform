@@ -1,99 +1,96 @@
 <view class="container">
-  <view class="navbar">
-    <text class="navbar-title">智能诊断</text>
-  </view>
+  <view class="page-title">智能诊断</view>
 
-  <view class="diagnosis-card">
-    <view class="diagnosis-header">
-      <text class="diagnosis-title">预警信息</text>
-    </view>
+  <!-- 预警信息 -->
+  <view class="diagnosis-section">
+    <view class="section-title">预警信息</view>
     <view class="diagnosis-list">
-      <view class="diagnosis-item" bindtap="toggleDetail" data-index="0">
-        <view class="diagnosis-icon warning">⚠️</view>
-        <view class="diagnosis-content">
-          <text class="diagnosis-name">CTR下降预警</text>
-          <text class="diagnosis-desc">近7日CTR下降15%，建议优化素材</text>
+      <view class="diagnosis-item" wx:for="{{warnings}}" wx:key="id">
+        <view class="diagnosis-header" bindtap="toggleDetail" data-type="warning" data-index="{{index}}">
+          <view class="diagnosis-icon warning">⚠️</view>
+          <view class="diagnosis-info">
+            <view class="diagnosis-title">{{item.title}}</view>
+            <view class="diagnosis-time">{{item.time}}</view>
+          </view>
+          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
         </view>
-        <text class="diagnosis-arrow">›</text>
-      </view>
-      <view class="diagnosis-detail {{showDetail[0] ? 'show' : ''}}">
-        <view class="detail-content">
-          <text class="detail-title">📊 数据详情：</text>
-          <text class="detail-text">• 近7日平均CTR：4.2%</text>
-          <text class="detail-text">• 上周同期CTR：4.9%</text>
-          <text class="detail-text">• 下降幅度：14.3%</text>
-        </view>
-        <view class="detail-content">
-          <text class="detail-title">💡 优化建议：</text>
-          <text class="detail-text">• 更换素材，测试新创意</text>
-          <text class="detail-text">• 调整定向，精准投放</text>
-          <text class="detail-text">• 优化着陆页体验</text>
-        </view>
-      </view>
-
-      <view class="diagnosis-item" bindtap="toggleDetail" data-index="1">
-        <view class="diagnosis-icon error">❌</view>
-        <view class="diagnosis-content">
-          <text class="diagnosis-name">计划消耗异常</text>
-          <text class="diagnosis-desc">某计划今日消耗突增80%，请检查</text>
-        </view>
-        <text class="diagnosis-arrow">›</text>
-      </view>
-      <view class="diagnosis-detail {{showDetail[1] ? 'show' : ''}}">
-        <view class="detail-content">
-          <text class="detail-title">📊 数据详情：</text>
-          <text class="detail-text">• 今日消耗：¥8,200</text>
-          <text class="detail-text">• 昨日同期消耗：¥4,550</text>
-          <text class="detail-text">• 增长幅度：80.2%</text>
-        </view>
-        <view class="detail-content">
-          <text class="detail-title">💡 优化建议：</text>
-          <text class="detail-text">• 检查计划出价设置</text>
-          <text class="detail-text">• 调整预算上限</text>
-          <text class="detail-text">• 评估流量质量</text>
+        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
+          <view class="detail-section">
+            <view class="detail-title">数据详情</view>
+            <view class="detail-content">{{item.dataDetail}}</view>
+          </view>
+          <view class="detail-section">
+            <view class="detail-title">优化建议</view>
+            <view class="detail-content">{{item.suggestion}}</view>
+          </view>
+          <view class="quick-actions">
+            <button class="action-btn primary" bindtap="handleAction" data-action="adjustBudget">调整预算</button>
+            <button class="action-btn secondary" bindtap="handleAction" data-action="adjustBid">调整出价</button>
+            <button class="action-btn outline" bindtap="handleAction" data-action="viewDetails">查看详情</button>
+          </view>
         </view>
       </view>
     </view>
   </view>
 
-  <view class="diagnosis-card">
-    <view class="diagnosis-header">
-      <text class="diagnosis-title">系统通知</text>
-    </view>
+  <!-- 系统通知 -->
+  <view class="diagnosis-section">
+    <view class="section-title">系统通知</view>
     <view class="diagnosis-list">
-      <view class="diagnosis-item" bindtap="toggleDetail" data-index="2">
-        <view class="diagnosis-icon info">ℹ️</view>
-        <view class="diagnosis-content">
-          <text class="diagnosis-name">新功能上线</text>
-          <text class="diagnosis-desc">OCPC出价优化功能已上线</text>
+      <view class="diagnosis-item" wx:for="{{notices}}" wx:key="id">
+        <view class="diagnosis-header" bindtap="toggleDetail" data-type="notice" data-index="{{index}}">
+          <view class="diagnosis-icon info">ℹ️</view>
+          <view class="diagnosis-info">
+            <view class="diagnosis-title">{{item.title}}</view>
+            <view class="diagnosis-time">{{item.time}}</view>
+          </view>
+          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
         </view>
-        <text class="diagnosis-arrow">›</text>
-      </view>
-      <view class="diagnosis-detail {{showDetail[2] ? 'show' : ''}}">
-        <view class="detail-content">
-          <text class="detail-title">🎉 新功能介绍：</text>
-          <text class="detail-text">• 智能出价优化，提升转化效果</text>
-          <text class="detail-text">• 基于机器学习的实时调价</text>
-          <text class="detail-text">• 支持多目标转化优化</text>
-        </view>
-      </view>
-
-      <view class="diagnosis-item" bindtap="toggleDetail" data-index="3">
-        <view class="diagnosis-icon info">ℹ️</view>
-        <view class="diagnosis-content">
-          <text class="diagnosis-name">账户安全提醒</text>
-          <text class="diagnosis-desc">请定期修改密码，保障账户安全</text>
-        </view>
-        <text class="diagnosis-arrow">›</text>
-      </view>
-      <view class="diagnosis-detail {{showDetail[3] ? 'show' : ''}}">
-        <view class="detail-content">
-          <text class="detail-title">🔒 安全建议：</text>
-          <text class="detail-text">• 每90天修改一次密码</text>
-          <text class="detail-text">• 使用强密码，包含字母和数字</text>
-          <text class="detail-text">• 不要在公共设备上保存密码</text>
+        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
+          <view class="detail-section">
+            <view class="detail-title">功能说明</view>
+            <view class="detail-content">{{item.content}}</view>
+          </view>
+          <view class="quick-actions">
+            <button class="action-btn primary" bindtap="handleAction" data-action="tryNow">立即体验</button>
+            <button class="action-btn outline" bindtap="handleAction" data-action="learnMore">了解更多</button>
+          </view>
         </view>
       </view>
     </view>
   </view>
+
+  <!-- 账户问题 -->
+  <view class="diagnosis-section">
+    <view class="section-title">账户问题</view>
+    <view class="diagnosis-list">
+      <view class="diagnosis-item" wx:for="{{problems}}" wx:key="id">
+        <view class="diagnosis-header" bindtap="toggleDetail" data-type="problem" data-index="{{index}}">
+          <view class="diagnosis-icon error">❌</view>
+          <view class="diagnosis-info">
+            <view class="diagnosis-title">{{item.title}}</view>
+            <view class="diagnosis-time">{{item.time}}</view>
+          </view>
+          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
+        </view>
+        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
+          <view class="detail-section">
+            <view class="detail-title">问题详情</view>
+            <view class="detail-content">{{item.dataDetail}}</view>
+          </view>
+          <view class="detail-section">
+            <view class="detail-title">解决方案</view>
+            <view class="detail-content">{{item.suggestion}}</view>
+          </view>
+          <view class="quick-actions">
+            <button class="action-btn danger" bindtap="handleAction" data-action="pauseAll">一键暂停</button>
+            <button class="action-btn success" bindtap="handleAction" data-action="enableAll">一键启用</button>
+            <button class="action-btn secondary" bindtap="handleAction" data-action="contactSupport">联系客服</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tab-spacer"></view>
 </view>

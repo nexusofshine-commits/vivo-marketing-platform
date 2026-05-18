@@ -1,118 +1,102 @@
-const app = getApp();
-const util = require('../../utils/chart.js');
+const Chart = require('../../utils/chart.js');
 
 Page({
   data: {
-    currentAccount: '唯品会拉新A'
+    accountName: '唯品会OCPC账户集合',
+    selectedMetricIndex: 0,
+    overviewMetrics: [
+      { name: '有消耗账户数', value: '0', change: '环比 0.00% —' },
+      { name: '消耗(元)', value: '0.00', change: '环比 ---' },
+      { name: '转化数', value: '0', change: '环比 ---' },
+      { name: '平均转化成本', value: '0.00', change: '' },
+      { name: '展示数', value: '0', change: '' },
+      { name: '点击数', value: '0', change: '' }
+    ]
   },
-  
+
   onLoad() {
-    this.setData({
-      currentAccount: app.globalData.currentAccount
-    });
+    setTimeout(() => {
+      this.setData({
+        overviewMetrics: [
+          { name: '有消耗账户数', value: '15', change: '环比 12.50% ↑' },
+          { name: '消耗(元)', value: '5000.00', change: '环比 15.20% ↑' },
+          { name: '转化数', value: '23', change: '环比 8.30% ↓' },
+          { name: '平均转化成本', value: '217.39', change: '环比 22.50% ↑' },
+          { name: '展示数', value: '4555', change: '环比 10.00% ↑' },
+          { name: '点击数', value: '123', change: '环比 5.20% ↓' }
+        ]
+      });
+      this.initChart();
+    }, 500);
   },
-  
+
   onShow() {
-    this.setData({
-      currentAccount: app.globalData.currentAccount
-    });
-    this.updateChart();
-  },
-  
-  updateChart() {
-    const trendData = app.globalData.trendData;
-    const canvas = util.initChart('home-trend-chart', this);
-    if (canvas) {
-      const data = trendData.spend;
-      const labels = trendData.labels;
-      
-      const option = {
-        title: {
-          display: false
-        },
-        grid: {
-          left: 60,
-          right: 40,
-          top: 20,
-          bottom: 40
-        },
-        xAxis: {
-          type: 'category',
-          data: labels,
-          boundaryGap: false,
-          axisLine: {
-            lineStyle: {
-              color: '#E5E7EB'
-            }
-          },
-          axisLabel: {
-            color: '#999999',
-            fontSize: 20
-          }
-        },
-        yAxis: {
-          type: 'value',
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
-          },
-          axisLabel: {
-            color: '#999999',
-            fontSize: 20
-          },
-          splitLine: {
-            lineStyle: {
-              color: '#E5E7EB'
-            }
-          }
-        },
-        series: [{
-          type: 'line',
-          data: data,
-          smooth: true,
-          lineStyle: {
-            color: '#0F62FE',
-            width: 4
-          },
-          itemStyle: {
-            color: '#0F62FE'
-          },
-          areaStyle: {
-            color: {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [
-                { offset: 0, color: 'rgba(15, 98, 254, 0.3)' },
-                { offset: 1, color: 'rgba(15, 98, 254, 0.05)' }
-              ]
-            }
-          }
-        }]
-      };
-      
-      canvas.setOption(option);
+    const app = getApp();
+    if (app.globalData.selectedAccount) {
+      this.setData({
+        accountName: app.globalData.selectedAccount
+      });
     }
   },
-  
-  touchHandler(e) {
-    console.log('touch', e);
+
+  initChart() {
+    const query = wx.createSelectorQuery();
+    query.select('#homeChart')
+      .fields({ node: true, size: true })
+      .exec((res) => {
+        if (res[0]) {
+          this.chart = new Chart({
+            canvas: res[0].node,
+            width: res[0].width,
+            height: res[0].height
+          });
+          this.drawChart(0);
+        }
+      });
   },
-  
+
+  drawChart(metricIndex) {
+    if (!this.chart) return;
+
+    const dataSets = [
+      // 有消耗账户数
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.2],
+      // 消耗
+      [120, 200, 180, 320, 450, 380, 520, 480, 600, 550, 480, 500],
+      // 转化数
+      [2, 3, 2, 4, 5, 4, 6, 5, 7, 6, 5, 3],
+      // 平均转化成本
+      [200, 180, 210, 190, 200, 185, 215, 205, 220, 215, 210, 217],
+      // 展示数
+      [400, 520, 480, 580, 650, 590, 720, 680, 780, 720, 680, 455],
+      // 点击数
+      [12, 18, 15, 22, 28, 24, 32, 28, 35, 30, 26, 12]
+    ];
+
+    this.chart.draw(dataSets[metricIndex]);
+  },
+
+  selectMetric(e) {
+    const index = e.currentTarget.dataset.index;
+    this.setData({
+      selectedMetricIndex: index
+    });
+    this.drawChart(index);
+  },
+
+  onChartTouch(e) {},
+  onChartMove(e) {},
+  onChartEnd(e) {},
+
+  goToAccountSelect() {
+    wx.navigateTo({ url: '/pages/account-select/account-select' });
+  },
+
   goToProfile() {
-    wx.navigateTo({
-      url: '/pages/profile/profile'
-    });
+    wx.navigateTo({ url: '/pages/profile/profile' });
   },
-  
-  switchDate() {
-    wx.showToast({
-      title: '切换日期范围',
-      icon: 'none'
-    });
+
+  goToDiagnosis() {
+    wx.switchTab({ url: '/pages/diagnosis/diagnosis' });
   }
-})
+});

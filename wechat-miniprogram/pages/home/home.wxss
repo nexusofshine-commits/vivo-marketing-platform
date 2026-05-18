@@ -1,127 +1,341 @@
 .container {
-  padding-bottom: 120rpx;
+  min-height: 100vh;
+  background: #F5F6F7;
+  padding-bottom: 0;
 }
 
-.home-header {
-  background-color: #FFFFFF;
-  padding: 32rpx;
+/* 账户信息栏 */
+.account-bar {
   display: flex;
   align-items: center;
-  gap: 24rpx;
-  border-bottom: 1rpx solid #E5E7EB;
+  padding: 24rpx 32rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.home-avatar {
-  width: 88rpx;
-  height: 88rpx;
-  background-color: #E8F0FF;
+.account-avatar {
+  width: 96rpx;
+  height: 96rpx;
+  background: rgba(255,255,255,0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40rpx;
+  margin-right: 24rpx;
 }
 
-.home-account-info {
+.avatar-icon {
+  font-size: 48rpx;
+}
+
+.account-info {
   flex: 1;
 }
 
-.home-account-name {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #111111;
-  display: block;
-  margin-bottom: 6rpx;
-}
-
-.home-account-tag {
-  font-size: 24rpx;
-  color: #666666;
-}
-
-.stats-card {
-  background-color: #FFFFFF;
-  padding: 40rpx 32rpx;
-  margin: 16rpx 0;
-}
-
-.stats-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32rpx;
-}
-
-.stats-title {
-  font-size: 28rpx;
-  font-weight: 600;
-  color: #111111;
-  text-transform: uppercase;
-  letter-spacing: 1rpx;
-}
-
-.stats-date {
-  font-size: 24rpx;
-  color: #999999;
-  border: 1rpx solid #E5E7EB;
-  padding: 8rpx 16rpx;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32rpx;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-value {
+.account-name {
   font-size: 36rpx;
-  font-weight: 700;
-  color: #111111;
-  line-height: 1.2;
+  font-weight: 600;
+  color: #FFFFFF;
   margin-bottom: 8rpx;
 }
 
-.stat-label {
+.account-switch {
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.8);
+}
+
+.user-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon {
+  font-size: 32rpx;
+}
+
+/* 账户指标 */
+.account-metrics {
+  background: #FFFFFF;
+  margin: 0 24rpx;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-top: -20rpx;
+  position: relative;
+  z-index: 10;
+}
+
+.metrics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.metrics-title {
+  font-size: 28rpx;
+  color: #1F2937;
+  font-weight: 500;
+}
+
+.metrics-action {
+  font-size: 24rpx;
+  color: #0F62FE;
+}
+
+.top-metrics {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 24rpx;
+  border-bottom: 1rpx solid #E5E7EB;
+}
+
+.top-metric-item {
+  flex: 1;
+  text-align: center;
+}
+
+.top-metric-item .metric-label {
+  font-size: 24rpx;
+  color: #6B7280;
+  margin-bottom: 8rpx;
+}
+
+.top-metric-item .metric-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.bottom-metrics {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 24rpx;
+}
+
+.bottom-metric-item {
+  flex: 1;
+  text-align: center;
+}
+
+.bottom-metric-item .metric-label {
+  font-size: 26rpx;
+  color: #6B7280;
+  margin-bottom: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trend-arrow {
+  font-size: 20rpx;
+  margin-left: 4rpx;
+}
+
+.trend-arrow.up {
+  color: #10B981;
+}
+
+.trend-arrow.down {
+  color: #EF4444;
+}
+
+.bottom-metric-item .metric-value {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #0F62FE;
+}
+
+/* AI日报 Banner */
+.ai-banner {
+  background: linear-gradient(135deg, #FFE8D4 0%, #FFD4B5 100%);
+  margin: 24rpx;
+  border-radius: 16rpx;
+  padding: 28rpx;
+}
+
+.banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.banner-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #92400E;
+  display: flex;
+  align-items: center;
+}
+
+.banner-icon {
+  margin-right: 8rpx;
+}
+
+.banner-action {
+  font-size: 24rpx;
+  color: #D97706;
+}
+
+.banner-content {
+  font-size: 26rpx;
+  color: #78350F;
+  line-height: 1.6;
+  margin-bottom: 12rpx;
+}
+
+.banner-time {
   font-size: 22rpx;
-  color: #999999;
-  text-transform: uppercase;
-  letter-spacing: 0.5rpx;
+  color: #A16207;
+}
+
+/* 数据概览 */
+.data-overview {
+  background: #FFFFFF;
+  margin: 0 24rpx;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.overview-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.overview-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1F2937;
+  flex: 1;
+}
+
+.overview-tabs {
+  display: flex;
+  align-items: center;
+  margin-right: 16rpx;
+}
+
+.date-tab {
+  font-size: 24rpx;
+  color: #6B7280;
+  margin-left: 16rpx;
+}
+
+.date-tab.active {
+  color: #0F62FE;
+  font-weight: 500;
+}
+
+.overview-custom {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+
+.metric-cards-scroll {
+  white-space: nowrap;
+}
+
+.metric-cards {
+  display: flex;
+  gap: 16rpx;
+}
+
+.metric-card {
+  min-width: 200rpx;
+  background: #F8F9FA;
+  border-radius: 16rpx;
+  padding: 24rpx 20rpx;
+  text-align: center;
+  transition: all 0.3s;
+  border: 2rpx solid transparent;
+}
+
+.metric-card.active {
+  background: linear-gradient(135deg, #0F62FE 0%, #054ADA 100%);
+  border-color: #0F62FE;
+}
+
+.card-label {
+  font-size: 24rpx;
+  color: #6B7280;
+  margin-bottom: 8rpx;
+}
+
+.metric-card.active .card-label {
+  color: rgba(255,255,255,0.9);
+}
+
+.card-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #1F2937;
   margin-bottom: 4rpx;
 }
 
-.stat-trend {
+.metric-card.active .card-value {
+  color: #FFFFFF;
+}
+
+.card-change {
   font-size: 22rpx;
-  margin-top: 4rpx;
+  color: #10B981;
 }
 
-.trend-up {
-  color: #DA1E28;
+.metric-card.active .card-change {
+  color: #A5B4FC;
 }
 
-.trend-down {
-  color: #00A870;
+/* 趋势图 */
+.chart-section {
+  background: #FFFFFF;
+  margin: 24rpx;
+  border-radius: 16rpx;
+  padding: 24rpx;
 }
 
-.chart-card {
-  background-color: #FFFFFF;
-  padding: 32rpx;
-  margin-bottom: 16rpx;
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
 }
 
 .chart-title {
   font-size: 28rpx;
   font-weight: 600;
-  color: #111111;
-  margin-bottom: 32rpx;
-  display: block;
+  color: #1F2937;
 }
 
-.chart-canvas {
+.chart-tabs {
+  display: flex;
+  gap: 16rpx;
+}
+
+.chart-tab {
+  font-size: 24rpx;
+  color: #6B7280;
+}
+
+.chart-tab.active {
+  color: #0F62FE;
+  font-weight: 500;
+}
+
+.chart-container {
   width: 100%;
   height: 400rpx;
+}
+
+.home-chart {
+  width: 100%;
+  height: 100%;
+}
+
+.tab-spacer {
+  height: 120rpx;
 }

@@ -35,7 +35,7 @@
     "useCompilerPlugins": false
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.0",
+  "libVersion": "3.16.0",
   "appid": "wx1234567890abcdef",
   "projectname": "vivo-marketing-platform",
   "condition": {},

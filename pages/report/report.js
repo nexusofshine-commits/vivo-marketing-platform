@@ -6,7 +6,7 @@ Page({
     conversionData: []
   },
 
-  onLoad: function() {
+  onReady: function() {
     this.buildTrendData();
     this.buildConversionData();
   },
@@ -23,10 +23,7 @@ Page({
     ];
     var list = [];
     for (var i = 0; i < raw.length; i++) {
-      list.push({
-        label: raw[i].label,
-        barHeight: raw[i].value
-      });
+      list.push({ label: raw[i].label, barHeight: raw[i].value });
     }
     this.setData({ trendData: list });
   },

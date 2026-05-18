@@ -3,7 +3,7 @@ Page({
     trendData: []
   },
 
-  onLoad: function() {
+  onReady: function() {
     this.buildChartData();
   },
 

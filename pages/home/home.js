@@ -3,6 +3,7 @@ Page({
     accountName: '唯品会OCPC账户集合',
     selectedIndex: 0,
     chartType: 'consume',
+    chartTitle: '消耗趋势',
     overviewMetrics: [
       { name: '有消耗账户数', value: '15', change: '环比 12.5% ↑' },
       { name: '消耗(元)', value: '5,000', change: '环比 15.2% ↑' },
@@ -11,8 +12,7 @@ Page({
       { name: '展示数', value: '4,555', change: '环比 10.0% ↑' },
       { name: '点击数', value: '123', change: '环比 5.2% ↓' }
     ],
-    chartData: [],
-    chartTitle: '消耗趋势'
+    chartData: []
   },
 
   onLoad: function() {
@@ -20,6 +20,9 @@ Page({
     if (app.globalData && app.globalData.selectedAccount) {
       this.setData({ accountName: app.globalData.selectedAccount });
     }
+  },
+
+  onReady: function() {
     this.buildChartData();
   },
 

@@ -63,9 +63,9 @@
         <text class="arrow">▼</text>
       </view>
     </view>
-    <scroll-view scroll-x class="metrics-scroll">
+    <view class="metrics-scroll">
       <view class="metrics-list">
-        <view wx:for="{{overviewMetrics}}" wx:key="name" 
+        <view wx:for="{{overviewMetrics}}" wx:key="name"
           class="metric-card {{selectedIndex === index ? 'active' : ''}}"
           bindtap="selectMetric" data-index="{{index}}">
           <view class="card-label">{{item.name}}</view>
@@ -73,7 +73,7 @@
           <view class="card-change">{{item.change}}</view>
         </view>
       </view>
-    </scroll-view>
+    </view>
   </view>
 
   <view class="chart-card">

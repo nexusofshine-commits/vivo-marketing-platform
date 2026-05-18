@@ -173,23 +173,23 @@
 }
 
 .metrics-scroll {
-  white-space: nowrap;
-  margin: 0 -28rpx;
-  padding: 0 28rpx;
+  margin: 0 -8rpx;
 }
 
 .metrics-list {
-  display: inline-flex;
-  gap: 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
 }
 
 .metric-card {
-  min-width: 200rpx;
+  width: calc(33.33% - 12rpx);
   background: #f5f6fa;
-  border-radius: 16rpx;
-  padding: 24rpx 20rpx;
+  border-radius: 12rpx;
+  padding: 16rpx 12rpx;
   text-align: center;
   border: 2rpx solid transparent;
+  box-sizing: border-box;
 }
 
 .metric-card.active {

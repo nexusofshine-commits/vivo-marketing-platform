@@ -1,10 +1,10 @@
 <view class="container">
   <view class="detail-header">
     <text class="detail-plan-name">唯品会拉新-信息流计划</text>
-    <view class="detail-basic-info">
+    <view class="detail-row">
       <view class="detail-info-item">
         <text class="detail-info-label">投放状态</text>
-        <text class="detail-info-value">投放中</text>
+        <text class="detail-info-value running">投放中</text>
       </view>
       <view class="detail-info-item">
         <text class="detail-info-label">投放日期</text>
@@ -21,30 +21,9 @@
     </view>
   </view>
 
-  <view class="detail-conversion">
-    <text class="section-title">转化数据</text>
-    <view class="conversion-grid">
-      <view class="conversion-card">
-        <text class="conversion-value">3,245</text>
-        <text class="conversion-label">激活数</text>
-      </view>
-      <view class="conversion-card">
-        <text class="conversion-value">9.99</text>
-        <text class="conversion-label">激活成本</text>
-      </view>
-      <view class="conversion-card">
-        <text class="conversion-value">1,826</text>
-        <text class="conversion-label">次留数</text>
-      </view>
-    </view>
-  </view>
-
-  <view class="stats-card">
-    <view class="stats-header">
-      <text class="stats-title">核心指标</text>
-      <text class="stats-date">近7日</text>
-    </view>
-    <view class="stats-grid">
+  <view class="section-card">
+    <text class="section-title">核心指标</text>
+    <view class="stat-row">
       <view class="stat-item">
         <text class="stat-value">¥32,450</text>
         <text class="stat-label">花费</text>
@@ -64,9 +43,27 @@
     </view>
   </view>
 
-  <view class="chart-card">
-    <text class="chart-title">数据趋势</text>
-    <view class="css-chart">
+  <view class="section-card">
+    <text class="section-title">转化数据</text>
+    <view class="stat-row">
+      <view class="stat-item">
+        <text class="stat-value">3,245</text>
+        <text class="stat-label">激活数</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">9.99</text>
+        <text class="stat-label">激活成本</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">1,826</text>
+        <text class="stat-label">次留数</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-card">
+    <text class="section-title">数据趋势</text>
+    <view class="line-chart">
       <view class="chart-y-axis">
         <view class="y-label">52</view>
         <view class="y-label">26</view>
@@ -78,13 +75,11 @@
           <view class="grid-line"></view>
           <view class="grid-line"></view>
         </view>
-        <view class="chart-bars">
-          <view wx:for="{{trendData}}" wx:key="label" class="bar-item">
-            <view class="bar-wrapper">
-              <view class="bar" style="height: {{item.barHeight}}%;"></view>
-              <view class="bar-dot" style="bottom: {{item.barHeight}}%;"></view>
-            </view>
-            <view class="bar-label">{{item.label}}</view>
+        <view class="line-area" style="height: {{trendAreaH}}%;"></view>
+        <view class="line-dots">
+          <view wx:for="{{trendData}}" wx:key="label" class="dot-col">
+            <view class="dot" style="bottom: {{item.dotBottom}}%;"></view>
+            <view class="dot-label">{{item.label}}</view>
           </view>
         </view>
       </view>

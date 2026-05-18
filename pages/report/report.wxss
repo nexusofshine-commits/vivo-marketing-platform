@@ -1,138 +1,124 @@
 .container {
   min-height: 100vh;
   background: #f5f6fa;
-  padding-bottom: 100rpx;
+  padding-bottom: 120rpx;
 }
 
 .navbar {
   background-color: #FFFFFF;
-  height: 80rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom: 1rpx solid #f0f1f5;
 }
 
 .navbar-title {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #191919;
 }
 
-.report-tabs {
-  background-color: #FFFFFF;
+.dim-tabs {
+  background: #fff;
   display: flex;
-  padding: 0 24rpx;
-  border-bottom: 1rpx solid #e8ebf0;
+  padding: 16rpx 24rpx;
+  gap: 16rpx;
+  border-bottom: 1rpx solid #f0f1f5;
 }
 
-.report-tab {
+.dim-tab {
   flex: 1;
   text-align: center;
-  padding: 20rpx 0;
+  padding: 14rpx 0;
   font-size: 26rpx;
-  color: #666666;
-  position: relative;
+  color: #666;
+  border: 1rpx solid #e8ebf0;
+  border-radius: 12rpx;
   font-weight: 500;
 }
 
-.report-tab.active {
-  color: #0066FF;
+.dim-tab.active {
+  background: #0066FF;
+  color: #fff;
+  border-color: #0066FF;
 }
 
-.report-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40rpx;
-  height: 3rpx;
-  background-color: #0066FF;
-  border-radius: 3rpx;
-}
-
-.report-content {
-  padding: 24rpx;
-}
-
-.report-header {
-  background-color: #FFFFFF;
-  padding: 24rpx;
-  margin-bottom: 16rpx;
-  border-radius: 20rpx;
-}
-
-.date-selector {
+.date-bar {
+  background: #fff;
   display: flex;
+  padding: 16rpx 24rpx;
   gap: 12rpx;
-  margin-bottom: 24rpx;
 }
 
 .date-btn {
   flex: 1;
   text-align: center;
-  padding: 16rpx 0;
+  padding: 14rpx 0;
   font-size: 24rpx;
-  color: #666666;
+  color: #666;
   border: 1rpx solid #e8ebf0;
-  border-radius: 12rpx;
+  border-radius: 10rpx;
 }
 
 .date-btn.active {
-  background-color: #0066FF;
-  color: #FFFFFF;
+  background: #0066FF;
+  color: #fff;
   border-color: #0066FF;
 }
 
-.report-summary {
+.stat-row {
+  background: #fff;
+  margin: 16rpx 24rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
   display: flex;
   justify-content: space-between;
 }
 
-.report-stat {
-  display: flex;
-  flex-direction: column;
+.stat-item {
   flex: 1;
   text-align: center;
 }
 
-.report-stat-value {
+.stat-value {
   font-size: 32rpx;
   font-weight: 700;
   color: #191919;
-  margin-bottom: 8rpx;
+  display: block;
+  margin-bottom: 6rpx;
 }
 
-.report-stat-label {
-  font-size: 22rpx;
-  color: #999999;
+.stat-label {
+  font-size: 20rpx;
+  color: #999;
 }
 
-.chart-card {
-  background-color: #FFFFFF;
-  padding: 24rpx;
-  margin-bottom: 16rpx;
+.section-card {
+  background: #fff;
+  margin: 0 24rpx 16rpx;
   border-radius: 20rpx;
+  padding: 24rpx;
 }
 
-.chart-title {
-  font-size: 26rpx;
+.section-title {
+  font-size: 28rpx;
   font-weight: 600;
   color: #191919;
   margin-bottom: 20rpx;
   display: block;
 }
 
-.css-chart {
+.line-chart {
   display: flex;
   height: 280rpx;
-  background: rgba(0,102,255,0.04);
+  background: rgba(0,102,255,0.02);
   border-radius: 16rpx;
   padding: 16rpx;
 }
 
 .chart-y-axis {
-  width: 60rpx;
+  width: 56rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -141,7 +127,7 @@
 
 .y-label {
   font-size: 18rpx;
-  color: #999;
+  color: #bbb;
   text-align: right;
 }
 
@@ -163,10 +149,19 @@
 
 .grid-line {
   height: 1rpx;
-  background: #E8EBF0;
+  background: #f0f1f5;
 }
 
-.chart-bars {
+.line-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 36rpx;
+  background: rgba(0,102,255,0.06);
+  border-radius: 8rpx 8rpx 0 0;
+}
+
+.line-dots {
   position: absolute;
   bottom: 36rpx;
   left: 0;
@@ -176,96 +171,120 @@
   justify-content: space-around;
 }
 
-.bar-item {
+.dot-col {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60rpx;
-}
-
-.bar-wrapper {
   flex: 1;
-  width: 100%;
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 4rpx;
 }
 
-.bar {
-  width: 20rpx;
-  border-radius: 10rpx 10rpx 0 0;
-}
-
-.bar-blue {
+.dot {
+  position: absolute;
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
   background: #0066FF;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 3rpx solid #fff;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.08);
+  z-index: 2;
 }
 
-.bar-green {
-  background: #00C853;
-}
+.dot-blue { background: #0066FF; }
+.dot-green { background: #00C853; }
 
-.bar-label {
+.dot-label {
+  position: absolute;
+  bottom: -36rpx;
   font-size: 16rpx;
   color: #999;
-  margin-top: 8rpx;
+  white-space: nowrap;
 }
 
-.report-list {
-  background-color: #FFFFFF;
-  border-radius: 20rpx;
-  overflow: hidden;
+.chart-legend {
+  display: flex;
+  gap: 32rpx;
+  margin-top: 16rpx;
+  justify-content: center;
 }
 
-.report-list-item {
+.legend-item {
   display: flex;
   align-items: center;
-  padding: 24rpx;
-  border-bottom: 1rpx solid #f0f1f5;
+  gap: 8rpx;
+  font-size: 22rpx;
+  color: #666;
 }
 
-.report-list-item:last-child {
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+}
+
+.legend-dot.blue { background: #0066FF; }
+.legend-dot.green { background: #00C853; }
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f6fa;
+}
+
+.list-item:last-child {
   border-bottom: none;
 }
 
-.report-list-icon {
-  width: 72rpx;
-  height: 72rpx;
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 14rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32rpx;
-  margin-right: 20rpx;
-  border: 1rpx solid #e8ebf0;
-  border-radius: 16rpx;
-  color: #0066FF;
-  background: rgba(0,102,255,0.05);
+  font-size: 28rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
 }
 
-.report-list-info {
+.item-info {
   flex: 1;
+  min-width: 0;
 }
 
-.report-list-name {
+.item-name {
   font-size: 26rpx;
-  font-weight: 500;
+  font-weight: 600;
   color: #191919;
   display: block;
-  margin-bottom: 6rpx;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.report-list-meta {
+.item-meta {
   font-size: 22rpx;
-  color: #999999;
-  display: block;
+  color: #999;
 }
 
-.report-list-data {
+.item-right {
   text-align: right;
+  flex-shrink: 0;
+  margin-left: 16rpx;
 }
 
-.report-list-data-value {
+.item-value {
   font-size: 28rpx;
   font-weight: 700;
   color: #0066FF;
@@ -273,8 +292,7 @@
   margin-bottom: 4rpx;
 }
 
-.report-list-data-label {
+.item-unit {
   font-size: 20rpx;
-  color: #999999;
-  display: block;
+  color: #999;
 }

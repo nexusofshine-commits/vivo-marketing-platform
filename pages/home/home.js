@@ -4,6 +4,8 @@ Page({
     selectedIndex: 0,
     chartType: 'consume',
     chartTitle: '消耗趋势',
+    lineAreaHeight: 0,
+    lineAreaColor: 'rgba(0,102,255,0.08)',
     overviewMetrics: [
       { name: '有消耗账户数', value: '15', change: '环比 12.5% ↑' },
       { name: '消耗(元)', value: '5,000', change: '环比 15.2% ↑' },
@@ -38,15 +40,24 @@ Page({
     ];
     var type = this.data.chartType;
     var list = [];
+    var maxVal = 30;
+    var minDot = 100;
     for (var i = 0; i < raw.length; i++) {
       var val = type === 'consume' ? raw[i].consume : raw[i].convert;
+      var pct = Math.round(val * 100 / maxVal);
       list.push({
         label: raw[i].label,
-        barHeight: Math.round(val * 100 / 30),
-        barColor: type === 'consume' ? '#0066FF' : '#00C853'
+        dotBottom: pct,
+        dotColor: type === 'consume' ? '#0066FF' : '#00C853'
       });
+      if (pct < minDot) minDot = pct;
     }
-    this.setData({ chartData: list });
+    var areaH = Math.round((100 - minDot) * 0.6) + minDot;
+    this.setData({
+      chartData: list,
+      lineAreaHeight: areaH,
+      lineAreaColor: type === 'consume' ? 'rgba(0,102,255,0.08)' : 'rgba(0,200,83,0.08)'
+    });
   },
 
   selectMetric: function(e) {

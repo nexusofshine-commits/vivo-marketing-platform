@@ -3,7 +3,9 @@ Page({
     currentTab: 'overview',
     currentDate: '7days',
     trendData: [],
-    conversionData: []
+    conversionData: [],
+    trendAreaH: 0,
+    convAreaH: 0
   },
 
   onReady: function() {
@@ -22,10 +24,16 @@ Page({
       { label: '05-18', value: 51 }
     ];
     var list = [];
+    var minDot = 100;
     for (var i = 0; i < raw.length; i++) {
-      list.push({ label: raw[i].label, barHeight: raw[i].value });
+      var pct = Math.round(raw[i].value * 100 / 52);
+      list.push({ label: raw[i].label, dotBottom: pct });
+      if (pct < minDot) minDot = pct;
     }
-    this.setData({ trendData: list });
+    this.setData({
+      trendData: list,
+      trendAreaH: Math.round((100 - minDot) * 0.6) + minDot
+    });
   },
 
   buildConversionData: function() {
@@ -39,14 +47,21 @@ Page({
       { label: '05-18', activation: 81, retention: 46 }
     ];
     var list = [];
+    var minDot = 100;
     for (var i = 0; i < raw.length; i++) {
+      var actPct = Math.round(raw[i].activation * 100 / 86);
+      var retPct = Math.round(raw[i].retention * 100 / 86);
       list.push({
         label: raw[i].label,
-        actHeight: raw[i].activation,
-        retHeight: raw[i].retention
+        actBottom: actPct,
+        retBottom: retPct
       });
+      if (retPct < minDot) minDot = retPct;
     }
-    this.setData({ conversionData: list });
+    this.setData({
+      conversionData: list,
+      convAreaH: Math.round((100 - minDot) * 0.6) + minDot
+    });
   },
 
   switchTab: function(e) {

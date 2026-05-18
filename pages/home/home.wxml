@@ -1,15 +1,16 @@
 <view class="container">
   <view class="header">
-    <view class="header-row">
-      <view class="title">{{accountName}}</view>
+    <view class="header-top">
+      <view class="header-left" bindtap="goToProfile">
+        <view class="avatar">👤</view>
+        <text class="profile-link">个人中心</text>
+      </view>
       <view class="switch-btn" bindtap="goToAccountSelect">
         <text class="switch-icon">⇄</text>
+        <text class="switch-text">切换</text>
       </view>
     </view>
-    <view class="profile-row" bindtap="goToProfile">
-      <text class="profile-icon">◯</text>
-      <text class="profile-text">个人中心</text>
-    </view>
+    <view class="account-name">{{accountName}}</view>
   </view>
 
   <view class="metrics-card">
@@ -85,7 +86,7 @@
       </view>
     </view>
 
-    <view class="css-chart">
+    <view class="line-chart">
       <view class="chart-y-axis">
         <view class="y-label">30</view>
         <view class="y-label">15</view>
@@ -97,13 +98,11 @@
           <view class="grid-line"></view>
           <view class="grid-line"></view>
         </view>
-        <view class="chart-bars">
-          <view wx:for="{{chartData}}" wx:key="label" class="bar-item">
-            <view class="bar-wrapper">
-              <view class="bar" style="height: {{item.barHeight}}%; background: {{item.barColor}};"></view>
-              <view class="bar-dot" style="bottom: {{item.barHeight}}%; background: {{item.barColor}};"></view>
-            </view>
-            <view class="bar-label">{{item.label}}</view>
+        <view class="line-area" style="height: {{lineAreaHeight}}%; background: {{lineAreaColor}};"></view>
+        <view class="line-dots">
+          <view wx:for="{{chartData}}" wx:key="label" class="dot-col">
+            <view class="dot" style="bottom: {{item.dotBottom}}%; background: {{item.dotColor}};"></view>
+            <view class="dot-label">{{item.label}}</view>
           </view>
         </view>
       </view>

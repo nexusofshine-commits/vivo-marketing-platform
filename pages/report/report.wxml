@@ -3,123 +3,129 @@
     <text class="navbar-title">数据报表</text>
   </view>
 
-  <view class="report-tabs">
-    <text class="report-tab {{currentTab === 'overview' ? 'active' : ''}}" bindtap="switchTab" data-tab="overview">概览</text>
-    <text class="report-tab {{currentTab === 'plan' ? 'active' : ''}}" bindtap="switchTab" data-tab="plan">计划</text>
-    <text class="report-tab {{currentTab === 'account' ? 'active' : ''}}" bindtap="switchTab" data-tab="account">账户</text>
-    <text class="report-tab {{currentTab === 'creative' ? 'active' : ''}}" bindtap="switchTab" data-tab="creative">创意</text>
+  <view class="dim-tabs">
+    <text class="dim-tab {{currentTab === 'overview' ? 'active' : ''}}" bindtap="switchTab" data-tab="overview">概览</text>
+    <text class="dim-tab {{currentTab === 'plan' ? 'active' : ''}}" bindtap="switchTab" data-tab="plan">计划</text>
+    <text class="dim-tab {{currentTab === 'account' ? 'active' : ''}}" bindtap="switchTab" data-tab="account">账户</text>
+    <text class="dim-tab {{currentTab === 'creative' ? 'active' : ''}}" bindtap="switchTab" data-tab="creative">创意</text>
   </view>
 
-  <view class="report-content">
-    <view class="report-header">
-      <view class="date-selector">
-        <text class="date-btn {{currentDate === 'today' ? 'active' : ''}}" bindtap="switchDate" data-date="today">今日</text>
-        <text class="date-btn {{currentDate === '7days' ? 'active' : ''}}" bindtap="switchDate" data-date="7days">近7日</text>
-        <text class="date-btn {{currentDate === '30days' ? 'active' : ''}}" bindtap="switchDate" data-date="30days">近30日</text>
-        <text class="date-btn {{currentDate === 'custom' ? 'active' : ''}}" bindtap="switchDate" data-date="custom">自定义</text>
-      </view>
-      <view class="report-summary">
-        <view class="report-stat">
-          <text class="report-stat-value">102,450</text>
-          <text class="report-stat-label">总花费(元)</text>
-        </view>
-        <view class="report-stat">
-          <text class="report-stat-value">1,825w</text>
-          <text class="report-stat-label">总曝光</text>
-        </view>
-        <view class="report-stat">
-          <text class="report-stat-value">84.6w</text>
-          <text class="report-stat-label">总点击</text>
-        </view>
-      </view>
-    </view>
+  <view class="date-bar">
+    <text class="date-btn {{currentDate === 'today' ? 'active' : ''}}" bindtap="switchDate" data-date="today">今日</text>
+    <text class="date-btn {{currentDate === '7days' ? 'active' : ''}}" bindtap="switchDate" data-date="7days">近7日</text>
+    <text class="date-btn {{currentDate === '30days' ? 'active' : ''}}" bindtap="switchDate" data-date="30days">近30日</text>
+    <text class="date-btn {{currentDate === 'custom' ? 'active' : ''}}" bindtap="switchDate" data-date="custom">自定义</text>
+  </view>
 
-    <view class="chart-card">
-      <text class="chart-title">消耗趋势</text>
-      <view class="css-chart">
-        <view class="chart-y-axis">
-          <view class="y-label">16k</view>
-          <view class="y-label">13k</view>
-          <view class="y-label">10k</view>
+  <view class="stat-row">
+    <view class="stat-item">
+      <text class="stat-value">102,450</text>
+      <text class="stat-label">总花费(元)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">1,825w</text>
+      <text class="stat-label">总曝光</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">84.6w</text>
+      <text class="stat-label">总点击</text>
+    </view>
+  </view>
+
+  <view class="section-card">
+    <text class="section-title">消耗趋势</text>
+    <view class="line-chart">
+      <view class="chart-y-axis">
+        <view class="y-label">52</view>
+        <view class="y-label">26</view>
+        <view class="y-label">0</view>
+      </view>
+      <view class="chart-body">
+        <view class="chart-grid">
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
         </view>
-        <view class="chart-body">
-          <view class="chart-grid">
-            <view class="grid-line"></view>
-            <view class="grid-line"></view>
-            <view class="grid-line"></view>
-          </view>
-          <view class="chart-bars">
-            <view wx:for="{{trendData}}" wx:key="label" class="bar-item">
-              <view class="bar-wrapper">
-                <view class="bar" style="height: {{item.barHeight}}%;"></view>
-              </view>
-              <view class="bar-label">{{item.label}}</view>
-            </view>
+        <view class="line-area" style="height: {{trendAreaH}}%;"></view>
+        <view class="line-dots">
+          <view wx:for="{{trendData}}" wx:key="label" class="dot-col">
+            <view class="dot" style="bottom: {{item.dotBottom}}%;"></view>
+            <view class="dot-label">{{item.label}}</view>
           </view>
         </view>
       </view>
     </view>
+  </view>
 
-    <view class="chart-card">
-      <text class="chart-title">转化效果</text>
-      <view class="css-chart">
-        <view class="chart-y-axis">
-          <view class="y-label">4k</view>
-          <view class="y-label">2k</view>
-          <view class="y-label">0</view>
+  <view class="section-card">
+    <text class="section-title">转化效果</text>
+    <view class="line-chart">
+      <view class="chart-y-axis">
+        <view class="y-label">86</view>
+        <view class="y-label">43</view>
+        <view class="y-label">0</view>
+      </view>
+      <view class="chart-body">
+        <view class="chart-grid">
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
+          <view class="grid-line"></view>
         </view>
-        <view class="chart-body">
-          <view class="chart-grid">
-            <view class="grid-line"></view>
-            <view class="grid-line"></view>
-            <view class="grid-line"></view>
-          </view>
-          <view class="chart-bars">
-            <view wx:for="{{conversionData}}" wx:key="label" class="bar-item">
-              <view class="bar-wrapper">
-                <view class="bar bar-blue" style="height: {{item.actHeight}}%;"></view>
-                <view class="bar bar-green" style="height: {{item.retHeight}}%;"></view>
-              </view>
-              <view class="bar-label">{{item.label}}</view>
-            </view>
+        <view class="line-area" style="height: {{convAreaH}}%; background: rgba(0,200,83,0.06);"></view>
+        <view class="line-dots">
+          <view wx:for="{{conversionData}}" wx:key="label" class="dot-col">
+            <view class="dot dot-blue" style="bottom: {{item.actBottom}}%;"></view>
+            <view class="dot dot-green" style="bottom: {{item.retBottom}}%;"></view>
+            <view class="dot-label">{{item.label}}</view>
           </view>
         </view>
       </view>
     </view>
+    <view class="chart-legend">
+      <view class="legend-item"><view class="legend-dot blue"></view><text>激活</text></view>
+      <view class="legend-item"><view class="legend-dot green"></view><text>留存</text></view>
+    </view>
+  </view>
 
-    <view class="report-list">
-      <view class="report-list-item" bindtap="goToDetail">
-        <view class="report-list-icon">📋</view>
-        <view class="report-list-info">
-          <text class="report-list-name">唯品会拉新-信息流计划</text>
-          <text class="report-list-meta">OCPC · 投放中</text>
-        </view>
-        <view class="report-list-data">
-          <text class="report-list-data-value">32,450</text>
-          <text class="report-list-data-label">花费(元)</text>
+  <view class="section-card">
+    <text class="section-title">计划列表</text>
+    <view class="list-item" bindtap="goToDetail">
+      <view class="item-left">
+        <view class="item-icon" style="background:#E8F0FF;color:#0F62FE;">📋</view>
+        <view class="item-info">
+          <text class="item-name">唯品会拉新-信息流计划</text>
+          <text class="item-meta">OCPC · 投放中</text>
         </view>
       </view>
-      <view class="report-list-item" bindtap="goToDetail">
-        <view class="report-list-icon">📋</view>
-        <view class="report-list-info">
-          <text class="report-list-name">唯品会拉新-开屏计划</text>
-          <text class="report-list-meta">OCPC · 投放中</text>
-        </view>
-        <view class="report-list-data">
-          <text class="report-list-data-value">28,120</text>
-          <text class="report-list-data-label">花费(元)</text>
+      <view class="item-right">
+        <text class="item-value">32,450</text>
+        <text class="item-unit">花费(元)</text>
+      </view>
+    </view>
+    <view class="list-item" bindtap="goToDetail">
+      <view class="item-left">
+        <view class="item-icon" style="background:#E8F0FF;color:#0F62FE;">📋</view>
+        <view class="item-info">
+          <text class="item-name">唯品会拉新-开屏计划</text>
+          <text class="item-meta">OCPC · 投放中</text>
         </view>
       </view>
-      <view class="report-list-item" bindtap="goToDetail">
-        <view class="report-list-icon">📋</view>
-        <view class="report-list-info">
-          <text class="report-list-name">唯品会拉活-信息流计划</text>
-          <text class="report-list-meta">OCPC · 已暂停</text>
+      <view class="item-right">
+        <text class="item-value">28,120</text>
+        <text class="item-unit">花费(元)</text>
+      </view>
+    </view>
+    <view class="list-item" bindtap="goToDetail">
+      <view class="item-left">
+        <view class="item-icon" style="background:#FFF3E0;color:#FF832B;">📋</view>
+        <view class="item-info">
+          <text class="item-name">唯品会拉活-信息流计划</text>
+          <text class="item-meta">OCPC · 已暂停</text>
         </view>
-        <view class="report-list-data">
-          <text class="report-list-data-value">18,680</text>
-          <text class="report-list-data-label">花费(元)</text>
-        </view>
+      </view>
+      <view class="item-right">
+        <text class="item-value">18,680</text>
+        <text class="item-unit">花费(元)</text>
       </view>
     </view>
   </view>

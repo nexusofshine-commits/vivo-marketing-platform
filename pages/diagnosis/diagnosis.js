@@ -1,96 +1,161 @@
 Page({
   data: {
-    warnings: [
-      { id: 1, title: 'CTR下降预警', time: '2024-05-14 14:30', expanded: false },
-      { id: 2, title: '计划消耗异常', time: '2024-05-14 12:15', expanded: false }
-    ],
-    notices: [
-      { id: 1, title: '新功能上线：智能出价', time: '2024-05-14 09:00', expanded: false },
-      { id: 2, title: '系统维护通知', time: '2024-05-13 18:00', expanded: false }
-    ],
-    problems: [
-      { id: 1, title: '账户资质即将过期', time: '2024-05-12 16:45', expanded: false }
-    ],
-    detailCache: {}
+    currentDim: 'consume',
+    currentCards: []
   },
 
-  toggleDetail: function(e) {
-    var type = e.currentTarget.dataset.type;
-    var index = e.currentTarget.dataset.index;
-    var key = type === 'warning' ? 'warnings' : type === 'notice' ? 'notices' : 'problems';
-    var list = this.data[key];
-    var item = list[index];
-    var cacheKey = type + '_' + item.id;
-
-    if (!item.expanded) {
-      if (this.data.detailCache[cacheKey]) {
-        item.expanded = true;
-        item.dataDetail = this.data.detailCache[cacheKey].dataDetail;
-        item.suggestion = this.data.detailCache[cacheKey].suggestion;
-        item.content = this.data.detailCache[cacheKey].content;
-      } else {
-        var detailData = this.getDetailData(type, item.id);
-        item.expanded = true;
-        item.dataDetail = detailData.dataDetail;
-        item.suggestion = detailData.suggestion;
-        item.content = detailData.content;
-        this.data.detailCache[cacheKey] = detailData;
+  allCards: {
+    consume: [
+      {
+        id: 'c1', title: '消耗突增预警', level: 'warn', levelText: '预警',
+        time: '2024-05-14 14:30', expanded: false,
+        detail: '近2小时消耗从¥500/h飙升至¥2,100/h，增幅320%，主要集中在信息流计划',
+        suggestion: '建议检查是否出价异常或流量波动，可适当降低出价控制消耗速度',
+        actions: [
+          { name: '调整预算', key: 'adjustBudget', type: 'primary' },
+          { name: '调整出价', key: 'adjustBid', type: 'primary' },
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      },
+      {
+        id: 'c2', title: '预算不足预警', level: 'warn', levelText: '预警',
+        time: '2024-05-14 12:15', expanded: false,
+        detail: '计划「拉新A」今日消耗已达日预算95%，预计14:00前将停止投放',
+        suggestion: '建议增加预算以延长投放时长，或调整投放时段优先覆盖高峰',
+        actions: [
+          { name: '调整预算', key: 'adjustBudget', type: 'primary' },
+          { name: '调整时段', key: 'adjustTime', type: 'primary' },
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      },
+      {
+        id: 'c3', title: '消耗低于预期', level: 'info', levelText: '提示',
+        time: '2024-05-14 09:00', expanded: false,
+        detail: '计划「拉活A」今日消耗仅为日预算的30%，曝光量较昨日下降45%',
+        suggestion: '建议检查定向是否过窄或出价过低，可适当扩大定向范围',
+        actions: [
+          { name: '调整出价', key: 'adjustBid', type: 'primary' },
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
       }
-    } else {
-      item.expanded = false;
-    }
-
-    var data = {};
-    data[key] = list;
-    this.setData(data);
+    ],
+    convert: [
+      {
+        id: 'v1', title: '转化成本飙升', level: 'error', levelText: '异常',
+        time: '2024-05-14 15:20', expanded: false,
+        detail: '激活成本从¥8.5上涨至¥15.2，涨幅78.8%，ROI下降至1.2',
+        suggestion: '建议暂停高成本创意，降低出价或调整定向人群',
+        actions: [
+          { name: '调整出价', key: 'adjustBid', type: 'primary' },
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      },
+      {
+        id: 'v2', title: 'CTR下降预警', level: 'warn', levelText: '预警',
+        time: '2024-05-14 14:30', expanded: false,
+        detail: '近2小时CTR从1.2%下降至0.8%，下降幅度33.3%，主要集中在移动端',
+        suggestion: '建议检查素材是否过时，更新创意素材或提高出价获取优质流量',
+        actions: [
+          { name: '调整出价', key: 'adjustBid', type: 'primary' },
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      },
+      {
+        id: 'v3', title: '次留率波动', level: 'info', levelText: '提示',
+        time: '2024-05-14 10:00', expanded: false,
+        detail: '近3日次留率从42%波动至38%，低于行业均值40%',
+        suggestion: '建议优化落地页体验和用户引导流程，提升用户留存',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      }
+    ],
+    creative: [
+      {
+        id: 'cr1', title: '素材疲劳预警', level: 'warn', levelText: '预警',
+        time: '2024-05-14 13:00', expanded: false,
+        detail: '3组创意素材已连续投放超过7天，CTR较首日下降52%',
+        suggestion: '建议更换新素材，保持创意新鲜度以维持点击率',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      },
+      {
+        id: 'cr2', title: '低质创意识别', level: 'warn', levelText: '预警',
+        time: '2024-05-14 11:30', expanded: false,
+        detail: '2组创意CTR低于0.3%，消耗占比却达18%，拉低整体ROI',
+        suggestion: '建议暂停低效创意，将预算转移至高转化素材',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      }
+    ],
+    account: [
+      {
+        id: 'a1', title: '账户资质即将过期', level: 'error', levelText: '异常',
+        time: '2024-05-12 16:45', expanded: false,
+        detail: '营业执照将于3天后过期，过期后所有计划将自动暂停',
+        suggestion: '请尽快在账户中心提交最新营业执照照片',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'primary' }
+        ]
+      },
+      {
+        id: 'a2', title: '余额不足预警', level: 'warn', levelText: '预警',
+        time: '2024-05-14 08:00', expanded: false,
+        detail: '当前余额¥2,350，按近期消耗速度预计2天后将耗尽',
+        suggestion: '建议及时充值，避免计划因余额不足而暂停',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'primary' }
+        ]
+      },
+      {
+        id: 'a3', title: '系统维护通知', level: 'info', levelText: '提示',
+        time: '2024-05-13 18:00', expanded: false,
+        detail: '系统将于5月15日02:00-04:00进行例行维护，期间数据可能延迟更新',
+        suggestion: '维护期间请关注数据恢复情况，无需操作',
+        actions: [
+          { name: '前往网页端', key: 'goWeb', type: 'outline' }
+        ]
+      }
+    ]
   },
 
-  getDetailData: function(type, id) {
-    if (type === 'warning') {
-      if (id === 1) {
-        return {
-          dataDetail: '近2小时CTR从1.2%下降至0.8%，下降幅度33.3%',
-          suggestion: '建议检查素材是否过时，尝试更新创意素材'
-        };
+  onLoad: function() {
+    this.switchDim({ currentTarget: { dataset: { dim: 'consume' } } });
+  },
+
+  switchDim: function(e) {
+    var dim = e.currentTarget.dataset.dim;
+    this.setData({
+      currentDim: dim,
+      currentCards: this.allCards[dim] || []
+    });
+  },
+
+  toggleCard: function(e) {
+    var id = e.currentTarget.dataset.id;
+    var list = this.data.currentCards;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) {
+        list[i].expanded = !list[i].expanded;
+        break;
       }
-      return {
-        dataDetail: '计划今日消耗已达日预算95%，转化成本比目标高20%',
-        suggestion: '可适当降低出价或调整定向，密切关注转化情况'
-      };
     }
-    if (type === 'notice') {
-      if (id === 1) {
-        return {
-          content: '系统推出智能出价功能，基于机器学习自动调整出价'
-        };
-      }
-      return {
-        content: '系统将于5月15日02:00-04:00进行例行维护'
-      };
-    }
-    return {
-      dataDetail: '您的账户营业执照将于3天后过期',
-      suggestion: '请在账户中心-资质管理中提交最新营业执照照片'
-    };
+    this.setData({ currentCards: list });
   },
 
   handleAction: function(e) {
-    var action = e.currentTarget.dataset.action;
+    var key = e.currentTarget.dataset.action;
+    if (key === 'goWeb') {
+      wx.showToast({ title: '请前往网页端操作', icon: 'none' });
+      return;
+    }
     var msgs = {
-      'adjustBudget': '正在打开预算调整页面...',
-      'adjustBid': '正在打开出价调整页面...',
-      'viewDetails': '正在查看详细数据...',
-      'tryNow': '正在跳转至新功能...',
-      'learnMore': '正在打开帮助文档...',
-      'pauseAll': '正在暂停所有计划...',
-      'enableAll': '正在启用所有计划...',
-      'contactSupport': '正在连接客服...'
+      'adjustBudget': '正在打开预算调整...',
+      'adjustBid': '正在打开出价调整...',
+      'adjustTime': '正在打开时段调整...'
     };
-
-    wx.showToast({
-      title: msgs[action] || '正在处理...',
-      icon: 'loading',
-      duration: 1500
-    });
+    wx.showToast({ title: msgs[key] || '正在处理...', icon: 'loading', duration: 1500 });
   }
 });

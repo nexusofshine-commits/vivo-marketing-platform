@@ -1,92 +1,36 @@
 <view class="container">
-  <view class="page-title">智能诊断</view>
-
-  <!-- 预警信息 -->
-  <view class="diagnosis-section">
-    <view class="section-title">预警信息</view>
-    <view class="diagnosis-list">
-      <view class="diagnosis-item" wx:for="{{warnings}}" wx:key="id">
-        <view class="diagnosis-header" bindtap="toggleDetail" data-type="warning" data-index="{{index}}">
-          <view class="diagnosis-icon warning">⚠️</view>
-          <view class="diagnosis-info">
-            <view class="diagnosis-title">{{item.title}}</view>
-            <view class="diagnosis-time">{{item.time}}</view>
-          </view>
-          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
-        </view>
-        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
-          <view class="detail-section">
-            <view class="detail-title">数据详情</view>
-            <view class="detail-content">{{item.dataDetail}}</view>
-          </view>
-          <view class="detail-section">
-            <view class="detail-title">优化建议</view>
-            <view class="detail-content">{{item.suggestion}}</view>
-          </view>
-          <view class="quick-actions">
-            <button class="action-btn primary" bindtap="handleAction" data-action="adjustBudget">调整预算</button>
-            <button class="action-btn secondary" bindtap="handleAction" data-action="adjustBid">调整出价</button>
-            <button class="action-btn outline" bindtap="handleAction" data-action="viewDetails">查看详情</button>
-          </view>
-        </view>
-      </view>
-    </view>
+  <view class="navbar">
+    <text class="navbar-title">智能诊断</text>
   </view>
 
-  <!-- 系统通知 -->
-  <view class="diagnosis-section">
-    <view class="section-title">系统通知</view>
-    <view class="diagnosis-list">
-      <view class="diagnosis-item" wx:for="{{notices}}" wx:key="id">
-        <view class="diagnosis-header" bindtap="toggleDetail" data-type="notice" data-index="{{index}}">
-          <view class="diagnosis-icon info">ℹ️</view>
-          <view class="diagnosis-info">
-            <view class="diagnosis-title">{{item.title}}</view>
-            <view class="diagnosis-time">{{item.time}}</view>
-          </view>
-          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
-        </view>
-        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
-          <view class="detail-section">
-            <view class="detail-title">功能说明</view>
-            <view class="detail-content">{{item.content}}</view>
-          </view>
-          <view class="quick-actions">
-            <button class="action-btn primary" bindtap="handleAction" data-action="tryNow">立即体验</button>
-            <button class="action-btn outline" bindtap="handleAction" data-action="learnMore">了解更多</button>
-          </view>
-        </view>
-      </view>
-    </view>
+  <view class="dim-tabs">
+    <text class="dim-tab {{currentDim === 'consume' ? 'active' : ''}}" bindtap="switchDim" data-dim="consume">消耗</text>
+    <text class="dim-tab {{currentDim === 'convert' ? 'active' : ''}}" bindtap="switchDim" data-dim="convert">转化</text>
+    <text class="dim-tab {{currentDim === 'creative' ? 'active' : ''}}" bindtap="switchDim" data-dim="creative">创意</text>
+    <text class="dim-tab {{currentDim === 'account' ? 'active' : ''}}" bindtap="switchDim" data-dim="account">账户</text>
   </view>
 
-  <!-- 账户问题 -->
-  <view class="diagnosis-section">
-    <view class="section-title">账户问题</view>
-    <view class="diagnosis-list">
-      <view class="diagnosis-item" wx:for="{{problems}}" wx:key="id">
-        <view class="diagnosis-header" bindtap="toggleDetail" data-type="problem" data-index="{{index}}">
-          <view class="diagnosis-icon error">❌</view>
-          <view class="diagnosis-info">
-            <view class="diagnosis-title">{{item.title}}</view>
-            <view class="diagnosis-time">{{item.time}}</view>
-          </view>
-          <view class="diagnosis-arrow {{item.expanded ? 'open' : ''}}">▼</view>
+  <view class="card-list">
+    <view wx:for="{{currentCards}}" wx:key="id" class="diag-card">
+      <view class="card-header" bindtap="toggleCard" data-id="{{item.id}}">
+        <view class="card-level {{item.level}}">{{item.levelText}}</view>
+        <view class="card-title-area">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-time">{{item.time}}</text>
         </view>
-        <view class="diagnosis-detail {{item.expanded ? 'open' : ''}}">
-          <view class="detail-section">
-            <view class="detail-title">问题详情</view>
-            <view class="detail-content">{{item.dataDetail}}</view>
-          </view>
-          <view class="detail-section">
-            <view class="detail-title">解决方案</view>
-            <view class="detail-content">{{item.suggestion}}</view>
-          </view>
-          <view class="quick-actions">
-            <button class="action-btn danger" bindtap="handleAction" data-action="pauseAll">一键暂停</button>
-            <button class="action-btn success" bindtap="handleAction" data-action="enableAll">一键启用</button>
-            <button class="action-btn secondary" bindtap="handleAction" data-action="contactSupport">联系客服</button>
-          </view>
+        <view class="card-arrow {{item.expanded ? 'open' : ''}}">▼</view>
+      </view>
+      <view class="card-body {{item.expanded ? 'open' : ''}}">
+        <view class="body-section">
+          <text class="body-label">数据详情</text>
+          <text class="body-text">{{item.detail}}</text>
+        </view>
+        <view class="body-section">
+          <text class="body-label">优化建议</text>
+          <text class="body-text">{{item.suggestion}}</text>
+        </view>
+        <view class="card-actions">
+          <view wx:for="{{item.actions}}" wx:for-item="act" wx:key="name" class="action-tag {{act.type}}" bindtap="handleAction" data-action="{{act.key}}">{{act.name}}</view>
         </view>
       </view>
     </view>

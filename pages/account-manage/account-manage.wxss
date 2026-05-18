@@ -6,271 +6,135 @@
 
 .navbar {
   background-color: #FFFFFF;
-  height: 80rpx;
+  height: 88rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  border-bottom: 1rpx solid #f0f1f5;
 }
 
 .navbar-title {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 600;
   color: #191919;
 }
 
-.plan-tabs {
-  background-color: #FFFFFF;
+.account-overview {
+  background: #fff;
+  margin: 16rpx 24rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
   display: flex;
-  padding: 16rpx 24rpx;
-  gap: 16rpx;
-  border-bottom: 1rpx solid #e8ebf0;
+  justify-content: space-between;
 }
 
-.plan-tab {
-  padding: 12rpx 24rpx;
-  font-size: 24rpx;
-  color: #666666;
-  border: 1rpx solid #e8ebf0;
-  border-radius: 12rpx;
+.overview-item {
+  flex: 1;
+  text-align: center;
+}
+
+.overview-value {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #191919;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.overview-label {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.account-group {
+  margin: 0 24rpx 8rpx;
+}
+
+.group-label {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+  padding: 20rpx 8rpx 12rpx;
   font-weight: 500;
 }
 
-.plan-tab.active {
-  background-color: #0066FF;
-  color: #FFFFFF;
-  border-color: #0066FF;
-}
-
-.plan-list {
-  padding: 16rpx 24rpx;
-}
-
-.plan-card {
-  background-color: #FFFFFF;
+.account-card {
+  background: #fff;
+  margin-bottom: 12rpx;
+  border-radius: 16rpx;
   padding: 24rpx;
-  margin-bottom: 16rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
-}
-
-.plan-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20rpx;
+  border: 1rpx solid #f0f1f5;
 }
 
-.plan-info {
+.card-left {
+  display: flex;
+  align-items: center;
   flex: 1;
+  min-width: 0;
 }
 
-.plan-name {
+.card-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-name {
   font-size: 28rpx;
   font-weight: 600;
   color: #191919;
   display: block;
-  margin-bottom: 8rpx;
+  margin-bottom: 6rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.plan-meta {
+.card-meta {
   font-size: 22rpx;
-  color: #999999;
-  display: block;
+  color: #999;
 }
 
-.plan-status {
-  font-size: 22rpx;
+.card-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.card-status {
+  font-size: 20rpx;
   font-weight: 500;
-  padding: 8rpx 16rpx;
-  border: 1rpx solid;
-  border-radius: 10rpx;
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
 }
 
-.status-running {
-  border-color: #00C853;
+.card-status.running {
   color: #00C853;
   background: rgba(0,200,83,0.08);
 }
 
-.status-paused {
-  border-color: #FF9500;
+.card-status.paused {
   color: #FF9500;
   background: rgba(255,149,0,0.08);
 }
 
-.status-stopped {
-  border-color: #999999;
-  color: #999999;
-  background: rgba(153,153,153,0.08);
-}
-
-.plan-stats {
-  display: flex;
-  justify-content: space-between;
-  padding: 16rpx 0;
-  border-top: 1rpx solid #f0f1f5;
-  border-bottom: 1rpx solid #f0f1f5;
-  margin-bottom: 20rpx;
-}
-
-.plan-stat {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  flex: 1;
-}
-
-.plan-stat-value {
+.card-arrow {
+  color: #ccc;
   font-size: 28rpx;
-  font-weight: 700;
-  color: #191919;
-  margin-bottom: 4rpx;
-}
-
-.plan-stat-label {
-  font-size: 20rpx;
-  color: #999999;
-}
-
-.plan-actions {
-  display: flex;
-  gap: 16rpx;
-}
-
-.plan-btn {
-  flex: 1;
-  text-align: center;
-  padding: 16rpx;
-  font-size: 24rpx;
-  border: 1rpx solid #e8ebf0;
-  border-radius: 12rpx;
-  color: #333333;
-  font-weight: 500;
-  background: #fafbfc;
-}
-
-.plan-btn.btn-primary {
-  background-color: #0066FF;
-  color: #FFFFFF;
-  border-color: #0066FF;
-}
-
-.stats-card {
-  background-color: #FFFFFF;
-  padding: 24rpx;
-  margin: 0 24rpx 16rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
-}
-
-.stats-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.stats-title {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #191919;
-}
-
-.stats-grid {
-  display: flex;
-  justify-content: space-between;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  flex: 1;
-}
-
-.stat-value {
-  font-size: 30rpx;
-  font-weight: 700;
-  color: #191919;
-  margin-bottom: 6rpx;
-}
-
-.stat-label {
-  font-size: 20rpx;
-  color: #999999;
-}
-
-.diagnosis-card {
-  background-color: #FFFFFF;
-  padding: 24rpx;
-  margin: 0 24rpx 16rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.04);
-}
-
-.diagnosis-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.diagnosis-title {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #191919;
-}
-
-.diagnosis-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
-}
-
-.diagnosis-item {
-  display: flex;
-  align-items: flex-start;
-  padding: 20rpx;
-  background-color: #fafbfc;
-  border-radius: 16rpx;
-  border: 1rpx solid #f0f1f5;
-}
-
-.diagnosis-icon {
-  width: 64rpx;
-  height: 64rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32rpx;
-  margin-right: 20rpx;
-  border-radius: 12rpx;
-}
-
-.diagnosis-content {
-  flex: 1;
-}
-
-.diagnosis-name {
-  font-size: 24rpx;
-  font-weight: 600;
-  color: #191919;
-  display: block;
-  margin-bottom: 6rpx;
-}
-
-.diagnosis-desc {
-  font-size: 22rpx;
-  color: #666666;
-  display: block;
-  line-height: 1.4;
-}
-
-.diagnosis-arrow {
-  color: #999999;
-  font-size: 24rpx;
-  margin-left: 12rpx;
 }

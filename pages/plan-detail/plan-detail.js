@@ -1,6 +1,7 @@
 Page({
   data: {
-    trendData: []
+    trendData: [],
+    trendAreaH: 0
   },
 
   onReady: function() {
@@ -18,12 +19,18 @@ Page({
       { label: '05-18', value: 51 }
     ];
     var list = [];
+    var minDot = 100;
     for (var i = 0; i < raw.length; i++) {
+      var pct = Math.round(raw[i].value * 100 / 52);
       list.push({
         label: raw[i].label,
-        barHeight: Math.round(raw[i].value * 100 / 52)
+        dotBottom: pct
       });
+      if (pct < minDot) minDot = pct;
     }
-    this.setData({ trendData: list });
+    this.setData({
+      trendData: list,
+      trendAreaH: Math.round((100 - minDot) * 0.6) + minDot
+    });
   }
 })

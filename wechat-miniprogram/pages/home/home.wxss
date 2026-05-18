@@ -31,6 +31,16 @@
   justify-content: center;
 }
 
+.switch-icon {
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.profile-icon {
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.75);
+}
+
 .profile-row {
   display: flex;
   align-items: center;

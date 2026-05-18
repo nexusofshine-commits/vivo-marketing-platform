@@ -3,11 +3,11 @@
     <view class="header-row">
       <view class="title">{{accountName}}</view>
       <view class="switch-btn" bindtap="goToAccountSelect">
-        <icon type="swap" size="18" color="#fff"/>
+        <text class="switch-icon">⇄</text>
       </view>
     </view>
     <view class="profile-row" bindtap="goToProfile">
-      <icon type="person" size="14" color="rgba(255,255,255,0.75)"/>
+      <text class="profile-icon">◯</text>
       <text class="profile-text">个人中心</text>
     </view>
   </view>

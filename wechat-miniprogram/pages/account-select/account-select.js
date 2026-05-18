@@ -1,17 +1,17 @@
-const app = getApp();
+var app = getApp();
 
 Page({
   data: {
     
   },
   
-  selectAccount(e) {
-    const accountName = e.currentTarget.dataset.name;
-    const account = app.globalData;
+  selectAccount: function(e) {
+    var accountName = e.currentTarget.dataset.name;
+    var account = app.globalData;
     
-    if (accountName.includes('拉新') || accountName.includes('拉活')) {
+    if (accountName.indexOf('拉新') !== -1 || accountName.indexOf('拉活') !== -1) {
       account.accountType = '投放账号';
-    } else if (accountName.includes('主体')) {
+    } else if (accountName.indexOf('主体') !== -1) {
       account.accountType = '经营主体';
     } else {
       account.accountType = '多账户管理';
@@ -25,7 +25,8 @@ Page({
       duration: 2000
     });
     
-    setTimeout(() => {
+    var that = this;
+    setTimeout(function() {
       wx.switchTab({
         url: '/pages/home/home'
       });

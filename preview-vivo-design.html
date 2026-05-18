@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>vivo营销平台 - 设计稿预览</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f0f1f5;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* VIVO 品牌色 */
+        :root {
+            --vivo-blue: #0066FF;
+            --vivo-blue-dark: #0052CC;
+            --vivo-blue-light: #4D94FF;
+            --vivo-text-primary: #191919;
+            --vivo-text-secondary: #666666;
+            --vivo-text-tertiary: #999999;
+            --vivo-bg-primary: #ffffff;
+            --vivo-bg-secondary: #f5f6fa;
+            --vivo-border: #e8ebf0;
+            --vivo-warning: #FF9500;
+            --vivo-success: #00C853;
+            --vivo-error: #FF3B30;
+        }
+
+        /* 手机模拟器容器 */
+        .design-preview {
+            max-width: 390px;
+            margin: 20px auto;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+        }
+
+        .phone-frame {
+            background: #fff;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 顶部状态栏 */
+        .status-bar {
+            background: linear-gradient(135deg, var(--vivo-blue) 0%, var(--vivo-blue-dark) 100%);
+            padding: 16px 24px 10px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+        }
+
+        /* 主内容区 */
+        .app-container {
+            background: var(--vivo-bg-secondary);
+            min-height: 780px;
+        }
+
+        /* 账户信息栏 */
+        .account-header {
+            background: linear-gradient(135deg, var(--vivo-blue) 0%, var(--vivo-blue-dark) 100%);
+            padding: 60px 20px 20px;
+            position: relative;
+        }
+
+        .account-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .account-name {
+            flex: 1;
+        }
+
+        .account-name .title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .account-name .sub {
+            color: rgba(255,255,255,0.75);
+            font-size: 13px;
+        }
+
+        .settings-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 账户指标卡片 */
+        .metrics-card {
+            background: var(--vivo-bg-primary);
+            margin: -15px 16px 12px;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            position: relative;
+            z-index: 10;
+        }
+
+        .metrics-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--vivo-border);
+        }
+
+        .metric-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .metric-item .label {
+            color: var(--vivo-text-secondary);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .metric-item .value {
+            color: var(--vivo-text-primary);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .metrics-bottom {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .metric-bottom-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .metric-bottom-item .label {
+            color: var(--vivo-text-secondary);
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .metric-bottom-item .value {
+            color: var(--vivo-blue);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .trend-up { color: var(--vivo-success); font-size: 12px; }
+        .trend-down { color: var(--vivo-error); font-size: 12px; }
+
+        /* AI日报 Banner */
+        .ai-banner {
+            background: linear-gradient(135deg, #FFF7E6 0%, #FFEDCC 100%);
+            margin: 0 16px 12px;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(255,149,0,0.15);
+        }
+
+        .banner-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .banner-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #B66D00;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .banner-action {
+            color: #FF9500;
+            font-size: 13px;
+        }
+
+        .banner-content {
+            color: #865A00;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .banner-time {
+            color: #C48600;
+            font-size: 12px;
+        }
+
+        /* 数据概览 */
+        .section-card {
+            background: var(--vivo-bg-primary);
+            margin: 0 16px 12px;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            color: var(--vivo-text-primary);
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--vivo-blue);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .metrics-scroll {
+            overflow-x: auto;
+            margin: 0 -20px;
+            padding: 0 20px;
+        }
+
+        .metrics-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .metrics-list {
+            display: flex;
+            gap: 12px;
+        }
+
+        .metric-card {
+            min-width: 130px;
+            background: var(--vivo-bg-secondary);
+            border-radius: 14px;
+            padding: 16px 14px;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+        }
+
+        .metric-card.active {
+            background: linear-gradient(135deg, var(--vivo-blue) 0%, var(--vivo-blue-dark) 100%);
+            border-color: var(--vivo-blue);
+        }
+
+        .metric-card .card-label {
+            color: var(--vivo-text-secondary);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .metric-card.active .card-label {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .metric-card .card-value {
+            color: var(--vivo-text-primary);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .metric-card.active .card-value {
+            color: white;
+        }
+
+        .metric-card .card-change {
+            color: var(--vivo-success);
+            font-size: 11px;
+        }
+
+        .metric-card.active .card-change {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 趋势图表 */
+        .chart-section {
+            background: var(--vivo-bg-primary);
+            margin: 0 16px 80px;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .chart-title {
+            color: var(--vivo-text-primary);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 16px;
+        }
+
+        .chart-tab {
+            color: var(--vivo-text-secondary);
+            font-size: 13px;
+        }
+
+        .chart-tab.active {
+            color: var(--vivo-blue);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .chart-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--vivo-blue);
+            border-radius: 2px;
+        }
+
+        .chart-area {
+            height: 200px;
+            background: linear-gradient(180deg, rgba(0,102,255,0.08) 0%, rgba(0,102,255,0.01) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+            gap: 10px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: linear-gradient(180deg, var(--vivo-blue) 0%, var(--vivo-blue-light) 100%);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        .chart-bar:nth-child(1) { height: 30%; }
+        .chart-bar:nth-child(2) { height: 50%; }
+        .chart-bar:nth-child(3) { height: 40%; }
+        .chart-bar:nth-child(4) { height: 70%; }
+        .chart-bar:nth-child(5) { height: 85%; }
+        .chart-bar:nth-child(6) { height: 75%; }
+        .chart-bar:nth-child(7) { height: 95%; }
+
+        /* 底部Tab栏 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 366px;
+            background: var(--vivo-bg-primary);
+            border-top: 1px solid var(--vivo-border);
+            display: flex;
+            padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
+            z-index: 100;
+        }
+
+        .tab-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-item.active .tab-icon {
+            color: var(--vivo-blue);
+        }
+
+        .tab-icon {
+            color: var(--vivo-text-tertiary);
+            font-size: 24px;
+        }
+
+        .tab-label {
+            font-size: 11px;
+            color: var(--vivo-text-tertiary);
+        }
+
+        .tab-item.active .tab-label {
+            color: var(--vivo-blue);
+            font-weight: 600;
+        }
+
+        /* 线性图标SVG */
+        .line-icon {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* 页面标题 */
+        .page-label {
+            text-align: center;
+            padding: 30px;
+            background: var(--vivo-bg-primary);
+            margin: 0 16px 20px;
+            border-radius: 16px;
+        }
+
+        .page-label h2 {
+            color: var(--vivo-blue);
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        .page-label p {
+            color: var(--vivo-text-secondary);
+            font-size: 14px;
+        }
+
+        /* 设计说明 */
+        .design-notes {
+            max-width: 420px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .notes-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .notes-title {
+            color: var(--vivo-text-primary);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .note-item {
+            display: flex;
+            gap: 12px;
+            color: var(--vivo-text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .note-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--vivo-blue);
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .color-item {
+            text-align: center;
+        }
+
+        .color-swatch {
+            width: 100%;
+            height: 48px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .color-name {
+            font-size: 11px;
+            color: var(--vivo-text-secondary);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 设计说明 -->
+    <div class="design-notes">
+        <div class="notes-card">
+            <div class="notes-title">
+                <div style="width: 24px; height: 24px; background: var(--vivo-blue); border-radius: 6px;"></div>
+                vivo 营销平台 - 设计规范
+            </div>
+            <div class="notes-list">
+                <div class="note-item">
+                    <div class="note-dot"></div>
+                    <div><strong>品牌色彩</strong>：vivo标准蓝 (#0066FF) 为主色，配以渐变蓝，体现科技感与专业感</div>
+                </div>
+                <div class="note-item">
+                    <div class="note-dot"></div>
+                    <div><strong>线性图标</strong>：2px描边，圆形端点，保持vivo简约现代的视觉风格</div>
+                </div>
+                <div class="note-item">
+                    <div class="note-dot"></div>
+                    <div><strong>卡片层级</strong>：16px圆角，12px间距，4px阴影，营造清晰的视觉层次</div>
+                </div>
+                <div class="note-item">
+                    <div class="note-dot"></div>
+                    <div><strong>字体层级</strong>：标题17px/600，内容13-14px，辅助信息11-12px</div>
+                </div>
+            </div>
+            <div class="color-grid">
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--vivo-blue);"></div>
+                    <div class="color-name">VIVO蓝 #0066FF</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--vivo-text-primary);"></div>
+                    <div class="color-name">主文本 #191919</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--vivo-text-secondary);"></div>
+                    <div class="color-name">次文本 #666666</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-swatch" style="background: var(--vivo-border);"></div>
+                    <div class="color-name">边框 #E8EBF0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手机预览 -->
+    <div class="design-preview">
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="app-container">
+                <!-- 账户信息栏 -->
+                <div class="account-header">
+                    <div class="account-info">
+                        <div class="avatar">
+                            <svg class="line-icon" viewBox="0 0 24 24" style="stroke: white;">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="account-name">
+                            <div class="title">唯品会OCPC账户集合</div>
+                            <div class="sub">点击切换账户</div>
+                        </div>
+                        <div class="settings-icon">
+                            <svg class="line-icon" viewBox="0 0 24 24" style="stroke: white; width: 20px; height: 20px;">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 账户指标 -->
+                <div class="metrics-card">
+                    <div class="metrics-top">
+                        <div class="metric-item">
+                            <div class="label">当前余额</div>
+                            <div class="value">100,000.00</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="label">今日消耗</div>
+                            <div class="value">5,000.00</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="label">有消耗账户</div>
+                            <div class="value">15/27</div>
+                        </div>
+                    </div>
+                    <div class="metrics-bottom">
+                        <div class="metric-bottom-item">
+                            <div class="label">曝光量 <span class="trend-up">↑</span></div>
+                            <div class="value">4,555</div>
+                        </div>
+                        <div class="metric-bottom-item">
+                            <div class="label">点击量 <span class="trend-down">↓</span></div>
+                            <div class="value">123</div>
+                        </div>
+                        <div class="metric-bottom-item">
+                            <div class="label">转化量 <span class="trend-down">↓</span></div>
+                            <div class="value">23</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI日报 Banner -->
+                <div class="ai-banner">
+                    <div class="banner-header">
+                        <div class="banner-title">
+                            <svg class="line-icon" viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: #B66D00;">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            AI日报
+                        </div>
+                        <div class="banner-action">深度解读 →</div>
+                    </div>
+                    <div class="banner-content">
+                        今日消耗5000元，转化23个，成本上涨，点击深度解读查看原因及建议
+                    </div>
+                    <div class="banner-time">数据周期：5月14日 17:56</div>
+                </div>
+
+                <!-- 数据概览 -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-title">数据概览</div>
+                        <div class="date-picker">
+                            今天
+                            <svg class="line-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px;">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="metrics-scroll">
+                        <div class="metrics-list">
+                            <div class="metric-card active">
+                                <div class="card-label">有消耗账户数</div>
+                                <div class="card-value">15</div>
+                                <div class="card-change">环比 12.5% ↑</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="card-label">消耗(元)</div>
+                                <div class="card-value">5,000</div>
+                                <div class="card-change">环比 15.2% ↑</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="card-label">转化数</div>
+                                <div class="card-value">23</div>
+                                <div class="card-change">环比 8.3% ↓</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="card-label">转化成本</div>
+                                <div class="card-value">217</div>
+                                <div class="card-change">环比 22.5% ↑</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 趋势图表 -->
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <div class="chart-title">有消耗账户数趋势</div>
+                        <div class="chart-tabs">
+                            <div class="chart-tab active">消耗</div>
+                            <div class="chart-tab">转化</div>
+                        </div>
+                    </div>
+                    <div class="chart-area">
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                        <div class="chart-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部Tab栏 -->
+            <div class="tab-bar">
+                <div class="tab-item active">
+                    <svg class="line-icon" viewBox="0 0 24 24" style="width: 26px; height: 26px;">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <div class="tab-label">首页</div>
+                </div>
+                <div class="tab-item">
+                    <svg class="line-icon" viewBox="0 0 24 24" style="width: 26px; height: 26px;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <div class="tab-label">账户管理</div>
+                </div>
+                <div class="tab-item">
+                    <svg class="line-icon" viewBox="0 0 24 24" style="width: 26px; height: 26px;">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <div class="tab-label">智能诊断</div>
+                </div>
+                <div class="tab-item">
+                    <svg class="line-icon" viewBox="0 0 24 24" style="width: 26px; height: 26px;">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <div class="tab-label">报表</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

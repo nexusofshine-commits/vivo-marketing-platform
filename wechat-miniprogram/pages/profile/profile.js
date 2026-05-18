@@ -1,4 +1,4 @@
-const app = getApp();
+var app = getApp();
 
 Page({
   data: {
@@ -6,29 +6,29 @@ Page({
     accountType: '投放账号'
   },
   
-  onLoad() {
+  onLoad: function() {
     this.updateData();
   },
   
-  onShow() {
+  onShow: function() {
     this.updateData();
   },
   
-  updateData() {
+  updateData: function() {
     this.setData({
       currentAccount: app.globalData.currentAccount,
       accountType: app.globalData.accountType
     });
   },
   
-  switchAccount() {
+  switchAccount: function() {
     wx.navigateTo({
       url: '/pages/account-select/account-select'
     });
   },
   
-  showMessage(e) {
-    const text = e.currentTarget.dataset.text || '';
+  showMessage: function(e) {
+    var text = e.currentTarget.dataset.text || '';
     wx.showToast({
       title: text || '功能开发中',
       icon: 'none'

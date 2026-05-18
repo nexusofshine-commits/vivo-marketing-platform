@@ -61,13 +61,13 @@
   </view>
 
   <!-- AI日报 Banner -->
-  <view class="ai-banner">
+  <view class="ai-banner" bindtap="goToDiagnosis">
     <view class="banner-header">
       <view class="banner-title">
         <text class="banner-icon">✨</text>
         AI日报
       </view>
-      <view class="banner-action" bindtap="goToDiagnosis">深度解读 ></view>
+      <view class="banner-action">深度解读 ></view>
     </view>
     <view class="banner-content">
       今日消耗5000元，转化23个，成本上涨，点击深度解读查看原因及建议
@@ -83,7 +83,6 @@
         <view class="date-tab active">今天</view>
         <view class="date-tab">▼</view>
       </view>
-      <view class="overview-custom">自定义</view>
     </view>
     
     <scroll-view class="metric-cards-scroll" scroll-x="true">
@@ -108,19 +107,20 @@
     <view class="chart-header">
       <view class="chart-title">{{overviewMetrics[selectedMetricIndex].name}}趋势</view>
       <view class="chart-tabs">
-        <view class="chart-tab active">消耗</view>
-        <view class="chart-tab">转化</view>
+        <view 
+          class="chart-tab {{chartType === 'consume' ? 'active' : ''}}" 
+          bindtap="switchChartTab" 
+          data-type="consume"
+        >消耗</view>
+        <view 
+          class="chart-tab {{chartType === 'convert' ? 'active' : ''}}" 
+          bindtap="switchChartTab" 
+          data-type="convert"
+        >转化</view>
       </view>
     </view>
     <view class="chart-container">
-      <canvas 
-        type="2d" 
-        id="homeChart" 
-        class="home-chart" 
-        bindtouchstart="onChartTouch"
-        bindtouchmove="onChartMove"
-        bindtouchend="onChartEnd"
-      ></canvas>
+      <canvas canvas-id="homeChart" class="home-chart"></canvas>
     </view>
   </view>
 

@@ -1,19 +1,20 @@
-const app = getApp();
-const util = require('../../utils/chart.js');
+var app = getApp();
+var util = require('../../utils/chart.js');
 
 Page({
   data: {
     
   },
   
-  onShow() {
+  onShow: function() {
     this.updateChart();
   },
   
-  updateChart() {
-    setTimeout(() => {
-      const trendData = app.globalData.trendData;
-      const canvas = util.initChart('detail-trend-chart', this);
+  updateChart: function() {
+    var that = this;
+    setTimeout(function() {
+      var trendData = app.globalData.trendData;
+      var canvas = util.initChart('detail-trend-chart', that);
       if (canvas) {
         canvas.setOption({
           grid: {

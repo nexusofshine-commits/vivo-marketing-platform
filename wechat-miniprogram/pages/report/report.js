@@ -1,5 +1,5 @@
-const app = getApp();
-const util = require('../../utils/chart.js');
+var app = getApp();
+var util = require('../../utils/chart.js');
 
 Page({
   data: {
@@ -7,12 +7,12 @@ Page({
     currentDate: '7days'
   },
   
-  onShow() {
+  onShow: function() {
     this.updateCharts();
   },
   
-  switchTab(e) {
-    const tab = e.currentTarget.dataset.tab;
+  switchTab: function(e) {
+    var tab = e.currentTarget.dataset.tab;
     this.setData({
       currentTab: tab
     });
@@ -25,8 +25,8 @@ Page({
     this.updateCharts();
   },
   
-  switchDate(e) {
-    const date = e.currentTarget.dataset.date;
+  switchDate: function(e) {
+    var date = e.currentTarget.dataset.date;
     this.setData({
       currentDate: date
     });
@@ -39,16 +39,17 @@ Page({
     this.updateCharts();
   },
   
-  updateCharts() {
-    setTimeout(() => {
-      this.drawTrendChart();
-      this.drawConversionChart();
+  updateCharts: function() {
+    var that = this;
+    setTimeout(function() {
+      that.drawTrendChart();
+      that.drawConversionChart();
     }, 100);
   },
   
-  drawTrendChart() {
-    const trendData = app.globalData.trendData;
-    const canvas = util.initChart('report-trend-chart', this);
+  drawTrendChart: function() {
+    var trendData = app.globalData.trendData;
+    var canvas = util.initChart('report-trend-chart', this);
     if (canvas) {
       canvas.setOption({
         grid: {
@@ -115,9 +116,9 @@ Page({
     }
   },
   
-  drawConversionChart() {
-    const conversionData = app.globalData.conversionData;
-    const canvas = util.initChart('conversion-chart', this);
+  drawConversionChart: function() {
+    var conversionData = app.globalData.conversionData;
+    var canvas = util.initChart('conversion-chart', this);
     if (canvas) {
       canvas.setOption({
         grid: {
@@ -181,7 +182,7 @@ Page({
     }
   },
   
-  goToDetail() {
+  goToDetail: function() {
     wx.navigateTo({
       url: '/pages/plan-detail/plan-detail'
     });

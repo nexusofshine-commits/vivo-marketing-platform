@@ -1,4 +1,4 @@
-const app = getApp();
+var app = getApp();
 
 Page({
   data: {
@@ -7,17 +7,17 @@ Page({
     currentStatus: 'all'
   },
   
-  onLoad() {
+  onLoad: function() {
     this.updatePage();
   },
   
-  onShow() {
+  onShow: function() {
     this.updatePage();
   },
   
-  updatePage() {
-    const accountType = app.globalData.accountType;
-    const pageTitle = accountType === '投放账号' ? '推广管理' : '账户管理';
+  updatePage: function() {
+    var accountType = app.globalData.accountType;
+    var pageTitle = accountType === '投放账号' ? '推广管理' : '账户管理';
     
     this.setData({
       accountType: accountType,
@@ -25,39 +25,48 @@ Page({
     });
   },
   
-  switchStatus(e) {
-    const status = e.currentTarget.dataset.status;
+  switchStatus: function(e) {
+    var status = e.currentTarget.dataset.status;
     this.setData({
       currentStatus: status
     });
     
+    var statusText = '全部';
+    if (status === 'running') {
+      statusText = '投放中';
+    } else if (status === 'paused') {
+      statusText = '已暂停';
+    } else if (status === 'ended') {
+      statusText = '已结束';
+    }
+    
     wx.showToast({
-      title: '已筛选' + (status === 'all' ? '全部' : status === 'running' ? '投放中' : status === 'paused' ? '已暂停' : '已结束') + '计划',
+      title: '已筛选' + statusText + '计划',
       icon: 'none'
     });
   },
   
-  goToDetail() {
+  goToDetail: function() {
     wx.navigateTo({
       url: '/pages/plan-detail/plan-detail'
     });
   },
   
-  toggleStatus(e) {
+  toggleStatus: function(e) {
     wx.showToast({
       title: '切换计划状态',
       icon: 'none'
     });
   },
   
-  editPlan() {
+  editPlan: function() {
     wx.showToast({
       title: '编辑计划',
       icon: 'none'
     });
   },
   
-  copyPlan() {
+  copyPlan: function() {
     wx.showToast({
       title: '复制计划',
       icon: 'none'

@@ -46,18 +46,20 @@ Page({
     ]
   },
 
-  toggleDetail(e) {
-    const type = e.currentTarget.dataset.type;
-    const index = e.currentTarget.dataset.index;
-    const key = type === 'warning' ? 'warnings' : type === 'notice' ? 'notices' : 'problems';
-    const list = this.data[key];
+  toggleDetail: function(e) {
+    var type = e.currentTarget.dataset.type;
+    var index = e.currentTarget.dataset.index;
+    var key = type === 'warning' ? 'warnings' : type === 'notice' ? 'notices' : 'problems';
+    var list = this.data[key];
     list[index].expanded = !list[index].expanded;
-    this.setData({ [key]: list });
+    var data = {};
+    data[key] = list;
+    this.setData(data);
   },
 
-  handleAction(e) {
-    const action = e.currentTarget.dataset.action;
-    const actionMessages = {
+  handleAction: function(e) {
+    var action = e.currentTarget.dataset.action;
+    var actionMessages = {
       'adjustBudget': '正在打开预算调整页面...',
       'adjustBid': '正在打开出价调整页面...',
       'viewDetails': '正在查看详细数据...',
@@ -74,7 +76,8 @@ Page({
       duration: 1500
     });
 
-    setTimeout(() => {
+    var that = this;
+    setTimeout(function() {
       wx.showToast({
         title: '操作成功',
         icon: 'success'

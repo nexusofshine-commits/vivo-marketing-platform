@@ -1,9 +1,10 @@
-const Chart = require('../../utils/chart.js');
+var Chart = require('../../utils/chart.js');
 
 Page({
   data: {
     accountName: '唯品会OCPC账户集合',
     selectedMetricIndex: 0,
+    chartType: 'consume',
     overviewMetrics: [
       { name: '有消耗账户数', value: '0', change: '环比 0.00% —' },
       { name: '消耗(元)', value: '0.00', change: '环比 ---' },
@@ -14,9 +15,24 @@ Page({
     ]
   },
 
-  onLoad() {
-    setTimeout(() => {
+  onLoad: function() {
+    this.loadData();
+  },
+
+  onShow: function() {
+    var app = getApp();
+    if (app.globalData && app.globalData.selectedAccount) {
       this.setData({
+        accountName: app.globalData.selectedAccount
+      });
+    }
+  },
+
+  loadData: function() {
+    var that = this;
+    
+    setTimeout(function() {
+      that.setData({
         overviewMetrics: [
           { name: '有消耗账户数', value: '15', change: '环比 12.50% ↑' },
           { name: '消耗(元)', value: '5000.00', change: '环比 15.20% ↑' },
@@ -26,77 +42,75 @@ Page({
           { name: '点击数', value: '123', change: '环比 5.20% ↓' }
         ]
       });
-      this.initChart();
-    }, 500);
+      
+      that.initChart();
+    }, 300);
   },
 
-  onShow() {
-    const app = getApp();
-    if (app.globalData.selectedAccount) {
-      this.setData({
-        accountName: app.globalData.selectedAccount
-      });
-    }
+  initChart: function() {
+    var that = this;
+    
+    setTimeout(function() {
+      var chart = Chart.initChart('homeChart', that);
+      if (chart) {
+        that.chartInstance = chart;
+        that.drawChart(1);
+      }
+    }, 100);
   },
 
-  initChart() {
-    const query = wx.createSelectorQuery();
-    query.select('#homeChart')
-      .fields({ node: true, size: true })
-      .exec((res) => {
-        if (res[0]) {
-          this.chart = new Chart({
-            canvas: res[0].node,
-            width: res[0].width,
-            height: res[0].height
-          });
-          this.drawChart(0);
-        }
-      });
+  drawChart: function(type) {
+    if (!this.chartInstance) return;
+    
+    var chartData = {
+      consume: {
+        data: [120, 200, 180, 320, 450, 380, 520],
+        color: '#0066FF'
+      },
+      convert: {
+        data: [2, 3, 2, 4, 5, 4, 6],
+        color: '#00C853'
+      }
+    };
+    
+    var data = chartData[type] || chartData.consume;
+    
+    this.chartInstance.setOption({
+      grid: { left: 50, right: 20, top: 20, bottom: 30 },
+      xAxis: { data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'] },
+      yAxis: {},
+      series: [{
+        type: 'line',
+        data: data.data,
+        lineStyle: { color: data.color, width: 3 },
+        areaStyle: { color: data.color }
+      }]
+    });
+    
+    this.setData({ chartType: type });
   },
 
-  drawChart(metricIndex) {
-    if (!this.chart) return;
-
-    const dataSets = [
-      // 有消耗账户数
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.2],
-      // 消耗
-      [120, 200, 180, 320, 450, 380, 520, 480, 600, 550, 480, 500],
-      // 转化数
-      [2, 3, 2, 4, 5, 4, 6, 5, 7, 6, 5, 3],
-      // 平均转化成本
-      [200, 180, 210, 190, 200, 185, 215, 205, 220, 215, 210, 217],
-      // 展示数
-      [400, 520, 480, 580, 650, 590, 720, 680, 780, 720, 680, 455],
-      // 点击数
-      [12, 18, 15, 22, 28, 24, 32, 28, 35, 30, 26, 12]
-    ];
-
-    this.chart.draw(dataSets[metricIndex]);
-  },
-
-  selectMetric(e) {
-    const index = e.currentTarget.dataset.index;
+  selectMetric: function(e) {
+    var index = e.currentTarget.dataset.index;
     this.setData({
       selectedMetricIndex: index
     });
-    this.drawChart(index);
   },
 
-  onChartTouch(e) {},
-  onChartMove(e) {},
-  onChartEnd(e) {},
+  switchChartTab: function(e) {
+    var type = e.currentTarget.dataset.type;
+    this.drawChart(type);
+  },
 
-  goToAccountSelect() {
+  goToAccountSelect: function() {
     wx.navigateTo({ url: '/pages/account-select/account-select' });
   },
 
-  goToProfile() {
+  goToProfile: function() {
     wx.navigateTo({ url: '/pages/profile/profile' });
   },
 
-  goToDiagnosis() {
+  goToDiagnosis: function() {
     wx.switchTab({ url: '/pages/diagnosis/diagnosis' });
   }
 });

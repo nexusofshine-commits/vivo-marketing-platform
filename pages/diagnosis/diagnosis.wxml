@@ -16,7 +16,7 @@
         <view class="card-level {{item.level}}">{{item.levelText}}</view>
         <view class="card-title-area">
           <text class="card-title">{{item.title}}</text>
-          <text class="card-time">{{item.time}}</text>
+          <text class="card-target">{{item.target}}</text>
         </view>
         <view class="card-arrow {{item.expanded ? 'open' : ''}}">▼</view>
       </view>
@@ -26,11 +26,11 @@
           <text class="body-text">{{item.detail}}</text>
         </view>
         <view class="body-section">
-          <text class="body-label">优化建议</text>
+          <text class="body-label">建议操作</text>
           <text class="body-text">{{item.suggestion}}</text>
         </view>
-        <view class="card-actions">
-          <view wx:for="{{item.actions}}" wx:for-item="act" wx:key="name" class="action-tag {{act.type}}" bindtap="handleAction" data-action="{{act.key}}">{{act.name}}</view>
+        <view wx:if="{{item.action}}" class="card-action">
+          <view class="action-btn" bindtap="handleAction" data-action="{{item.action.key}}">{{item.action.name}}</view>
         </view>
       </view>
     </view>

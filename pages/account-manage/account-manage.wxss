@@ -19,7 +19,7 @@
   color: #191919;
 }
 
-.account-overview {
+.stat-row {
   background: #fff;
   margin: 16rpx 24rpx;
   border-radius: 20rpx;
@@ -28,12 +28,12 @@
   justify-content: space-between;
 }
 
-.overview-item {
+.stat-item {
   flex: 1;
   text-align: center;
 }
 
-.overview-value {
+.stat-value {
   font-size: 30rpx;
   font-weight: 700;
   color: #191919;
@@ -41,7 +41,7 @@
   margin-bottom: 6rpx;
 }
 
-.overview-label {
+.stat-label {
   font-size: 20rpx;
   color: #999;
 }
@@ -137,4 +137,89 @@
 .card-arrow {
   color: #ccc;
   font-size: 28rpx;
+}
+
+.section-card {
+  background: #fff;
+  margin: 0 24rpx 16rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #191919;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f5f6fa;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 14rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #191919;
+  display: block;
+  margin-bottom: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-meta {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.item-right {
+  text-align: right;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.item-value {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0066FF;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.item-unit {
+  font-size: 20rpx;
+  color: #999;
 }

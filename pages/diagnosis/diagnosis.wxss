@@ -107,6 +107,12 @@
   color: #bbb;
 }
 
+.card-target {
+  font-size: 20rpx;
+  color: #0066FF;
+  margin-top: 2rpx;
+}
+
 .card-arrow {
   font-size: 20rpx;
   color: #ccc;
@@ -147,30 +153,19 @@
   display: block;
 }
 
-.card-actions {
-  display: flex;
-  gap: 12rpx;
+.card-action {
   padding: 16rpx 24rpx 24rpx;
-  flex-wrap: wrap;
   border-top: 1rpx solid #f5f6fa;
 }
 
-.action-tag {
-  padding: 12rpx 24rpx;
-  border-radius: 10rpx;
-  font-size: 24rpx;
-  font-weight: 500;
-}
-
-.action-tag.primary {
+.action-btn {
   background: #0066FF;
   color: #fff;
-}
-
-.action-tag.outline {
-  background: #fff;
-  color: #0066FF;
-  border: 1rpx solid #0066FF;
+  padding: 14rpx 32rpx;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .tab-spacer {

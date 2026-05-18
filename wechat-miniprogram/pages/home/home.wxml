@@ -106,7 +106,7 @@
   <!-- 趋势图 -->
   <view class="chart-section">
     <view class="chart-header">
-      <view class="chart-title">{{overviewMetrics[selectedMetricIndex]?.name}}趋势</view>
+      <view class="chart-title">{{overviewMetrics[selectedMetricIndex].name}}趋势</view>
       <view class="chart-tabs">
         <view class="chart-tab active">消耗</view>
         <view class="chart-tab">转化</view>

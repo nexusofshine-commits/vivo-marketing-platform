@@ -3,7 +3,6 @@
     "pages/home/home",
     "pages/account-manage/account-manage",
     "pages/diagnosis/diagnosis",
-    "pages/report/report",
     "pages/plan-detail/plan-detail",
     "pages/profile/profile",
     "pages/account-select/account-select"
@@ -37,12 +36,6 @@
         "text": "智能诊断",
         "iconPath": "assets/icons/diagnosis.png",
         "selectedIconPath": "assets/icons/diagnosis-active.png"
-      },
-      {
-        "pagePath": "pages/report/report",
-        "text": "报表",
-        "iconPath": "assets/icons/report.png",
-        "selectedIconPath": "assets/icons/report-active.png"
       }
     ]
   },

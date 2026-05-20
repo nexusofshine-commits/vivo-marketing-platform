@@ -57,34 +57,6 @@
     </view>
   </view>
 
-  <view class="chart-card">
-    <view class="chart-header">
-      <text class="chart-title">{{chartTitle}}</text>
-    </view>
-
-    <view class="line-chart">
-      <view class="chart-y-axis">
-        <view class="y-label">30</view>
-        <view class="y-label">15</view>
-        <view class="y-label">0</view>
-      </view>
-      <view class="chart-body">
-        <view class="chart-grid">
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
-        </view>
-        <view class="line-area" style="height: {{lineAreaHeight}}%; background: {{lineAreaColor}};"></view>
-        <view class="line-dots">
-          <view wx:for="{{chartData}}" wx:key="label" class="dot-col">
-            <view class="dot" style="bottom: {{item.dotBottom}}%; background: {{item.dotColor}};"></view>
-            <view class="dot-label">{{item.label}}</view>
-          </view>
-        </view>
-      </view>
-    </view>
-  </view>
-
   <view wx:if="{{showMetricPicker}}" class="picker-mask" bindtap="closeMetricPicker">
     <view class="picker-container" catchtap="">
       <view class="picker-header">

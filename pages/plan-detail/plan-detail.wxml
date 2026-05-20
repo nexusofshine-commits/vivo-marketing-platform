@@ -1,87 +1,112 @@
 <view class="container">
   <view class="detail-header">
-    <text class="detail-plan-name">唯品会拉新-信息流计划</text>
+    <view class="header-nav" bindtap="goBack">
+      <text class="back-icon">< 返回</text>
+    </view>
+    <view class="detail-plan-name">{{planName}}</view>
     <view class="detail-row">
       <view class="detail-info-item">
-        <text class="detail-info-label">投放状态</text>
-        <text class="detail-info-value running">投放中</text>
+        <text class="detail-info-label">状态</text>
+        <text class="detail-info-value running">{{planStatus}}</text>
       </view>
       <view class="detail-info-item">
-        <text class="detail-info-label">投放日期</text>
-        <text class="detail-info-value">长期投放</text>
+        <text class="detail-info-label">版本</text>
+        <text class="detail-info-value">{{version === 'new' ? '新版' : '旧版'}}</text>
       </view>
       <view class="detail-info-item">
-        <text class="detail-info-label">投放时段</text>
-        <text class="detail-info-value">全时段</text>
-      </view>
-      <view class="detail-info-item">
-        <text class="detail-info-label">预算</text>
-        <text class="detail-info-value">¥5,000/天</text>
+        <text class="detail-info-label">层级</text>
+        <text class="detail-info-value">{{levelType === 'plan' ? '计划' : levelType === 'ad' ? '广告' : levelType === 'adgroup' ? '广告组' : '创意'}}</text>
       </view>
     </view>
   </view>
 
   <view class="section-card">
-    <text class="section-title">核心指标</text>
     <view class="stat-row">
-      <view class="stat-item">
-        <text class="stat-value">¥32,450</text>
-        <text class="stat-label">花费</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">586w</text>
-        <text class="stat-label">曝光</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">26.3w</text>
-        <text class="stat-label">点击</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">4.49%</text>
-        <text class="stat-label">点击率</text>
+      <view wx:for="{{coreMetrics}}" wx:key="key" class="stat-item">
+        <text class="stat-value">{{item.value}}</text>
+        <text class="stat-label">{{item.name}}</text>
       </view>
     </view>
   </view>
 
   <view class="section-card">
-    <text class="section-title">转化数据</text>
-    <view class="stat-row">
-      <view class="stat-item">
-        <text class="stat-value">3,245</text>
-        <text class="stat-label">激活数</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">9.99</text>
-        <text class="stat-label">激活成本</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">1,826</text>
-        <text class="stat-label">次留数</text>
-      </view>
+    <view class="section-toggle" bindtap="toggleTrend">
+      <text class="section-title">数据趋势</text>
+      <text class="toggle-arrow">{{trendExpanded ? '▲' : '▼'}}</text>
     </view>
-  </view>
-
-  <view class="section-card">
-    <text class="section-title">数据趋势</text>
-    <view class="line-chart">
-      <view class="chart-y-axis">
-        <view class="y-label">52</view>
-        <view class="y-label">26</view>
-        <view class="y-label">0</view>
-      </view>
-      <view class="chart-body">
-        <view class="chart-grid">
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
+    <view wx:if="{{trendExpanded}}" class="trend-content">
+      <view class="line-chart">
+        <view class="chart-y-axis">
+          <view class="y-label">30</view>
+          <view class="y-label">15</view>
+          <view class="y-label">0</view>
         </view>
-        <view class="line-area" style="height: {{trendAreaH}}%;"></view>
-        <view class="line-dots">
-          <view wx:for="{{trendData}}" wx:key="label" class="dot-col">
-            <view class="dot" style="bottom: {{item.dotBottom}}%;"></view>
-            <view class="dot-label">{{item.label}}</view>
+        <view class="chart-body">
+          <view class="chart-grid">
+            <view class="grid-line"></view>
+            <view class="grid-line"></view>
+            <view class="grid-line"></view>
+          </view>
+          <view class="line-area" style="height: {{lineAreaHeight}}%; background: {{lineAreaColor}};"></view>
+          <view class="line-dots">
+            <view wx:for="{{trendData}}" wx:key="label" class="dot-col">
+              <view class="dot" style="bottom: {{item.dotBottom}}%;"></view>
+              <view class="dot-label">{{item.label}}</view>
+            </view>
           </view>
         </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{infoFields.length > 0}}" class="section-card">
+    <view class="section-title">基本信息</view>
+    <view class="info-list">
+      <view wx:for="{{infoFields}}" wx:key="label" class="info-row {{item.isTargeting ? 'targeting-row' : ''}}">
+        <view wx:if="{{item.isTargeting}}" class="info-targeting" bindtap="toggleTargeting">
+          <view class="info-row-inner">
+            <text class="info-label">{{item.label}}</text>
+            <text class="info-value targeting-value">{{targetingExpanded ? '收起' : item.value}} {{targetingExpanded ? '▲' : '▼'}}</text>
+          </view>
+          <view wx:if="{{targetingExpanded}}" class="targeting-content">
+            <text class="targeting-text">{{targetingInfo}}</text>
+          </view>
+        </view>
+        <view wx:else class="info-row-inner">
+          <text class="info-label">{{item.label}}</text>
+          <text class="info-value {{item.highlight ? 'highlight' : ''}}">{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{creativeInfo.title}}" class="section-card">
+    <view class="section-title">创意信息</view>
+    <view class="creative-section">
+      <view class="creative-row">
+        <text class="info-label">标题</text>
+        <text class="info-value">{{creativeInfo.title}}</text>
+      </view>
+
+      <view wx:if="{{creativeInfo.images && creativeInfo.images.length > 0}}" class="creative-row">
+        <text class="info-label">单图</text>
+        <view class="creative-images">
+          <image wx:for="{{creativeInfo.images}}" wx:key="*this"
+            src="{{item}}" class="creative-img" mode="aspectFill"></image>
+        </view>
+      </view>
+
+      <view wx:if="{{creativeInfo.video}}" class="creative-row">
+        <text class="info-label">视频</text>
+        <view class="creative-video-wrap">
+          <image src="{{creativeInfo.video}}" class="creative-video-thumb" mode="aspectFill"></image>
+          <view class="video-play-icon">▶</view>
+        </view>
+      </view>
+
+      <view wx:if="{{creativeInfo.groupImages}}" class="creative-row">
+        <text class="info-label">组图</text>
+        <text class="info-value muted">{{creativeInfo.groupImages.length > 0 ? '' : '无'}}</text>
       </view>
     </view>
   </view>

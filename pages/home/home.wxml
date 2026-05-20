@@ -94,19 +94,19 @@
         <text class="picker-title">选择指标</text>
         <text class="picker-close" bindtap="closeMetricPicker">✕</text>
       </view>
-      <view class="picker-content">
-        <view wx:for="{{allMetrics}}" wx:key="*this" wx:for-item="category" wx:for-index="catKey">
-          <view class="category-title">{{category.name}}</view>
+      <scroll-view class="picker-content" scroll-y="true">
+        <view wx:for="{{pickerDisplayList}}" wx:key="key" wx:for-item="cat">
+          <view class="category-title">{{cat.name}}</view>
           <view class="metric-options">
-            <view wx:for="{{category.list}}" wx:key="key" wx:for-item="metric"
-              class="metric-option {{isMetricSelected(metric.key) ? 'selected' : ''}}"
-              bindtap="toggleMetric" data-key="{{metric.key}}" data-category="{{catKey}}">
-              <text class="option-name">{{metric.name}}</text>
-              <view class="option-check">{{isMetricSelected(metric.key) ? '✓' : ''}}</view>
+            <view wx:for="{{cat.list}}" wx:key="key" wx:for-item="m"
+              class="metric-option {{m.selected ? 'selected' : ''}}"
+              bindtap="toggleMetric" data-key="{{m.key}}" data-category="{{cat.key}}">
+              <text class="option-name">{{m.name}}</text>
+              <view wx:if="{{m.selected}}" class="option-check">✓</view>
             </view>
           </view>
         </view>
-      </view>
+      </scroll-view>
       <view class="picker-footer">
         <text class="picker-hint">已选择 {{selectedMetrics.length}}/6 个指标</text>
         <view class="picker-save" bindtap="saveMetrics">保存</view>

@@ -1,3 +1,222 @@
+var allMetricsCache = null;
+
+function getAllMetrics() {
+  if (allMetricsCache) return allMetricsCache;
+
+  allMetricsCache = [
+    {
+      key: 'basic', name: '基础指标', list: [
+        { key: 'impression', name: '曝光量', color: '#0066FF' },
+        { key: 'click', name: '点击量', color: '#0066FF' },
+        { key: 'ctr', name: '点击率', color: '#0066FF' },
+        { key: 'cpm', name: '千次展示均价', color: '#0066FF' },
+        { key: 'cpc', name: '点击均价', color: '#0066FF' },
+        { key: 'cost', name: '花费', color: '#0066FF' },
+        { key: 'billing', name: '计费量', color: '#0066FF' }
+      ]
+    },
+    {
+      key: 'appJ', name: '应用转化指标（J）', list: [
+        { key: 'j_shallow_conv', name: '浅层转化量（J）', color: '#FF9500' },
+        { key: 'j_shallow_cost', name: '浅层转化成本（J）', color: '#FF9500' },
+        { key: 'j_shallow_rate', name: '浅层转化率（J）', color: '#FF9500' },
+        { key: 'j_deep_conv', name: '深层转化量（J）', color: '#FF9500' },
+        { key: 'j_deep_cost', name: '深层转化成本（J）', color: '#FF9500' },
+        { key: 'j_deep_rate', name: '深层转化率（J）', color: '#FF9500' },
+        { key: 'j_download', name: '下载量(J)', color: '#FF9500' },
+        { key: 'j_download_rate', name: '下载率(J)', color: '#FF9500' },
+        { key: 'j_download_cost', name: '下载成本(J)', color: '#FF9500' },
+        { key: 'j_active', name: '普通激活数(J)', color: '#FF9500' },
+        { key: 'j_active_rate', name: '普通激活率(J)', color: '#FF9500' },
+        { key: 'j_active_cost', name: '普通激活成本(J)', color: '#FF9500' },
+        { key: 'j_custom_active', name: '自定义激活数(J)', color: '#FF9500' },
+        { key: 'j_custom_active_rate', name: '自定义激活率(J)', color: '#FF9500' },
+        { key: 'j_custom_active_cost', name: '自定义激活成本(J)', color: '#FF9500' },
+        { key: 'j_new_active', name: '新增激活数(J)', color: '#FF9500' },
+        { key: 'j_new_active_rate', name: '新增激活率(J)', color: '#FF9500' },
+        { key: 'j_new_active_cost', name: '新增激活成本(J)', color: '#FF9500' },
+        { key: 'j_game_reg', name: '游戏注册量(J)', color: '#FF9500' },
+        { key: 'j_game_reg_rate', name: '游戏注册率(J)', color: '#FF9500' },
+        { key: 'j_game_reg_cost', name: '游戏注册成本(J)', color: '#FF9500' },
+        { key: 'j_custom_reg', name: '自定义注册量(J)', color: '#FF9500' },
+        { key: 'j_custom_reg_rate', name: '自定义注册率(J)', color: '#FF9500' },
+        { key: 'j_custom_reg_cost', name: '自定义注册成本(J)', color: '#FF9500' },
+        { key: 'j_desk', name: '加桌数(J)', color: '#FF9500' },
+        { key: 'j_desk_rate', name: '加桌率(J)', color: '#FF9500' },
+        { key: 'j_desk_cost', name: '加桌成本(J)', color: '#FF9500' },
+        { key: 'j_custom_retain', name: '自定义次留数(J)', color: '#FF9500' },
+        { key: 'j_custom_retain_rate', name: '自定义次留率(J)', color: '#FF9500' },
+        { key: 'j_custom_retain_cost', name: '自定义次留成本(J)', color: '#FF9500' },
+        { key: 'j_game_pay', name: '游戏付费数(J)', color: '#FF9500' },
+        { key: 'j_game_pay_rate', name: '游戏付费率(J)', color: '#FF9500' },
+        { key: 'j_game_pay_cost', name: '游戏付费成本(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d1', name: '自定义付费数-首日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d1_rate', name: '自定义付费率-首日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d1_cost', name: '自定义付费成本首日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d7', name: '自定义付费数-7日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d7_rate', name: '自定义付费率-7日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_pay_d7_cost', name: '自定义付费成本-7日去重(J)', color: '#FF9500' },
+        { key: 'j_custom_wake', name: '自定义拉活(J)', color: '#FF9500' },
+        { key: 'j_custom_wake_rate', name: '自定义拉活率(J)', color: '#FF9500' },
+        { key: 'j_custom_wake_cost', name: '自定义拉活成本(J)', color: '#FF9500' },
+        { key: 'j_game_reserve', name: '游戏预约数(J)', color: '#FF9500' },
+        { key: 'j_game_reserve_rate', name: '游戏预约率(J)', color: '#FF9500' },
+        { key: 'j_game_reserve_cost', name: '游戏预约成本(J)', color: '#FF9500' },
+        { key: 'j_d1_recycle_ad', name: '首日回收金额-广告变现(J)', color: '#FF9500' },
+        { key: 'j_d1_recycle_pay', name: '首日回收金额-充值付费(J)', color: '#FF9500' },
+        { key: 'j_total_recycle_ad', name: '累计回收金额广告变现(J)', color: '#FF9500' },
+        { key: 'j_total_recycle_pay', name: '累计回收金额充值付费(J)', color: '#FF9500' },
+        { key: 'j_d1_roi_ad', name: '首日ROI-广告变现(J)', color: '#FF9500' },
+        { key: 'j_total_roi_ad', name: '累计ROI-广告变现(J)', color: '#FF9500' },
+        { key: 'j_d1_roi_pay', name: '首日ROI-充值付费(J)', color: '#FF9500' },
+        { key: 'j_total_roi_pay', name: '累计ROI-充值付费(J)', color: '#FF9500' },
+        { key: 'j_install', name: '安装完成数(J)', color: '#FF9500' },
+        { key: 'j_install_rate', name: '安装完成率(J)', color: '#FF9500' },
+        { key: 'j_install_cost', name: '安装完成成本(J)', color: '#FF9500' },
+        { key: 'j_custom_credit', name: '自定义授信数(J)', color: '#FF9500' },
+        { key: 'j_custom_credit_rate', name: '自定义授信率(J)', color: '#FF9500' },
+        { key: 'j_custom_credit_cost', name: '自定义授信成本(J)', color: '#FF9500' },
+        { key: 'j_wx_game_reg', name: '微信小游戏注册数(J)', color: '#FF9500' },
+        { key: 'j_wx_game_reg_rate', name: '微信小游戏注册率(J)', color: '#FF9500' },
+        { key: 'j_wx_game_reg_cost', name: '微信小游戏注册成本(J)', color: '#FF9500' },
+        { key: 'j_wx_game_pay', name: '微信小游戏付费数(J)', color: '#FF9500' },
+        { key: 'j_wx_game_pay_rate', name: '微信小游戏付费率(J)', color: '#FF9500' },
+        { key: 'j_wx_game_pay_cost', name: '微信小游戏付费成本(J)', color: '#FF9500' },
+        { key: 'j_wake_retain', name: '拉活自定义次留数(J)', color: '#FF9500' },
+        { key: 'j_wake_retain_rate', name: '拉活自定义次留率(J)', color: '#FF9500' },
+        { key: 'j_wake_retain_cost', name: '拉活自定义次留成本(J)', color: '#FF9500' },
+        { key: 'j_app_pay_times', name: '应用付费次数(J)', color: '#FF9500' },
+        { key: 'j_app_pay_times_cost', name: '应用付费次数成本(J)', color: '#FF9500' },
+        { key: 'j_app_pay_amount', name: '应用付费金额(J)', color: '#FF9500' },
+        { key: 'j_game_pay_times', name: '游戏付费次数(J)', color: '#FF9500' },
+        { key: 'j_game_pay_times_cost', name: '游戏付费次数成本(J)', color: '#FF9500' },
+        { key: 'j_retain_7d', name: '留存总数(7日内)(J)', color: '#FF9500' },
+        { key: 'j_retain_7d_cost', name: '留存成本(7日内)(J)', color: '#FF9500' },
+        { key: 'j_retain_d2', name: '2日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d2_rate', name: '2日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d2_cost', name: '2日留存成本(J)', color: '#FF9500' },
+        { key: 'j_retain_d3', name: '3日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d3_rate', name: '3日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d3_cost', name: '3日留存成本(J)', color: '#FF9500' },
+        { key: 'j_retain_d4', name: '4日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d4_rate', name: '4日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d4_cost', name: '4日留存成本(J)', color: '#FF9500' },
+        { key: 'j_retain_d5', name: '5日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d5_rate', name: '5日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d5_cost', name: '5日留存成本(J)', color: '#FF9500' },
+        { key: 'j_retain_d6', name: '6日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d6_rate', name: '6日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d6_cost', name: '6日留存成本(J)', color: '#FF9500' },
+        { key: 'j_retain_d7', name: '7日留存数(J)', color: '#FF9500' },
+        { key: 'j_retain_d7_rate', name: '7日留存率(J)', color: '#FF9500' },
+        { key: 'j_retain_d7_cost', name: '7日留存成本(J)', color: '#FF9500' },
+        { key: 'j_it7', name: 'It7(J)', color: '#FF9500' }
+      ]
+    },
+    {
+      key: 'appZ', name: '应用转化指标（Z）', list: [
+        { key: 'z_shallow_conv', name: '浅层转化量（Z）', color: '#AF52DE' },
+        { key: 'z_shallow_cost', name: '浅层转化成本（Z）', color: '#AF52DE' },
+        { key: 'z_shallow_rate', name: '浅层转化率（Z）', color: '#AF52DE' },
+        { key: 'z_deep_conv', name: '深层转化量（Z）', color: '#AF52DE' },
+        { key: 'z_deep_cost', name: '深层转化成本（Z）', color: '#AF52DE' },
+        { key: 'z_deep_rate', name: '深层转化率（Z）', color: '#AF52DE' },
+        { key: 'z_download', name: '下载量(Z)', color: '#AF52DE' },
+        { key: 'z_download_rate', name: '下载率(Z)', color: '#AF52DE' },
+        { key: 'z_download_cost', name: '下载成本(Z)', color: '#AF52DE' },
+        { key: 'z_custom_active', name: '自定义激活数(Z)', color: '#AF52DE' },
+        { key: 'z_custom_active_rate', name: '自定义激活率(Z)', color: '#AF52DE' },
+        { key: 'z_custom_active_cost', name: '自定义激活成本(Z)', color: '#AF52DE' },
+        { key: 'z_new_active', name: '新增激活数(Z)', color: '#AF52DE' },
+        { key: 'z_new_active_rate', name: '新增激活率(Z)', color: '#AF52DE' },
+        { key: 'z_new_active_cost', name: '新增激活成本(Z)', color: '#AF52DE' },
+        { key: 'z_active', name: '普通激活数(Z)', color: '#AF52DE' },
+        { key: 'z_active_rate', name: '普通激活率(Z)', color: '#AF52DE' },
+        { key: 'z_active_cost', name: '普通激活成本(Z)', color: '#AF52DE' },
+        { key: 'z_game_reg', name: '游戏注册量(Z)', color: '#AF52DE' },
+        { key: 'z_game_reg_rate', name: '游戏注册率(Z)', color: '#AF52DE' },
+        { key: 'z_game_reg_cost', name: '游戏注册成本(Z)', color: '#AF52DE' },
+        { key: 'z_custom_reg', name: '自定义注册量(Z)', color: '#AF52DE' },
+        { key: 'z_custom_reg_rate', name: '自定义注册率(Z)', color: '#AF52DE' },
+        { key: 'z_custom_reg_cost', name: '自定义注册成本(Z)', color: '#AF52DE' },
+        { key: 'z_desk', name: '加桌数(Z)', color: '#AF52DE' },
+        { key: 'z_desk_rate', name: '加桌率(Z)', color: '#AF52DE' },
+        { key: 'z_desk_cost', name: '加桌成本(Z)', color: '#AF52DE' },
+        { key: 'z_custom_retain', name: '自定义次留数(Z)', color: '#AF52DE' },
+        { key: 'z_custom_retain_rate', name: '自定义次留率(Z)', color: '#AF52DE' },
+        { key: 'z_custom_retain_cost', name: '自定义次留成本(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay', name: '游戏付费数(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay_rate', name: '游戏付费率(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay_cost', name: '游戏付费成本(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d1', name: '自定义付费数-首日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d1_rate', name: '自定义付费率首日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d1_cost', name: '自定义付费成本首日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d7', name: '自定义付费数-7日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d7_rate', name: '自定义付费率-7日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_pay_d7_cost', name: '自定义付费成本-7日去重(Z)', color: '#AF52DE' },
+        { key: 'z_custom_wake', name: '自定义拉活(Z)', color: '#AF52DE' },
+        { key: 'z_custom_wake_rate', name: '自定义拉活率(Z)', color: '#AF52DE' },
+        { key: 'z_custom_wake_cost', name: '自定义拉活成本(Z)', color: '#AF52DE' },
+        { key: 'z_game_reserve', name: '游戏预约数(Z)', color: '#AF52DE' },
+        { key: 'z_game_reserve_rate', name: '游戏预约率(Z)', color: '#AF52DE' },
+        { key: 'z_game_reserve_cost', name: '游戏预约成本(Z)', color: '#AF52DE' },
+        { key: 'z_install', name: '安装完成数(Z)', color: '#AF52DE' },
+        { key: 'z_install_rate', name: '安装完成率(Z)', color: '#AF52DE' },
+        { key: 'z_install_cost', name: '安装完成成本(Z)', color: '#AF52DE' },
+        { key: 'z_custom_credit', name: '自定义授信数(Z)', color: '#AF52DE' },
+        { key: 'z_custom_credit_rate', name: '自定义授信率(Z)', color: '#AF52DE' },
+        { key: 'z_custom_credit_cost', name: '自定义授信成本(Z)', color: '#AF52DE' },
+        { key: 'z_calendar_reserve', name: '日历预约数(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_reg', name: '微信小游戏注册数(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_reg_rate', name: '微信小游戏注册率(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_reg_cost', name: '微信小游戏注册成本(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_pay', name: '微信小游戏付费数(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_pay_rate', name: '微信小游戏付费率(Z)', color: '#AF52DE' },
+        { key: 'z_wx_game_pay_cost', name: '微信小游戏付费成本(Z)', color: '#AF52DE' },
+        { key: 'z_wake_retain', name: '拉活自定义次留数(Z)', color: '#AF52DE' },
+        { key: 'z_wake_retain_rate', name: '拉活自定义次留率(Z)', color: '#AF52DE' },
+        { key: 'z_wake_retain_cost', name: '拉活自定义次留成本(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay_amount', name: '游戏付费金额(Z)', color: '#AF52DE' },
+        { key: 'z_app_pay_times', name: '应用付费次数(Z)', color: '#AF52DE' },
+        { key: 'z_app_pay_times_cost', name: '应用付费次数成本(Z)', color: '#AF52DE' },
+        { key: 'z_app_pay_amount', name: '应用付费金额(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay_times', name: '游戏付费次数(Z)', color: '#AF52DE' },
+        { key: 'z_game_pay_times_cost', name: '游戏付费次数成本(Z)', color: '#AF52DE' }
+      ]
+    },
+    {
+      key: 'web', name: '网页转化指标', list: [
+        { key: 'web_shallow_conv', name: '浅层转化量', color: '#00C853' },
+        { key: 'web_shallow_cost', name: '浅层转化成本', color: '#00C853' },
+        { key: 'web_shallow_rate', name: '浅层转化率', color: '#00C853' },
+        { key: 'web_deep_conv', name: '深层转化量', color: '#00C853' },
+        { key: 'web_deep_cost', name: '深层转化成本', color: '#00C853' },
+        { key: 'web_deep_rate', name: '深层转化率', color: '#00C853' },
+        { key: 'web_form_submit', name: '表单提交量', color: '#00C853' },
+        { key: 'web_form_rate', name: '表单提交转化率', color: '#00C853' },
+        { key: 'web_form_cost', name: '表单提交成本', color: '#00C853' },
+        { key: 'web_btn_click', name: '按钮点击量', color: '#00C853' },
+        { key: 'web_btn_rate', name: '按钮点击转化率', color: '#00C853' },
+        { key: 'web_btn_cost', name: '按钮点击成本', color: '#00C853' },
+        { key: 'web_qrcode', name: '微信-识别二维码数', color: '#00C853' },
+        { key: 'web_qrcode_rate', name: '微信-识别二维码率', color: '#00C853' },
+        { key: 'web_qrcode_cost', name: '微信-识别二维码成本', color: '#00C853' },
+        { key: 'web_wechat_add', name: '微信添加微信数', color: '#00C853' },
+        { key: 'web_wechat_add_rate', name: '微信添加微信率', color: '#00C853' },
+        { key: 'web_wechat_add_cost', name: '微信添加微信成本', color: '#00C853' },
+        { key: 'web_wechat_msg', name: '微信用户首次消息数', color: '#00C853' },
+        { key: 'web_wechat_msg_rate', name: '微信-用户首次消息率', color: '#00C853' },
+        { key: 'web_wechat_msg_cost', name: '微信-用户首次消息成本', color: '#00C853' },
+        { key: 'web_consult', name: '有效咨询数', color: '#00C853' },
+        { key: 'web_consult_rate', name: '有效咨询率', color: '#00C853' },
+        { key: 'web_consult_cost', name: '有效咨询成本', color: '#00C853' }
+      ]
+    }
+  ];
+
+  return allMetricsCache;
+}
+
 Page({
   data: {
     accountName: '唯品会拉新A',
@@ -9,7 +228,6 @@ Page({
     lineAreaColor: 'rgba(0,102,255,0.08)',
     chartData: [],
     showMetricPicker: false,
-    allMetrics: {},
     selectedMetrics: [],
     topMetrics: [],
     pickerDisplayList: []
@@ -17,7 +235,6 @@ Page({
 
   onLoad: function() {
     var app = getApp();
-    this.initAllMetrics();
     this.loadSelectedMetrics();
 
     if (app.globalData && app.globalData.currentAccount) {
@@ -25,14 +242,10 @@ Page({
     }
     if (app.globalData && app.globalData.accountType) {
       var at = app.globalData.accountType;
-      this.setData({
-        accountType: at,
-        accountTypeTag: at
-      });
+      this.setData({ accountType: at, accountTypeTag: at });
     }
 
     this.updateTopMetrics();
-    this.updateOverviewMetrics();
   },
 
   onReady: function() {
@@ -53,147 +266,6 @@ Page({
         this.updateTopMetrics();
       }
     }
-  },
-
-  initAllMetrics: function() {
-    var basicMetrics = [
-      { key: 'impression', name: '曝光量', color: '#0066FF', selected: false },
-      { key: 'click', name: '点击量', color: '#0066FF', selected: false },
-      { key: 'ctr', name: '点击率', color: '#0066FF', selected: false },
-      { key: 'cpm', name: '千次展示均价', color: '#0066FF', selected: false },
-      { key: 'cpc', name: '点击均价', color: '#0066FF', selected: false },
-      { key: 'cost', name: '花费', color: '#0066FF', selected: false },
-      { key: 'billing', name: '计费量', color: '#0066FF', selected: false }
-    ];
-
-    var appJMetrics = [
-      { key: 'j_shallow_conv', name: '浅层转化量（J）', color: '#FF9500', selected: false },
-      { key: 'j_shallow_cost', name: '浅层转化成本（J）', color: '#FF9500', selected: false },
-      { key: 'j_shallow_rate', name: '浅层转化率（J）', color: '#FF9500', selected: false },
-      { key: 'j_deep_conv', name: '深层转化量（J）', color: '#FF9500', selected: false },
-      { key: 'j_deep_cost', name: '深层转化成本（J）', color: '#FF9500', selected: false },
-      { key: 'j_deep_rate', name: '深层转化率（J）', color: '#FF9500', selected: false },
-      { key: 'j_download', name: '下载量(J)', color: '#FF9500', selected: false },
-      { key: 'j_download_rate', name: '下载率(J)', color: '#FF9500', selected: false },
-      { key: 'j_download_cost', name: '下载成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_active', name: '普通激活数(J)', color: '#FF9500', selected: false },
-      { key: 'j_active_rate', name: '普通激活率(J)', color: '#FF9500', selected: false },
-      { key: 'j_active_cost', name: '普通激活成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_active', name: '自定义激活数(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_active_rate', name: '自定义激活率(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_active_cost', name: '自定义激活成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_new_active', name: '新增激活数(J)', color: '#FF9500', selected: false },
-      { key: 'j_new_active_rate', name: '新增激活率(J)', color: '#FF9500', selected: false },
-      { key: 'j_new_active_cost', name: '新增激活成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reg', name: '游戏注册量(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reg_rate', name: '游戏注册率(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reg_cost', name: '游戏注册成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_reg', name: '自定义注册量(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_reg_rate', name: '自定义注册率(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_reg_cost', name: '自定义注册成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_desk', name: '加桌数(J)', color: '#FF9500', selected: false },
-      { key: 'j_desk_rate', name: '加桌率(J)', color: '#FF9500', selected: false },
-      { key: 'j_desk_cost', name: '加桌成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_retain', name: '自定义次留数(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_retain_rate', name: '自定义次留率(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_retain_cost', name: '自定义次留成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_pay', name: '游戏付费数(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_pay_rate', name: '游戏付费率(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_pay_cost', name: '游戏付费成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d1', name: '自定义付费数-首日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d1_rate', name: '自定义付费率-首日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d1_cost', name: '自定义付费成本首日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d7', name: '自定义付费数-7日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d7_rate', name: '自定义付费率-7日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_pay_d7_cost', name: '自定义付费成本-7日去重(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_wake', name: '自定义拉活(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_wake_rate', name: '自定义拉活率(J)', color: '#FF9500', selected: false },
-      { key: 'j_custom_wake_cost', name: '自定义拉活成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reserve', name: '游戏预约数(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reserve_rate', name: '游戏预约率(J)', color: '#FF9500', selected: false },
-      { key: 'j_game_reserve_cost', name: '游戏预约成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_install', name: '安装完成数(J)', color: '#FF9500', selected: false },
-      { key: 'j_install_rate', name: '安装完成率(J)', color: '#FF9500', selected: false },
-      { key: 'j_install_cost', name: '安装完成成本(J)', color: '#FF9500', selected: false },
-      { key: 'j_d1_roi_ad', name: '首日ROI-广告变现(J)', color: '#FF9500', selected: false },
-      { key: 'j_d1_roi_pay', name: '首日ROI-充值付费(J)', color: '#FF9500', selected: false },
-      { key: 'j_it7', name: 'It7(J)', color: '#FF9500', selected: false }
-    ];
-
-    var appZMetrics = [
-      { key: 'z_shallow_conv', name: '浅层转化量（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_shallow_cost', name: '浅层转化成本（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_shallow_rate', name: '浅层转化率（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_deep_conv', name: '深层转化量（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_deep_cost', name: '深层转化成本（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_deep_rate', name: '深层转化率（Z）', color: '#AF52DE', selected: false },
-      { key: 'z_download', name: '下载量(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_download_rate', name: '下载率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_download_cost', name: '下载成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_active', name: '自定义激活数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_active_rate', name: '自定义激活率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_active_cost', name: '自定义激活成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_new_active', name: '新增激活数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_new_active_rate', name: '新增激活率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_new_active_cost', name: '新增激活成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_active', name: '普通激活数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_active_rate', name: '普通激活率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_active_cost', name: '普通激活成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_reg', name: '游戏注册量(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_reg_rate', name: '游戏注册率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_reg_cost', name: '游戏注册成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_reg', name: '自定义注册量(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_reg_rate', name: '自定义注册率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_reg_cost', name: '自定义注册成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_desk', name: '加桌数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_desk_rate', name: '加桌率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_desk_cost', name: '加桌成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_retain', name: '自定义次留数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_retain_rate', name: '自定义次留率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_custom_retain_cost', name: '自定义次留成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_pay', name: '游戏付费数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_pay_rate', name: '游戏付费率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_game_pay_cost', name: '游戏付费成本(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_install', name: '安装完成数(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_install_rate', name: '安装完成率(Z)', color: '#AF52DE', selected: false },
-      { key: 'z_install_cost', name: '安装完成成本(Z)', color: '#AF52DE', selected: false }
-    ];
-
-    var webMetrics = [
-      { key: 'web_shallow_conv', name: '浅层转化量', color: '#00C853', selected: false },
-      { key: 'web_shallow_cost', name: '浅层转化成本', color: '#00C853', selected: false },
-      { key: 'web_shallow_rate', name: '浅层转化率', color: '#00C853', selected: false },
-      { key: 'web_deep_conv', name: '深层转化量', color: '#00C853', selected: false },
-      { key: 'web_deep_cost', name: '深层转化成本', color: '#00C853', selected: false },
-      { key: 'web_deep_rate', name: '深层转化率', color: '#00C853', selected: false },
-      { key: 'web_form_submit', name: '表单提交量', color: '#00C853', selected: false },
-      { key: 'web_form_rate', name: '表单提交转化率', color: '#00C853', selected: false },
-      { key: 'web_form_cost', name: '表单提交成本', color: '#00C853', selected: false },
-      { key: 'web_btn_click', name: '按钮点击量', color: '#00C853', selected: false },
-      { key: 'web_btn_rate', name: '按钮点击转化率', color: '#00C853', selected: false },
-      { key: 'web_btn_cost', name: '按钮点击成本', color: '#00C853', selected: false },
-      { key: 'web_qrcode', name: '微信-识别二维码数', color: '#00C853', selected: false },
-      { key: 'web_qrcode_rate', name: '微信-识别二维码率', color: '#00C853', selected: false },
-      { key: 'web_qrcode_cost', name: '微信-识别二维码成本', color: '#00C853', selected: false },
-      { key: 'web_wechat_add', name: '微信添加微信数', color: '#00C853', selected: false },
-      { key: 'web_wechat_add_rate', name: '微信添加微信率', color: '#00C853', selected: false },
-      { key: 'web_wechat_add_cost', name: '微信添加微信成本', color: '#00C853', selected: false },
-      { key: 'web_wechat_msg', name: '微信用户首次消息数', color: '#00C853', selected: false },
-      { key: 'web_wechat_msg_rate', name: '微信-用户首次消息率', color: '#00C853', selected: false },
-      { key: 'web_wechat_msg_cost', name: '微信-用户首次消息成本', color: '#00C853', selected: false },
-      { key: 'web_consult', name: '有效咨询数', color: '#00C853', selected: false },
-      { key: 'web_consult_rate', name: '有效咨询率', color: '#00C853', selected: false },
-      { key: 'web_consult_cost', name: '有效咨询成本', color: '#00C853', selected: false }
-    ];
-
-    var allMetrics = [
-      { key: 'basic', name: '基础指标', list: basicMetrics },
-      { key: 'appJ', name: '应用转化指标（J）', list: appJMetrics },
-      { key: 'appZ', name: '应用转化指标（Z）', list: appZMetrics },
-      { key: 'web', name: '网页转化指标', list: webMetrics }
-    ];
-
-    this.setData({ allMetrics: allMetrics });
   },
 
   loadSelectedMetrics: function() {
@@ -239,22 +311,10 @@ Page({
     this.setData({ topMetrics: topMetrics });
   },
 
-  updateOverviewMetrics: function() {
-    var metrics = this.data.selectedMetrics;
-    if (metrics && metrics.length > 0) {
-      this.setData({ chartTitle: metrics[0].name + '趋势' });
-    }
-  },
-
   hexToRgba: function(hex, alpha) {
-    var r = 0;
-    var g = 0;
-    var b = 0;
-    if (hex.length === 7) {
-      r = parseInt(hex.substring(1, 3), 16);
-      g = parseInt(hex.substring(3, 5), 16);
-      b = parseInt(hex.substring(5, 7), 16);
-    }
+    var r = parseInt(hex.substring(1, 3), 16);
+    var g = parseInt(hex.substring(3, 5), 16);
+    var b = parseInt(hex.substring(5, 7), 16);
     return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
   },
 
@@ -282,13 +342,8 @@ Page({
     var color = selectedMetric.color || '#0066FF';
 
     for (var i = 0; i < raw.length; i++) {
-      var val = raw[i].value;
-      var pct = Math.round(val * 100 / maxVal);
-      list.push({
-        label: raw[i].label,
-        dotBottom: pct,
-        dotColor: color
-      });
+      var pct = Math.round(raw[i].value * 100 / maxVal);
+      list.push({ label: raw[i].label, dotBottom: pct, dotColor: color });
       if (pct < minDot) minDot = pct;
     }
 
@@ -310,7 +365,7 @@ Page({
   },
 
   openMetricPicker: function() {
-    var allMetrics = this.data.allMetrics;
+    var allMetrics = getAllMetrics();
     var selectedMetrics = this.data.selectedMetrics;
     var selectedKeys = {};
     for (var i = 0; i < selectedMetrics.length; i++) {
@@ -337,10 +392,7 @@ Page({
       });
     }
 
-    this.setData({
-      showMetricPicker: true,
-      pickerDisplayList: pickerDisplayList
-    });
+    this.setData({ showMetricPicker: true, pickerDisplayList: pickerDisplayList });
   },
 
   closeMetricPicker: function() {
@@ -352,7 +404,7 @@ Page({
     var catKey = e.currentTarget.dataset.category;
     var pickerDisplayList = this.data.pickerDisplayList;
     var selectedMetrics = this.data.selectedMetrics.slice();
-    var allMetrics = this.data.allMetrics;
+    var allMetrics = getAllMetrics();
 
     var metricInfo = null;
     for (var c = 0; c < allMetrics.length; c++) {
@@ -366,26 +418,19 @@ Page({
       }
       if (metricInfo) break;
     }
-
     if (!metricInfo) return;
 
     var existingIndex = -1;
     for (var j = 0; j < selectedMetrics.length; j++) {
-      if (selectedMetrics[j].key === key) {
-        existingIndex = j;
-        break;
-      }
+      if (selectedMetrics[j].key === key) { existingIndex = j; break; }
     }
 
     if (existingIndex !== -1) {
       selectedMetrics.splice(existingIndex, 1);
     } else if (selectedMetrics.length < 6) {
       selectedMetrics.push({
-        key: metricInfo.key,
-        name: metricInfo.name,
-        value: '0',
-        change: '环比 0.0% -',
-        color: metricInfo.color
+        key: metricInfo.key, name: metricInfo.name,
+        value: '0', change: '环比 0.0% -', color: metricInfo.color
       });
     }
 
@@ -393,29 +438,24 @@ Page({
     for (var s = 0; s < selectedMetrics.length; s++) {
       selectedKeys[selectedMetrics[s].key] = true;
     }
-
     for (var p = 0; p < pickerDisplayList.length; p++) {
       for (var q = 0; q < pickerDisplayList[p].list.length; q++) {
         pickerDisplayList[p].list[q].selected = selectedKeys[pickerDisplayList[p].list[q].key] ? true : false;
       }
     }
 
-    var newSelectedIndex = this.data.selectedIndex;
-    if (newSelectedIndex >= selectedMetrics.length && selectedMetrics.length > 0) {
-      newSelectedIndex = 0;
-    }
+    var newIdx = this.data.selectedIndex;
+    if (newIdx >= selectedMetrics.length && selectedMetrics.length > 0) newIdx = 0;
 
     this.setData({
       selectedMetrics: selectedMetrics,
       pickerDisplayList: pickerDisplayList,
-      selectedIndex: newSelectedIndex
+      selectedIndex: newIdx
     });
   },
 
   saveMetrics: function() {
-    try {
-      wx.setStorageSync('selectedMetrics', this.data.selectedMetrics);
-    } catch (e) {}
+    try { wx.setStorageSync('selectedMetrics', this.data.selectedMetrics); } catch (e) {}
     this.setData({ showMetricPicker: false });
     this.buildChartData();
   },

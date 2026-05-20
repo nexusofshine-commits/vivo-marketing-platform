@@ -1,16 +1,13 @@
 <view class="container">
   <view class="header">
-    <view class="header-top">
-      <view class="header-left" bindtap="goToProfile">
-        <view class="avatar">👤</view>
-        <text class="profile-link">个人中心</text>
-      </view>
-    </view>
     <view class="account-row">
       <view class="account-type-tag">{{accountTypeTag}}</view>
       <view class="account-name">{{accountName}}</view>
       <view class="switch-btn" bindtap="goToAccountSelect">
         <text class="switch-icon">⇄</text>
+      </view>
+      <view class="header-right" bindtap="goToProfile">
+        <view class="avatar">👤</view>
       </view>
     </view>
   </view>
@@ -94,7 +91,7 @@
         <text class="picker-title">选择指标</text>
         <text class="picker-close" bindtap="closeMetricPicker">✕</text>
       </view>
-      <scroll-view class="picker-content" scroll-y="true">
+      <scroll-view class="picker-scroll" scroll-y="true">
         <view wx:for="{{pickerDisplayList}}" wx:key="key" wx:for-item="cat">
           <view class="category-title">{{cat.name}}</view>
           <view class="metric-options">

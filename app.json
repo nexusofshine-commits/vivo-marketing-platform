@@ -27,7 +27,7 @@
       },
       {
         "pagePath": "pages/account-manage/account-manage",
-        "text": "账户管理",
+        "text": "投放账号管理",
         "iconPath": "assets/icons/account.png",
         "selectedIconPath": "assets/icons/account-active.png"
       },

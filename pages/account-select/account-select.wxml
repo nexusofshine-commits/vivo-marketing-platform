@@ -1,6 +1,6 @@
 <view class="container">
   <view class="navbar">
-    <text class="navbar-title">选择账号</text>
+    <text class="navbar-title">商业化角色切换</text>
   </view>
 
   <view class="account-group">

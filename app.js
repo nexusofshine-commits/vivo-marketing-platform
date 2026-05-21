@@ -24,10 +24,10 @@ App({
   updateAccountType: function(name) {
     if (name.indexOf('主体') !== -1) {
       this.globalData.accountType = '经营主体';
-      this.globalData.tabTitle = '账户管理';
+      this.globalData.tabTitle = '投放账号管理';
     } else if (name.indexOf('业务') !== -1 || name.indexOf('拉新') !== -1 && name.indexOf('集合') !== -1 || name.indexOf('拉活') !== -1 && name.indexOf('集合') !== -1) {
       this.globalData.accountType = '业务单元';
-      this.globalData.tabTitle = '账户管理';
+      this.globalData.tabTitle = '投放账号管理';
     } else {
       this.globalData.accountType = '投放账号';
       this.globalData.tabTitle = '推广管理';

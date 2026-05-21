@@ -1,0 +1,48 @@
+<view class="container">
+  <view class="navbar">
+    <text class="navbar-title">账号绑定</text>
+  </view>
+
+  <view class="bind-content">
+    <view class="form-section">
+      <text class="section-title">选择角色类型</text>
+      <view class="role-options">
+        <view class="role-option {{selectedRole === 'business' ? 'selected' : ''}}" bindtap="selectRole" data-role="business">
+          <view class="role-icon">🏢</view>
+          <text class="role-name">经营主体</text>
+          <view class="role-check">✓</view>
+        </view>
+        <view class="role-option {{selectedRole === 'unit' ? 'selected' : ''}}" bindtap="selectRole" data-role="unit">
+          <view class="role-icon">📊</view>
+          <text class="role-name">业务单元</text>
+          <view class="role-check">✓</view>
+        </view>
+        <view class="role-option {{selectedRole === 'account' ? 'selected' : ''}}" bindtap="selectRole" data-role="account">
+          <view class="role-icon">🎯</view>
+          <text class="role-name">投放账号</text>
+          <view class="role-check">✓</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-section">
+      <text class="section-title">账号信息</text>
+      <view class="form-item">
+        <text class="form-label">账号</text>
+        <input class="form-input" type="text" placeholder="请输入账号" value="{{username}}" bindinput="onUsernameInput" />
+      </view>
+      <view class="form-item">
+        <text class="form-label">密码</text>
+        <input class="form-input" type="password" placeholder="请输入密码" value="{{password}}" bindinput="onPasswordInput" />
+      </view>
+    </view>
+
+    <view class="form-section">
+      <view class="bind-btn" bindtap="submitBind">绑定账号</view>
+    </view>
+
+    <view class="form-section">
+      <text class="tips-text">绑定后将与当前微信账号关联，支持随时解绑</text>
+    </view>
+  </view>
+</view>

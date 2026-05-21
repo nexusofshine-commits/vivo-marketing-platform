@@ -5,7 +5,8 @@
     "pages/diagnosis/diagnosis",
     "pages/plan-detail/plan-detail",
     "pages/profile/profile",
-    "pages/account-select/account-select"
+    "pages/account-select/account-select",
+    "pages/account-bind/account-bind"
   ],
   "window": {
     "backgroundTextStyle": "light",

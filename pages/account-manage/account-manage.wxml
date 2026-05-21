@@ -114,22 +114,39 @@
     </view>
 
     <view class="section-card">
-      <text class="section-title">{{promoTabLabel}}列表</text>
-      <view wx:for="{{promoList}}" wx:key="name" class="list-item">
-        <view class="item-left" bindtap="goToPlanDetail" data-name="{{item.name}}">
-          <view class="item-icon" style="background:{{item.iconBg}};">📋</view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <text class="item-meta">{{item.type}} · {{item.statusText}}</text>
+        <text class="section-title">{{promoTabLabel}}列表</text>
+        <view wx:for="{{promoList}}" wx:key="name" class="list-item promo-item">
+          <view class="item-left" bindtap="goToPlanDetail" data-name="{{item.name}}">
+            <view class="item-icon" style="background:{{item.iconBg}};">📋</view>
+            <view class="item-info">
+              <text class="item-name">{{item.name}}</text>
+              <text class="item-meta">{{item.type}} · {{item.statusText}}</text>
+            </view>
+          </view>
+          <view class="item-right promo-right">
+            <view class="promo-stats">
+              <view class="stat-row">
+                <text class="stat-label">今日消耗</text>
+                <text class="stat-cost">{{item.cost}}</text>
+              </view>
+              <view wx:if="{{item.dailyBudget !== undefined}}" class="stat-row">
+                <text class="stat-label">日预算</text>
+                <view class="budget-row">
+                  <text class="stat-budget">{{item.dailyBudget}}元</text>
+                  <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="budget">✏️</view>
+                </view>
+              </view>
+              <view wx:if="{{item.bidPrice !== undefined}}" class="stat-row">
+                <text class="stat-label">出价</text>
+                <view class="budget-row">
+                  <text class="stat-budget">{{item.bidPrice}}元</text>
+                  <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="bid">✏️</view>
+                </view>
+              </view>
+            </view>
           </view>
         </view>
-        <view class="item-right">
-          <text class="item-value">{{item.cost}}</text>
-          <text class="item-unit">花费</text>
-          <view wx:if="{{item.dailyBudget !== undefined || item.bidPrice !== undefined}}" class="edit-btn" catchtap="openEditModal" data-item="{{item}}" data-type="{{item.dailyBudget !== undefined ? 'budget' : 'bid'}}">编辑</view>
-        </view>
       </view>
-    </view>
   </view>
 
   <!-- 编辑模态框 -->

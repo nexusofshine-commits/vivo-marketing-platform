@@ -349,3 +349,59 @@
   background: #0066FF;
   color: #fff;
 }
+
+.promo-item {
+  align-items: flex-start;
+}
+
+.promo-right {
+  flex-shrink: 0;
+}
+
+.promo-stats {
+  text-align: right;
+}
+
+.promo-stats .stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.promo-stats .stat-label {
+  font-size: 20rpx;
+  color: #999;
+  flex-shrink: 0;
+  margin-right: 12rpx;
+}
+
+.stat-cost {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #0066FF;
+}
+
+.stat-budget {
+  font-size: 24rpx;
+  color: #191919;
+  font-weight: 500;
+}
+
+.budget-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.edit-icon {
+  font-size: 24rpx;
+  padding: 4rpx;
+}
+
+.edit-icon:active {
+  opacity: 0.7;
+}

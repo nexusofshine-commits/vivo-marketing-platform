@@ -25,8 +25,8 @@ var PROMO_DATA = {
       { name: '拉新-Banner计划', type: 'CPC', statusText: '已暂停', cost: '3,456', iconBg: '#FFF3E0', dailyBudget: 5000 }
     ],
     adgroup: [
-      { name: '信息流-广告组1', type: 'CPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF', bidPrice: 0.5 },
-      { name: '信息流-广告组2', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF', bidPrice: 0.6 }
+      { name: '信息流-广告组1', type: 'CPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF', bidPrice: 0.5, dailyBudget: 5000 },
+      { name: '信息流-广告组2', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF', bidPrice: 0.6, dailyBudget: 5000 }
     ],
     ad: [
       { name: '广告组1-广告A', type: 'CPC', statusText: '投放中', cost: '5,230', iconBg: '#E8F0FF', bidPrice: 0.4 },

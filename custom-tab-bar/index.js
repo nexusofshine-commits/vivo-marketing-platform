@@ -24,36 +24,23 @@ Component({
         iconPath: '/assets/icons/diagnosis.png',
         selectedIconPath: '/assets/icons/diagnosis-active.png'
       }
-    ],
-    secondTabText: '投放账号管理'
+    ]
   },
 
   attached: function() {
-    this.updateTabText();
   },
 
   methods: {
-    updateTabText: function() {
-      var type = app.globalData.accountType || '投放账号';
-      var text = type === '投放账号' ? '推广管理' : '投放账号管理';
-      this.setData({ secondTabText: text });
-    },
-
     switchTab: function(e) {
       var data = e.currentTarget.dataset;
       var url = data.path;
       
-      if (url === this.data.list[this.data.selected].pagePath) {
-        return;
-      }
-
       this.setData({ selected: data.index });
       wx.switchTab({ url: url });
     },
 
     updateSelected: function(index) {
       this.setData({ selected: index });
-      this.updateTabText();
     }
   }
 })

@@ -3,14 +3,14 @@ var app = getApp();
 var PROMO_DATA = {
   new: {
     plan: [
-      { name: '拉新-信息流计划', type: 'OCPC', statusText: '投放中', cost: '15,234', iconBg: '#E8F0FF' },
-      { name: '拉新-开屏计划', type: 'OCPC', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF' },
-      { name: '拉新-Banner计划', type: 'CPC', statusText: '已暂停', cost: '3,456', iconBg: '#FFF3E0' }
+      { name: '拉新-信息流计划', type: 'OCPC', statusText: '投放中', cost: '15,234', iconBg: '#E8F0FF', dailyBudget: 10000 },
+      { name: '拉新-开屏计划', type: 'OCPC', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF', dailyBudget: 8000 },
+      { name: '拉新-Banner计划', type: 'CPC', statusText: '已暂停', cost: '3,456', iconBg: '#FFF3E0', dailyBudget: 5000 }
     ],
     ad: [
-      { name: '信息流-广告A', type: 'OCPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF' },
-      { name: '信息流-广告B', type: 'OCPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF' },
-      { name: '开屏-广告A', type: 'OCPC', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF' }
+      { name: '信息流-广告A', type: 'OCPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF', bidPrice: 0.5 },
+      { name: '信息流-广告B', type: 'OCPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF', bidPrice: 0.6 },
+      { name: '开屏-广告A', type: 'OCPC', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF', bidPrice: 2.0 }
     ],
     material: [
       { name: '素材组-大图系列', type: '图片', statusText: '使用中', cost: '-', iconBg: '#E8F5E9' },
@@ -20,18 +20,18 @@ var PROMO_DATA = {
   },
   old: {
     plan: [
-      { name: '拉新-信息流计划', type: 'CPC', statusText: '投放中', cost: '15,234', iconBg: '#E8F0FF' },
-      { name: '拉新-开屏计划', type: 'CPM', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF' },
-      { name: '拉新-Banner计划', type: 'CPC', statusText: '已暂停', cost: '3,456', iconBg: '#FFF3E0' }
+      { name: '拉新-信息流计划', type: 'CPC', statusText: '投放中', cost: '15,234', iconBg: '#E8F0FF', dailyBudget: 10000 },
+      { name: '拉新-开屏计划', type: 'CPM', statusText: '投放中', cost: '8,567', iconBg: '#E8F0FF', dailyBudget: 8000 },
+      { name: '拉新-Banner计划', type: 'CPC', statusText: '已暂停', cost: '3,456', iconBg: '#FFF3E0', dailyBudget: 5000 }
     ],
     adgroup: [
-      { name: '信息流-广告组1', type: 'CPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF' },
-      { name: '信息流-广告组2', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF' }
+      { name: '信息流-广告组1', type: 'CPC', statusText: '投放中', cost: '9,120', iconBg: '#E8F0FF', bidPrice: 0.5 },
+      { name: '信息流-广告组2', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF', bidPrice: 0.6 }
     ],
     ad: [
-      { name: '广告组1-广告A', type: 'CPC', statusText: '投放中', cost: '5,230', iconBg: '#E8F0FF' },
-      { name: '广告组1-广告B', type: 'CPC', statusText: '投放中', cost: '3,890', iconBg: '#E8F0FF' },
-      { name: '广告组2-广告A', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF' }
+      { name: '广告组1-广告A', type: 'CPC', statusText: '投放中', cost: '5,230', iconBg: '#E8F0FF', bidPrice: 0.4 },
+      { name: '广告组1-广告B', type: 'CPC', statusText: '投放中', cost: '3,890', iconBg: '#E8F0FF', bidPrice: 0.5 },
+      { name: '广告组2-广告A', type: 'CPC', statusText: '投放中', cost: '6,114', iconBg: '#E8F0FF', bidPrice: 0.6 }
     ],
     creative: [
       { name: '创意-大图A', type: '图片', statusText: '使用中', cost: '-', iconBg: '#E8F5E9' },
@@ -55,7 +55,11 @@ Page({
     promoTab: 'plan',
     promoTabLabel: '计划',
     promoList: [],
-    promoRunning: '2'
+    promoRunning: '2',
+    showEditModal: false,
+    editType: '',
+    editItem: null,
+    editValue: ''
   },
 
   onShow: function() {
@@ -144,5 +148,47 @@ Page({
     var name = e.currentTarget.dataset.name;
     app.globalData.selectedAccount = name;
     wx.navigateTo({ url: '/pages/plan-detail/plan-detail' });
+  },
+
+  openEditModal: function(e) {
+    var item = e.currentTarget.dataset.item;
+    var type = e.currentTarget.dataset.type;
+    var value = type === 'budget' ? (item.dailyBudget || 0) : (item.bidPrice || 0);
+    this.setData({
+      showEditModal: true,
+      editType: type,
+      editItem: item,
+      editValue: String(value)
+    });
+  },
+
+  closeEditModal: function() {
+    this.setData({ showEditModal: false, editItem: null, editValue: '' });
+  },
+
+  onEditValueInput: function(e) {
+    this.setData({ editValue: e.detail.value });
+  },
+
+  saveEdit: function() {
+    var val = parseFloat(this.data.editValue);
+    if (isNaN(val) || val <= 0) {
+      wx.showToast({ title: '请输入有效数值', icon: 'none' });
+      return;
+    }
+
+    var type = this.data.editType;
+    var item = this.data.editItem;
+    if (type === 'budget') {
+      item.dailyBudget = val;
+    } else if (type === 'bid') {
+      item.bidPrice = val;
+    }
+
+    // 更新数据
+    this.buildPromoList();
+
+    this.setData({ showEditModal: false, editItem: null, editValue: '' });
+    wx.showToast({ title: '保存成功', icon: 'success' });
   }
 })

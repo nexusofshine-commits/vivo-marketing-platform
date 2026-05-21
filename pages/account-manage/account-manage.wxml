@@ -59,8 +59,8 @@
 
     <view class="section-card">
       <text class="section-title">投放账号</text>
-      <view wx:for="{{accountList}}" wx:key="name" class="list-item" bindtap="enterPromotion" data-name="{{item.name}}">
-        <view class="item-left">
+      <view wx:for="{{accountList}}" wx:key="name" class="list-item">
+        <view class="item-left" bindtap="enterPromotion" data-name="{{item.name}}">
           <view class="item-icon" style="background:{{item.iconBg}};">🎯</view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
@@ -69,6 +69,7 @@
         </view>
         <view class="item-right">
           <text class="item-status {{item.statusClass}}">{{item.statusText}}</text>
+          <view class="edit-btn" catchtap="openEditModal" data-item="{{item}}" data-type="budget">编辑</view>
           <text class="item-arrow">›</text>
         </view>
       </view>
@@ -114,8 +115,8 @@
 
     <view class="section-card">
       <text class="section-title">{{promoTabLabel}}列表</text>
-      <view wx:for="{{promoList}}" wx:key="name" class="list-item" bindtap="goToPlanDetail" data-name="{{item.name}}">
-        <view class="item-left">
+      <view wx:for="{{promoList}}" wx:key="name" class="list-item">
+        <view class="item-left" bindtap="goToPlanDetail" data-name="{{item.name}}">
           <view class="item-icon" style="background:{{item.iconBg}};">📋</view>
           <view class="item-info">
             <text class="item-name">{{item.name}}</text>
@@ -125,7 +126,29 @@
         <view class="item-right">
           <text class="item-value">{{item.cost}}</text>
           <text class="item-unit">花费</text>
+          <view wx:if="{{item.dailyBudget !== undefined || item.bidPrice !== undefined}}" class="edit-btn" catchtap="openEditModal" data-item="{{item}}" data-type="{{item.dailyBudget !== undefined ? 'budget' : 'bid'}}">编辑</view>
         </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑模态框 -->
+  <view wx:if="{{showEditModal}}" class="modal-mask" bindtap="closeEditModal">
+    <view class="modal-container" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">编辑{{editType === 'budget' ? '日预算' : '出价'}}</text>
+        <text class="modal-close" bindtap="closeEditModal">×</text>
+      </view>
+      <view class="modal-body">
+        <text class="modal-label">{{editItem.name}}</text>
+        <view class="input-row">
+          <input class="edit-input" type="digit" value="{{editValue}}" bindinput="onEditValueInput" placeholder="请输入数值" />
+          <text class="input-unit">{{editType === 'budget' ? '元' : '元/次'}}</text>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn cancel" bindtap="closeEditModal">取消</view>
+        <view class="modal-btn confirm" bindtap="saveEdit">保存</view>
       </view>
     </view>
   </view>

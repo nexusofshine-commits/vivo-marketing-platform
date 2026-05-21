@@ -12,7 +12,11 @@ Page({
     lineAreaColor: 'rgba(0,102,255,0.06)',
     infoFields: [],
     creativeInfo: {},
-    targetingInfo: ''
+    targetingInfo: '',
+    showEditModal: false,
+    editType: '',
+    editField: '',
+    editValue: ''
   },
 
   onLoad: function(options) {
@@ -59,8 +63,8 @@ Page({
           { label: '行业', value: '电商购物' },
           { label: '通投智选', value: '开启', highlight: true },
           { label: '出价方式', value: '按转化目标出价' },
-          { label: '优化目标及出价', value: '自定义付费，10元' },
-          { label: '计划预算', value: '5,000元/日' },
+          { key: 'bidPrice', label: '优化目标及出价', value: '10', editable: true },
+          { key: 'dailyBudget', label: '计划预算', value: '5000', editable: true },
           { label: '投放日期', value: '2025-05-01 ~ 2025-06-30' },
           { label: '投放时段', value: '全天' },
           { label: '定向信息', value: '展开查看', isTargeting: true }
@@ -83,7 +87,7 @@ Page({
         fields = [
           { label: '推广目标', value: '应用推广' },
           { label: '计划类型', value: '商店' },
-          { label: '日预算', value: '5,000元' }
+          { key: 'dailyBudget', label: '日预算', value: '5000', editable: true }
         ];
       } else if (levelType === 'adgroup') {
         fields = [
@@ -92,8 +96,8 @@ Page({
           { label: '行业', value: '电商购物' },
           { label: '通投智选', value: '开启', highlight: true },
           { label: '出价方式', value: '按转化目标出价' },
-          { label: '优化目标及出价', value: '自定义付费，10元' },
-          { label: '日预算', value: '5,000元' },
+          { key: 'bidPrice', label: '优化目标及出价', value: '10', editable: true },
+          { key: 'dailyBudget', label: '日预算', value: '5000', editable: true },
           { label: '投放日期', value: '2025-05-01 ~ 2025-06-30' },
           { label: '投放时段', value: '全天' },
           { label: '定向信息', value: '展开查看', isTargeting: true }
@@ -156,5 +160,51 @@ Page({
 
   goBack: function() {
     wx.navigateBack({ delta: 1 });
+  },
+
+  openEditModal: function(e) {
+    var field = e.currentTarget.dataset.field;
+    var label = e.currentTarget.dataset.label;
+    var currentVal = e.currentTarget.dataset.value;
+    var type = 'value';
+    if (field.indexOf('budget') !== -1) type = 'budget';
+    if (field.indexOf('bid') !== -1 || field.indexOf('Price') !== -1) type = 'bid';
+
+    this.setData({
+      showEditModal: true,
+      editType: type,
+      editField: field,
+      editLabel: label,
+      editValue: String(currentVal)
+    });
+  },
+
+  closeEditModal: function() {
+    this.setData({ showEditModal: false, editType: '', editField: '', editValue: '' });
+  },
+
+  onEditValueInput: function(e) {
+    this.setData({ editValue: e.detail.value });
+  },
+
+  saveEdit: function() {
+    var val = parseFloat(this.data.editValue);
+    if (isNaN(val) || val <= 0) {
+      wx.showToast({ title: '请输入有效数值', icon: 'none' });
+      return;
+    }
+
+    // 更新infoFields
+    var fields = this.data.infoFields;
+    var field = this.data.editField;
+    for (var i = 0; i < fields.length; i++) {
+      if (fields[i].key === field) {
+        fields[i].value = val;
+        break;
+      }
+    }
+
+    this.setData({ infoFields: fields, showEditModal: false });
+    wx.showToast({ title: '保存成功', icon: 'success' });
   }
 });

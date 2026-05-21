@@ -1,40 +1,29 @@
-<view class="container">
+<view class="detail-container">
   <view class="detail-header">
     <view class="header-nav" bindtap="goBack">
       <text class="back-icon">&lt; 返回</text>
     </view>
     <view class="detail-plan-name">{{planName}}</view>
     <view class="detail-row">
-      <view class="detail-info-item">
-        <text class="detail-info-label">状态</text>
-        <text class="detail-info-value running">{{planStatus}}</text>
-      </view>
-      <view class="detail-info-item">
-        <text class="detail-info-label">版本</text>
-        <text class="detail-info-value">{{version === 'new' ? '新版' : '旧版'}}</text>
-      </view>
-      <view class="detail-info-item">
-        <text class="detail-info-label">层级</text>
-        <text class="detail-info-value">{{levelType === 'plan' ? '计划' : levelType === 'ad' ? '广告' : levelType === 'adgroup' ? '广告组' : '创意'}}</text>
-      </view>
+      <text class="detail-status">{{planStatus}}</text>
+      <text class="detail-tag">{{version === 'new' ? '新版' : '旧版'}}</text>
+      <text class="detail-tag">{{levelTypeLabel}}</text>
     </view>
   </view>
 
-  <view class="section-card">
-    <view class="stat-row">
-      <view wx:for="{{coreMetrics}}" wx:key="key" class="stat-item">
-        <text class="stat-value">{{item.value}}</text>
-        <text class="stat-label">{{item.name}}</text>
-      </view>
+  <view class="core-metrics-section">
+    <view wx:for="{{coreMetrics}}" wx:key="label" class="metric-card">
+      <text class="metric-value">{{item.value}}</text>
+      <text class="metric-label">{{item.label}}</text>
     </view>
   </view>
 
-  <view class="section-card">
-    <view class="section-toggle" bindtap="toggleTrend">
-      <text class="section-title">数据趋势</text>
-      <text class="toggle-arrow">{{trendExpanded ? '▲' : '▼'}}</text>
+  <view class="trend-section">
+    <view class="trend-header" bindtap="toggleTrend">
+      <text class="trend-title">数据趋势</text>
+      <text class="trend-arrow">{{trendExpanded ? '收起 ↑' : '展开 ↓'}}</text>
     </view>
-    <view wx:if="{{trendExpanded}}" class="trend-content">
+    <view wx:if="{{trendExpanded}}" class="trend-chart-wrapper">
       <view class="line-chart">
         <view class="chart-y-axis">
           <view class="y-label">30</view>
@@ -59,54 +48,70 @@
     </view>
   </view>
 
-  <view wx:if="{{infoFields.length > 0}}" class="section-card">
-    <view class="section-title">基本信息</view>
-    <view class="info-list">
-      <view wx:for="{{infoFields}}" wx:key="label" class="info-row {{item.isTargeting ? 'targeting-row' : ''}}">
-        <view wx:if="{{item.isTargeting}}" class="info-targeting" bindtap="toggleTargeting">
-          <view class="info-row-inner">
-            <text class="info-label">{{item.label}}</text>
-            <text class="info-value targeting-value">{{targetingExpanded ? '收起' : item.value}} {{targetingExpanded ? '▲' : '▼'}}</text>
-          </view>
-          <view wx:if="{{targetingExpanded}}" class="targeting-content">
-            <text class="targeting-text">{{targetingInfo}}</text>
-          </view>
-        </view>
-        <view wx:else class="info-row-inner">
-          <text class="info-label">{{item.label}}</text>
-          <text class="info-value {{item.highlight ? 'highlight' : ''}}">{{item.value}}</text>
-        </view>
+  <view wx:if="{{infoFields.length > 0}}" class="info-section">
+    <view class="info-title">基本信息</view>
+    <view wx:for="{{infoFields}}" wx:key="label" class="info-row">
+      <view class="info-label">{{item.label}}</view>
+      <view wx:if="{{item.isTargeting}}" class="info-value targeting-value" bindtap="toggleTargeting">
+        <text>{{item.value}}</text>
+        <text class="targeting-arrow">{{targetingExpanded ? '↑' : '↓'}}</text>
       </view>
+      <view wx:else class="info-value-row">
+        <text class="info-value {{item.highlight ? 'highlight' : ''}}">{{item.key && item.editable ? (item.key.indexOf('budget') !== -1 ? (item.value + '元/日') : ('自定义付费，' + item.value + '元')) : item.value}}</text>
+        <view wx:if="{{item.editable}}" class="edit-icon" bindtap="openEditModal" data-field="{{item.key}}" data-label="{{item.label}}" data-value="{{item.value}}">编辑</view>
+      </view>
+    </view>
+    <view wx:if="{{targetingExpanded}}" class="targeting-content">
+      <text class="targeting-text">{{targetingInfo}}</text>
     </view>
   </view>
 
-  <view wx:if="{{creativeInfo.title}}" class="section-card">
-    <view class="section-title">创意信息</view>
-    <view class="creative-section">
-      <view class="creative-row">
-        <text class="info-label">标题</text>
-        <text class="info-value">{{creativeInfo.title}}</text>
-      </view>
+  <view wx:if="{{creativeInfo.title}}" class="creative-section">
+    <view class="info-title">创意信息</view>
+    <view class="creative-title">{{creativeInfo.title}}</view>
 
-      <view wx:if="{{creativeInfo.images && creativeInfo.images.length > 0}}" class="creative-row">
-        <text class="info-label">单图</text>
-        <view class="creative-images">
-          <image wx:for="{{creativeInfo.images}}" wx:key="*this"
-            src="{{item}}" class="creative-img" mode="aspectFill"></image>
+    <view wx:if="{{creativeInfo.images && creativeInfo.images.length > 0}}" class="creative-image-group">
+      <view class="image-label">单图</view>
+      <view class="image-wrapper">
+        <image wx:for="{{creativeInfo.images}}" wx:key="*this" class="creative-image" src="{{item}}" mode="aspectFill" />
+      </view>
+    </view>
+
+    <view wx:if="{{creativeInfo.video}}" class="creative-video-group">
+      <view class="image-label">视频</view>
+      <view class="video-wrapper">
+        <image class="video-thumbnail" src="{{creativeInfo.video}}" mode="aspectFill" />
+        <view class="play-button">▶</view>
+      </view>
+    </view>
+
+    <view wx:if="{{creativeInfo.groupImages && creativeInfo.groupImages.length > 0}}" class="creative-group-image-group">
+      <view class="image-label">组图</view>
+      <view class="image-wrapper">
+        <image wx:for="{{creativeInfo.groupImages}}" wx:key="*this" class="creative-image" src="{{item}}" mode="aspectFill" />
+      </view>
+    </view>
+
+    <view wx:if="{{(!creativeInfo.images || creativeInfo.images.length === 0) && (!creativeInfo.video) && (!creativeInfo.groupImages || creativeInfo.groupImages.length === 0)}}" class="no-creative">
+      暂无创意信息
+    </view>
+  </view>
+
+  <view wx:if="{{showEditModal}}" class="modal-mask" bindtap="closeEditModal">
+    <view class="modal-container" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">编辑{{editLabel}}</text>
+        <text class="modal-close" bindtap="closeEditModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="input-row">
+          <input class="edit-input" type="digit" value="{{editValue}}" bindinput="onEditValueInput" placeholder="请输入数值" />
+          <text class="input-unit">{{editType === 'budget' ? '元' : '元'}}</text>
         </view>
       </view>
-
-      <view wx:if="{{creativeInfo.video}}" class="creative-row">
-        <text class="info-label">视频</text>
-        <view class="creative-video-wrap">
-          <image src="{{creativeInfo.video}}" class="creative-video-thumb" mode="aspectFill"></image>
-          <view class="video-play-icon">▶</view>
-        </view>
-      </view>
-
-      <view wx:if="{{creativeInfo.groupImages}}" class="creative-row">
-        <text class="info-label">组图</text>
-        <text class="info-value muted">{{creativeInfo.groupImages.length > 0 ? '' : '无'}}</text>
+      <view class="modal-footer">
+        <view class="modal-btn cancel" bindtap="closeEditModal">取消</view>
+        <view class="modal-btn confirm" bindtap="saveEdit">保存</view>
       </view>
     </view>
   </view>

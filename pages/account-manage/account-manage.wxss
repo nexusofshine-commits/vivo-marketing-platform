@@ -235,3 +235,117 @@
   color: #ccc;
   font-size: 28rpx;
 }
+
+.edit-btn {
+  padding: 10rpx 20rpx;
+  background: #0066FF;
+  color: #fff;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-container {
+  background: #fff;
+  width: 84%;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx;
+  border-bottom: 1rpx solid #f0f1f5;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #191919;
+}
+
+.modal-close {
+  font-size: 40rpx;
+  color: #999;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-body {
+  padding: 32rpx;
+}
+
+.modal-label {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  background: #f5f6fa;
+  border-radius: 12rpx;
+  padding: 20rpx 24rpx;
+}
+
+.edit-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #191919;
+}
+
+.input-unit {
+  font-size: 26rpx;
+  color: #666;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.modal-footer {
+  display: flex;
+  border-top: 1rpx solid #f0f1f5;
+  padding: 24rpx 32rpx;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.modal-btn.cancel {
+  background: #f5f6fa;
+  color: #666;
+}
+
+.modal-btn.confirm {
+  background: #0066FF;
+  color: #fff;
+}

@@ -107,6 +107,13 @@ Page({
     this.switchDim({ currentTarget: { dataset: { dim: 'consume' } } });
   },
 
+  onShow: function() {
+    var tabBar = this.getTabBar();
+    if (tabBar) {
+      tabBar.updateSelected(2);
+    }
+  },
+
   switchDim: function(e) {
     var dim = e.currentTarget.dataset.dim;
     this.setData({

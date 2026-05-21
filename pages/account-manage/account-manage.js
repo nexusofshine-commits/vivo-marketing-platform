@@ -74,6 +74,11 @@ Page({
       this.setData({ viewLevel: 'promotion', pageTitle: '推广管理' });
       this.buildPromoList();
     }
+    
+    var tabBar = this.getTabBar();
+    if (tabBar) {
+      tabBar.updateSelected(1);
+    }
   },
 
   buildBusinessUnits: function() {

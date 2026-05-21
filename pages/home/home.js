@@ -262,6 +262,11 @@ Page({
         this.updateTopMetrics();
       }
     }
+    
+    var tabBar = this.getTabBar();
+    if (tabBar) {
+      tabBar.updateSelected(0);
+    }
   },
 
   loadSelectedMetrics: function() {

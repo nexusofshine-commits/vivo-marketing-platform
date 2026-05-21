@@ -248,10 +248,6 @@ Page({
     this.updateTopMetrics();
   },
 
-  onReady: function() {
-    this.buildChartData();
-  },
-
   onShow: function() {
     var app = getApp();
     if (app.globalData && app.globalData.currentAccount) {
@@ -278,16 +274,17 @@ Page({
       { key: 'web_shallow_conv', name: '浅层转化量', value: '23', change: '环比 8.3% ↓', color: '#00C853' }
     ];
 
+    var metricsToSet = defaultMetrics;
     try {
       var saved = wx.getStorageSync('selectedMetrics');
       if (saved && saved.length === 6) {
-        this.setData({ selectedMetrics: saved });
-      } else {
-        this.setData({ selectedMetrics: defaultMetrics });
+        metricsToSet = saved;
       }
-    } catch (e) {
-      this.setData({ selectedMetrics: defaultMetrics });
-    }
+    } catch (e) {}
+
+    this.setData({ selectedMetrics: metricsToSet });
+    // 设置完指标后立即构建图表
+    this.buildChartData();
   },
 
   updateTopMetrics: function() {

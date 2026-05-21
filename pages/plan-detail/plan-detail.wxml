@@ -1,7 +1,7 @@
 <view class="container">
   <view class="detail-header">
     <view class="header-nav" bindtap="goBack">
-      <text class="back-icon">< 返回</text>
+      <text class="back-icon">&lt; 返回</text>
     </view>
     <view class="detail-plan-name">{{planName}}</view>
     <view class="detail-row">

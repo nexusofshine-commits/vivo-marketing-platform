@@ -1,172 +1,217 @@
 <view class="container">
-  <view class="navbar">
-    <text class="navbar-title">{{pageTitle}}</text>
-  </view>
-
-  <!-- 经营主体：显示业务单元列表 -->
-  <view wx:if="{{viewLevel === 'businessUnit'}}" class="view-content">
-    <view class="stat-row">
-      <view class="stat-item">
-        <text class="stat-value">2</text>
-        <text class="stat-label">业务单元</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">5</text>
-        <text class="stat-label">投放账号</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">¥36,257</text>
-        <text class="stat-label">今日总花费</text>
-      </view>
+    <view class="navbar">
+        <text class="navbar-title">{{pageTitle}}</text>
     </view>
 
-    <view class="section-card">
-      <text class="section-title">业务单元</text>
-      <view wx:for="{{businessUnits}}" wx:key="name" class="list-item" bindtap="enterBusinessUnit" data-name="{{item.name}}">
-        <view class="item-left">
-          <view class="item-icon" style="background:{{item.iconBg}};color:{{item.iconColor}};">📊</view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <text class="item-meta">{{item.accountCount}}个投放账号 · 今日 {{item.cost}}</text>
-          </view>
-        </view>
-        <text class="item-arrow">›</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 业务单元：显示投放账号列表 -->
-  <view wx:if="{{viewLevel === 'adAccount'}}" class="view-content">
-    <view class="stat-row">
-      <view class="stat-item">
-        <text class="stat-value">{{accountList.length}}</text>
-        <text class="stat-label">投放账号</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{runningCount}}</text>
-        <text class="stat-label">投放中</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">¥36,257</text>
-        <text class="stat-label">今日花费</text>
-      </view>
-    </view>
-
-    <view class="filter-bar">
-      <text class="filter-btn {{filterKey === 'all' ? 'active' : ''}}" bindtap="filterAccounts" data-key="all">全部</text>
-      <text class="filter-btn {{filterKey === 'focus' ? 'active' : ''}}" bindtap="filterAccounts" data-key="focus">重点关注</text>
-    </view>
-
-    <view class="section-card">
-      <text class="section-title">投放账号</text>
-      <view wx:for="{{accountList}}" wx:key="name" class="list-item">
-        <view class="item-left" bindtap="enterPromotion" data-name="{{item.name}}">
-          <view class="item-icon" style="background:{{item.iconBg}};">🎯</view>
-          <view class="item-info">
-            <text class="item-name">{{item.name}}</text>
-            <text class="item-meta">今日 {{item.cost}} · {{item.type}}</text>
-          </view>
-        </view>
-        <view class="item-right">
-          <text class="item-status {{item.statusClass}}">{{item.statusText}}</text>
-          <view class="edit-btn" catchtap="openEditModal" data-item="{{item}}" data-type="budget">编辑</view>
-          <text class="item-arrow">›</text>
-        </view>
-      </view>
-    </view>
-  </view>
-
-  <!-- 投放账号：显示推广列表（新旧版切换） -->
-  <view wx:if="{{viewLevel === 'promotion'}}" class="view-content">
-    <view class="version-toggle">
-      <text class="toggle-btn {{promoVersion === 'new' ? 'active' : ''}}" bindtap="switchVersion" data-ver="new">新版</text>
-      <text class="toggle-btn {{promoVersion === 'old' ? 'active' : ''}}" bindtap="switchVersion" data-ver="old">旧版</text>
-    </view>
-
-    <!-- 新版：计划、广告、素材 -->
-    <view wx:if="{{promoVersion === 'new'}}" class="promo-tabs">
-      <text class="promo-tab {{promoTab === 'plan' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="plan">计划</text>
-      <text class="promo-tab {{promoTab === 'ad' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="ad">广告</text>
-      <text class="promo-tab {{promoTab === 'material' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="material">素材</text>
-    </view>
-
-    <!-- 旧版：计划、广告组、广告、创意 -->
-    <view wx:if="{{promoVersion === 'old'}}" class="promo-tabs">
-      <text class="promo-tab {{promoTab === 'plan' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="plan">计划</text>
-      <text class="promo-tab {{promoTab === 'adgroup' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="adgroup">广告组</text>
-      <text class="promo-tab {{promoTab === 'ad' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="ad">广告</text>
-      <text class="promo-tab {{promoTab === 'creative' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="creative">创意</text>
-    </view>
-
-    <view class="stat-row">
-      <view class="stat-item">
-        <text class="stat-value">{{promoList.length}}</text>
-        <text class="stat-label">{{promoTabLabel}}</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{promoRunning}}</text>
-        <text class="stat-label">投放中</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">¥27,257</text>
-        <text class="stat-label">今日花费</text>
-      </view>
-    </view>
-
-    <view class="section-card">
-        <text class="section-title">{{promoTabLabel}}列表</text>
-        <view wx:for="{{promoList}}" wx:key="name" class="list-item promo-item">
-          <view class="item-left" bindtap="goToPlanDetail" data-name="{{item.name}}">
-            <view class="item-icon" style="background:{{item.iconBg}};">📋</view>
-            <view class="item-info">
-              <text class="item-name">{{item.name}}</text>
-              <text class="item-meta">{{item.type}} · {{item.statusText}}</text>
+    <view wx:if="{{viewLevel === 'businessUnit'}}" class="view-content">
+        <view class="stat-row">
+            <view class="stat-item">
+                <text class="stat-value">2</text>
+                <text class="stat-label">业务单元</text>
             </view>
-          </view>
-          <view class="item-right promo-right">
-            <view class="promo-stats">
-              <view class="stat-row">
-                <text class="stat-label">今日消耗</text>
-                <text class="stat-cost">{{item.cost}}</text>
-              </view>
-              <view wx:if="{{item.dailyBudget !== undefined}}" class="stat-row">
-                <text class="stat-label">日预算</text>
-                <view class="budget-row">
-                  <text class="stat-budget">{{item.dailyBudget}}元</text>
-                  <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="budget">✏️</view>
-                </view>
-              </view>
-              <view wx:if="{{item.bidPrice !== undefined}}" class="stat-row">
-                <text class="stat-label">出价</text>
-                <view class="budget-row">
-                  <text class="stat-budget">{{item.bidPrice}}元</text>
-                  <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="bid">✏️</view>
-                </view>
-              </view>
+            <view class="stat-item">
+                <text class="stat-value">5</text>
+                <text class="stat-label">投放账号</text>
             </view>
-          </view>
+            <view class="stat-item">
+                <text class="stat-value">¥36,257</text>
+                <text class="stat-label">今日总花费</text>
+            </view>
         </view>
-      </view>
-  </view>
 
-  <!-- 编辑模态框 -->
-  <view wx:if="{{showEditModal}}" class="modal-mask" bindtap="closeEditModal">
-    <view class="modal-container" catchtap="">
-      <view class="modal-header">
-        <text class="modal-title">编辑{{editType === 'budget' ? '日预算' : '出价'}}</text>
-        <text class="modal-close" bindtap="closeEditModal">×</text>
-      </view>
-      <view class="modal-body">
-        <text class="modal-label">{{editItem.name}}</text>
-        <view class="input-row">
-          <input class="edit-input" type="digit" value="{{editValue}}" bindinput="onEditValueInput" placeholder="请输入数值" />
-          <text class="input-unit">{{editType === 'budget' ? '元' : '元/次'}}</text>
+        <view class="section-card">
+            <text class="section-title">业务单元</text>
+            <view wx:for="{{businessUnits}}" wx:key="name" class="list-item" bindtap="enterBusinessUnit" data-name="{{item.name}}">
+                <view class="item-left">
+                    <view class="item-icon" style="background:{{item.iconBg}};color:{{item.iconColor}}">📊</view>
+                    <view class="item-info">
+                        <text class="item-name">{{item.name}}</text>
+                        <text class="item-meta">{{item.accountCount}}个投放账号 · 今日 {{item.cost}}</text>
+                    </view>
+                </view>
+                <text class="item-arrow">›</text>
+            </view>
         </view>
-      </view>
-      <view class="modal-footer">
-        <view class="modal-btn cancel" bindtap="closeEditModal">取消</view>
-        <view class="modal-btn confirm" bindtap="saveEdit">保存</view>
-      </view>
     </view>
-  </view>
+
+    <view wx:if="{{viewLevel === 'adAccount'}}" class="view-content">
+        <view class="stat-row">
+            <view class="stat-item">
+                <text class="stat-value">{{accountList.length}}</text>
+                <text class="stat-label">投放账号</text>
+            </view>
+            <view class="stat-item">
+                <text class="stat-value">{{runningCount}}</text>
+                <text class="stat-label">投放中</text>
+            </view>
+            <view class="stat-item">
+                <text class="stat-value">¥36,257</text>
+                <text class="stat-label">今日花费</text>
+            </view>
+        </view>
+
+        <view class="filter-bar">
+            <text class="filter-btn {{filterKey === 'all' ? 'active' : ''}}" bindtap="filterAccounts" data-key="all">全部</text>
+            <text class="filter-btn {{filterKey === 'focus' ? 'active' : ''}}" bindtap="filterAccounts" data-key="focus">重点关注</text>
+        </view>
+
+        <view class="section-card">
+            <text class="section-title">投放账号</text>
+            <view wx:for="{{accountList}}" wx:key="name" class="list-item">
+                <view class="item-left" bindtap="enterPromotion" data-name="{{item.name}}">
+                    <view class="item-icon" style="background:{{item.iconBg}}">🎯</view>
+                    <view class="item-info">
+                        <text class="item-name">{{item.name}}</text>
+                        <text class="item-meta">今日 {{item.cost}} · {{item.type}}</text>
+                    </view>
+                </view>
+                <view class="item-right">
+                    <text class="item-status {{item.statusClass}}">{{item.statusText}}</text>
+                    <view class="edit-btn" catchtap="openEditModal" data-item="{{item}}" data-type="budget">编辑</view>
+                    <text class="item-arrow">›</text>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{viewLevel === 'promotion'}}" class="view-content">
+        <view class="version-toggle">
+            <text class="toggle-btn {{promoVersion === 'new' ? 'active' : ''}}" bindtap="switchVersion" data-ver="new">新版</text>
+            <text class="toggle-btn {{promoVersion === 'old' ? 'active' : ''}}" bindtap="switchVersion" data-ver="old">旧版</text>
+        </view>
+
+        <view wx:if="{{promoVersion === 'new'}}" class="promo-tabs">
+            <text class="promo-tab {{promoTab === 'plan' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="plan">计划</text>
+            <text class="promo-tab {{promoTab === 'ad' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="ad">广告</text>
+            <text class="promo-tab {{promoTab === 'material' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="material">素材</text>
+        </view>
+
+        <view wx:if="{{promoVersion === 'old'}}" class="promo-tabs">
+            <text class="promo-tab {{promoTab === 'plan' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="plan">计划</text>
+            <text class="promo-tab {{promoTab === 'adgroup' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="adgroup">广告组</text>
+            <text class="promo-tab {{promoTab === 'ad' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="ad">广告</text>
+            <text class="promo-tab {{promoTab === 'creative' ? 'active' : ''}}" bindtap="switchPromoTab" data-tab="creative">创意</text>
+        </view>
+
+        <view class="stat-row">
+            <view class="stat-item">
+                <text class="stat-value">{{promoList.length}}</text>
+                <text class="stat-label">{{promoTabLabel}}</text>
+            </view>
+            <view class="stat-item">
+                <text class="stat-value">{{promoRunning}}</text>
+                <text class="stat-label">投放中</text>
+            </view>
+            <view class="stat-item">
+                <text class="stat-value">¥27,257</text>
+                <text class="stat-label">今日花费</text>
+            </view>
+        </view>
+
+        <view class="section-card">
+            <text class="section-title">{{promoTabLabel}}列表</text>
+            
+            <view wx:if="{{promoTab === 'plan'}}" class="plan-card-wrapper">
+                <view wx:for="{{promoList}}" wx:key="name" class="plan-card" bindtap="goToPlanDetail" data-name="{{item.name}}">
+                    <view class="plan-header">
+                        <view class="plan-name-section">
+                            <view class="plan-icon" style="background:{{item.iconBg}}">📋</view>
+                            <view class="plan-name-wrapper">
+                                <text class="plan-name">{{item.name}}</text>
+                                <text class="plan-meta">日预算：{{item.dailyBudget}}元</text>
+                            </view>
+                        </view>
+                        <view class="plan-header-right">
+                            <text class="plan-status {{item.statusText === '投放中' ? 'running' : 'paused'}}">{{item.statusText}}</text>
+                            <text class="plan-arrow">›</text>
+                        </view>
+                    </view>
+                    <view class="plan-metrics-section">
+                        <view class="metrics-left">
+                            <view class="metric-row">
+                                <span class="metric-label">花费</span>
+                                <span class="metric-value cost">{{item.cost}}</span>
+                            </view>
+                            <view class="metric-row">
+                                <span class="metric-label">曝光量</span>
+                                <span class="metric-value">{{item.exposure}}</span>
+                            </view>
+                            <view class="metric-row">
+                                <span class="metric-label">目标转化量</span>
+                                <span class="metric-value target">{{item.targetConv}}</span>
+                            </view>
+                        </div>
+                        <div class="metrics-right">
+                            <view class="metric-row">
+                                <span class="metric-label">账户余额</span>
+                                <span class="metric-value">{{item.balance}}</span>
+                            </view>
+                            <view class="metric-row">
+                                <span class="metric-label">点击量</span>
+                                <span class="metric-value">{{item.click}}</span>
+                            </view>
+                            <view class="metric-row">
+                                <span class="metric-label">目标转化成本</span>
+                                <span class="metric-value target-cpc">{{item.targetCpc}}</span>
+                            </view>
+                        </div>
+                    </view>
+                </view>
+            </view>
+
+            <view wx:if="{{promoTab !== 'plan'}}" class="list-item-wrapper">
+                <view wx:for="{{promoList}}" wx:key="name" class="list-item promo-item">
+                    <view class="item-left" bindtap="goToPlanDetail" data-name="{{item.name}}">
+                        <view class="item-icon" style="background:{{item.iconBg}}">📋</view>
+                        <view class="item-info">
+                            <text class="item-name">{{item.name}}</text>
+                            <text class="item-meta">{{item.type}} · {{item.statusText}}</text>
+                        </view>
+                    </view>
+                    <view class="item-right promo-right">
+                        <view class="promo-stats">
+                            <view class="stat-row">
+                                <text class="stat-label">今日消耗</text>
+                                <text class="stat-cost">{{item.cost}}</text>
+                            </view>
+                            <view wx:if="{{item.dailyBudget !== undefined}}" class="stat-row">
+                                <text class="stat-label">日预算</text>
+                                <view class="budget-row">
+                                    <text class="stat-budget">{{item.dailyBudget}}元</text>
+                                    <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="budget">✏️</view>
+                                </view>
+                            </view>
+                            <view wx:if="{{item.bidPrice !== undefined}}" class="stat-row">
+                                <text class="stat-label">出价</text>
+                                <view class="budget-row">
+                                    <text class="stat-budget">{{item.bidPrice}}元</text>
+                                    <view class="edit-icon" catchtap="openEditModal" data-item="{{item}}" data-type="bid">✏️</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{showEditModal}}" class="modal-mask" bindtap="closeEditModal">
+        <view class="modal-container" catchtap="">
+            <view class="modal-header">
+                <text class="modal-title">编辑{{editType === 'budget' ? '日预算' : '出价'}}</text>
+                <text class="modal-close" bindtap="closeEditModal">×</text>
+            </view>
+            <view class="modal-body">
+                <text class="modal-label">{{editItem.name}}</text>
+                <view class="input-row">
+                    <input class="edit-input" type="digit" value="{{editValue}}" bindinput="onEditValueInput" placeholder="请输入数值" />
+                    <text class="input-unit">{{editType === 'budget' ? '元' : '元/次'}}</text>
+                </view>
+            </view>
+            <view class="modal-footer">
+                <view class="modal-btn cancel" bindtap="closeEditModal">取消</view>
+                <view class="modal-btn confirm" bindtap="saveEdit">保存</view>
+            </view>
+        </view>
+    </view>
 </view>
